@@ -1,0 +1,135 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\norm}[1]{\lvert #1 \rvert}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+a 2-player game is \emph{symmetric} when the outcome matrix for p1 \(A\) and p2 \(B\) is such that 
+\begin{equation}
+    A= B^T
+\end{equation}
+
+the vector of payoffs for p1's pure strategies is 
+
+\begin{equation}
+    Ay
+\end{equation}
+
+\(x\) is the probability matrix of p1, \(y \) is the probability matrix for p2
+
+these determine the probability of p1 or p2 playing each option
+
+
+ex: 
+\begin{equation}
+    A=
+    \begin{pmatrix}
+        -1&-4\\
+        0&-3
+    \end{pmatrix}
+\end{equation}
+\begin{equation}
+    B=
+    \begin{pmatrix}
+        -1&0\\
+        -4&-3
+    \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+    A\begin{pmatrix}
+        .8\\
+        .2\\
+    \end{pmatrix}
+\end{equation}
+
+
+p1 gets \(x^TAy\)
+p2 gets \(x^TBy\)
+
+
+p1's best response correspondence is 
+\begin{equation}
+    r_1(y)=\underset{\vert\vert x \vert \vert_1=1, x\geq0}{\text{argmax}} x^TAy
+\end{equation}
+
+best response can only have a mix when there are "ties" in \(Ay\)
+
+\begin{equation}
+    r_2(x)=\underset{\vert\vert y \vert \vert_1=1, y\geq0}{\text{argmax}} x^TBy
+\end{equation}
+
+a nash equilibrium is a pair \((x^*,y^*)\) with \(x^*\in r_1(y*2)\), \(y^*\in r(x^*)\)
+
+
+for any 2 player game given by \((A,B)\) we can define a related symmetric game \((\tilde A,\tilde B)\) with \begin{equation}
+    \tilde A = \begin{pmatrix}
+        0&A\\
+        B^T&0
+    \end{pmatrix}
+\end{equation}
+and \begin{equation}
+    \tilde B = \tilde A^T
+\end{equation}
+
+then if \begin{equation}
+    I\in \begin{pmatrix}
+    x^*\\
+    y^*
+    \end{pmatrix}
+\end{equation}  is a symmetric NE of \((\tilde A,\tilde B)\) then \(\left(\frac{x^*}{\vert\vert x^*\vert \vert},\frac{y^*}{\vert\vert y^*\vert \vert}\right)\)
+is a NE of the game \((A,B)\)
+
+\textbf{proof sketch}
+
+\begin{equation}
+    \lvert x\rvert
+\end{equation}
+
+\begin{equation}
+    \underset{\norm{x} = \norm{x^*},\norm{y} = \norm{y^*}}{\text{argmax} }x^TAy^* + y^TB^T x^*
+\end{equation}
+
+\section{rock paper scissors}
+
+\begin{equation}
+    A=\begin{pmatrix}
+        0&-1&&1\\
+        1&0&&-1\\
+        -1&1&&0
+    \end{pmatrix}
+\end{equation}
+
+does there eixst \(x^*\)
+\begin{equation}
+    x^*\in \underset{x:\norm x=1, x\geq0}{\text{argmax}}x^TAx^*
+\end{equation}
+
+
+node \(Ax^*\) is the payoff column of the pure strategies
+
+
+
+
+
+
+\end{document}

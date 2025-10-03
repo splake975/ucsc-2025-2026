@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+
+\begin{document}
+
+\begin{verbatim}
+    MERGESORT(A)
+        n=len(A)
+        if n<=1:
+            return A
+        L=MERGESORT(L(A))
+        R=MERGESORT(R(A))
+        return MARGE(L,R)
+\end{verbatim}
+
+\section{mergesort runtime}
+note the first 3 lines are O(1)
+
+\begin{equation}
+    \begin{split}
+        T(n) &\leq 2T(n/2)+O(n)\\
+        &\leq 2T(n/2)+cn\\
+    \end{split}
+\end{equation}
+
+
+T(n) = 2T(n/2)+O(n)
+
+hello
+
+\end{document}

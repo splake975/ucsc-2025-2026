@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+
+
+
+payoff functions 
+\begin{equation}
+    u_i: S \rightarrow \mathbb{ R}
+\end{equation}
+\begin{itemize}
+    \item \(I\) is the set of all players
+    \item \(i\) is a player
+    \item \(S_i\) is the set of all possible strategies for player \(i\)
+    \item \(S\) is \textbf{space} strategy of profiles
+    \item \(s\) is a specific strategy profile
+    \item \(-i\) is defined as \(\{1,\dots,I\}\setminus i\)
+    \begin{itemize}
+        \item \(s_{-i} = (s_1,\dots , s_{i-1}, s_{i+1},\dots s_I)\)
+    \end{itemize}
+\end{itemize}
+
+\begin{definition}[Nash Equilibrium]
+    A strategy profile s from which no player has an incentive to deviate unilaterally
+\end{definition}
+ie for player \(i\)
+\begin{equation}
+    u_i(s_i,s_{-i})\geq u_i (s^\prime_i, s_{-i}) \forall s^\prime_i \in S_i
+\end{equation}
+
+it is generally not true that games have unique nash equilibria\\
+
+
+\(r_i\) is the "Best response multifunction/correposndence"
+
+\(r_i\) tells what the best response for a player is based on what they believe other players will do
+
+note that given an opponent's strategy, the players strategy output of \(r_i\) might be multiple strategies, thus it is a multifunction rather than a function \footnote{a multifunction outputs a subset of the codomain. a correspondence is a function that outputs in \(2^D\) where D is the codomain (powerset of the codomiain)}
+
+\begin{equation}
+    r_i: S_{-i} \rightrightarrows s_i
+\end{equation}
+
+note: \(\rightrightarrows\) means that \(r_i\) is a \emph{multifunction}
+
+\(\sigma_i\) is the probability distribution on \(S_i\)
+
+\begin{equation}
+    \sigma = \bigtimes_{i \in I} \sigma_i
+\end{equation}
+
+
+\(\Sigma_i\) is the space of all possible mixed strategies for player \(i\)
+
+\(\)
+
+
+\begin{equation}
+    \Sigma = \bigtimes_{i \in I} \Sigma_i
+\end{equation}
+
+\textcolor{red}{\(\abs{s_i}-1\) simplex ??}
+
+
+
+
+\(\sigma\) is a mixed nash equilibrium is \textcolor{red}{missing \(\forall\)delimiter}
+\begin{equation}
+    u_i(\sigma_i,\sigma_{-i})\geq u_i(\sigma^\prime_i,\sigma_{-i}),\forall\sigma_i \in \sigma
+\end{equation}
+
+\begin{equation}
+    r_i: \Sigma_{-i}\rightrightarrows \Sigma_i
+\end{equation}
+
+\begin{equation}
+    r_i(\sigma_-1)\mapsto \text{argmax}_{\sigma_i} u(\sigma_i,\sigma{-i})
+\end{equation}
+
+\begin{equation}
+    r: \Sigma\rightrightarrows \Sigma
+\end{equation}
+
+\begin{theorem}[nash's theorem]
+    In every finite game with a finite number of players and a finite set of pure strategies per player, there exists at least one Nash equilibrium in mixed strategies.
+\end{theorem}
+
+
+\begin{definition}[symmetric game]
+    all players have same strategy space. a payoff to any player is the same for any other player i.e. permutations of any players strategies results in such that player i's strategy is played by player j results in the payoff of i and j being identical.
+\end{definition}
+
+\(S_i = S_j\), \(u_i(s_i,\dots,s_n) = u_j(s_{\pi(1)},\dots, s_{\pi(n)})\)
+
+\begin{equation}
+    \begin{split}
+        S_i = S \quad \text{for all } i \\
+        u_i(s) = u_j(\pi(s)) \quad \text{for any permutation } \pi \text{ of players}
+    \end{split}
+\end{equation}
+
+
+
+
+\end{document}
