@@ -1,0 +1,178 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage[scale={0.8,0.9},centering,includeheadfoot,dvips, nohead]{geometry}
+\usepackage[obeyspaces,spaces]{url}
+\usepackage{amsmath}
+
+\pagestyle{empty}
+
+
+
+% Type 1: no solution 
+% Type 2: with solution
+% Type 3: with solution + details for TA/instructor
+
+
+
+%\newcommand{\ShowSolution}{2}
+%\newcommand{\solution}[1]{\ifthenelse{\equal{1}{\ShowSolution}}{\textbf{Sol.} #1}{}}
+%\newcommand{\rubric}[1]{\ifthenelse{\equal{1}{\ShowSolution}}{\textbf{Rubric.} #1}{}}
+
+
+
+\newcommand{\rub}{\paragraph{Rubric.}}
+\newcommand{\sol}{\textbf{Sol.\hspace{0.5cm}}}
+
+
+
+\begin{document}
+
+\noindent
+ UCSC CSE201 Homework 1 \hfill Fall 2025 \\
+Last update: 10/1/2025 \\
+ \rule{\textwidth}{0.5pt}
+
+% \input{../preamble}
+
+\enlargethispage*{1.5cm}
+
+\noindent
+ \rule{\textwidth}{0.5pt}
+
+
+
+
+\begin{enumerate}
+
+\item Type that ``I thoroughly read the course syllabus" to acknowledge that your did so. 
+
+I thoroughly read the course syllabus
+
+
+\item
+Consider the recurrence relation
+$F(0)=F(1)=2$ and for $n>1$
+$$F(n)= \sum_{i=1}^{n-1} F(i) F(i-1)$$
+We consider the problem of computing $F(n)$ from $n$.
+
+\begin{enumerate}
+
+
+\item
+Show that a naive implementation of this recursion takes an exponential time in $n$. In other words,
+show that the run time is $\Omega(c^n)$ for some constant $c  > 1$.
+
+\textbf{solution}
+
+note that \begin{equation}\begin{split}
+        T(n) &= T(n-1) + T(n-2) +1\approx 2T(n-2)+1\\
+        &= 2\cdot 2 T(n-4)+1\\
+        &= 2^m T(n-2m)+1
+\end{split}
+\end{equation}
+
+the plus one represents the constant time required to  call the function.
+
+we can it takes \(2^m\) time to run, but only ends when \(m=n\), thus it takes approximately \(2^n\) time to run.
+
+
+
+
+
+
+
+\item Explain how, by not recomputing the same $F(i)$ value twice (i.e., using dynamic programming),
+one can obtain an algorithm for this problem that runs in $O(n^2)$ 
+time. 
+
+\textbf{solution}
+
+
+
+
+\item
+Give an algorithm for this problem that only has $O(n)$ 
+run time. 
+
+
+\end{enumerate}
+
+
+
+\item Informally in this problem we consider how to divide the chapters in a story into volumes (think the 7 volumes of Harry Potter
+or however many Game of Thrones volumes there will be) so as to equalize the size of the volumes. 
+The input consists of positive integers $x_1, \ldots, x_n$ and $k$. Here $x_i$ is the number of pages in chapter $i$, and $k$ is the desired number of volumes. The problem is determine which chapters go
+into each of the $k$ volumes so as to minimize the difference between the most number of pages in
+any volumes, and the least number of pages in any of the volumes. Of course you can not reorder the story. 
+Give an algorithm whose running time is bounded by a  polynomial in $n$. You running time should not
+depend on the number of pages in the chapters. 
+
+
+\smallskip
+\begin{quote}
+Hint: This approach prioritizes simplicity over optimal runtime.
+
+A volume is composed of a contiguous subset of chapters, so its total page count belongs to the set:
+\[
+P := \left\{ \sum_{i=a}^{b} x_i \mid 1 \le a \le b \le n \right\}
+\]
+Consider every pair of values $(L, H)$ from this set such that $L \le H$. For each pair, check if it's possible to partition the chapters into exactly $k$ volumes, where each volume's page count is between $L$ and $H$. We call such a pair $(L, H)$ a \textbf{feasible pair}. The goal is to find a feasible pair $(L, H)$ that minimizes the difference $H-L$. 
+
+\end{quote}
+
+\begin{enumerate}
+\item Give a polytime algorithm to determine if a given pair $(L, H)$ is feasible (assume $L, H >0 $. Explain why the run time is polynomial in $n$. Be concise. 
+
+
+\item Given a feasible pair $(L, H)$, explain how to find a partitioning of chapters into $k$ volumes so that every volume's page count is between $L$ and $H$. 
+
+
+\end{enumerate}
+
+
+    
+
+
+
+
+
+
+
+\item 
+Consider the problem where the input is a collection of $n$ train
+trips within Germany. For the $i$th trip $T_i$ you are given the date $d_i$ of
+that trip, and the non-discounted fare $f_i$ for that trip.
+The German railway system sells a Bahncard for $B$ Euros that
+entitles you to a 50\% fare reduction on all train travel
+within Germany within $L$ days of purchase.
+The problem is to determine when to buy a Bahncard to minimize the
+total cost of your travel.
+ 
+For example if the input was \\
+$d_1$ = January 11, 1997, $f_1=20$ Euros, \\
+$d_2$ = February 11, 1998, $f_2=200$ Euros, \\
+$d_3$ = January 11, 1999, $f_3=200$ Euros, \\
+$d_4$ = March 13, 1999, $f_4=100$ Euros, \\
+$d_5$ = February 11, 2002, $f_5=200$ Euros, and \\
+$d_6$ = January 11, 2003, $f_6=600$ Euros, $B=240$\\
+, and $L=365$ then
+you might buy a Bahncard on February 11, 1998, and
+February 11, 2002, resulting in a total cost of
+1200 Euros (240 * 2 + 20 + (200 + 200) * 0.5 + 100 + (200+ 600) * 0.5). If you only purchase a Bahncard on 
+February 11, 2002, you would pay a total of 1160 Euros (240 + 20 + 200 + 200 + 100 + (200+ 600) * 0.5).
+ 
+Give a polynomial time algorithm for this problem.
+The running time of your algorithm should be independent of
+$B$ and $L$. For convenience, assume that the dates are given as integers, and 
+$d_1 = 1 < d_2 < d_3 < \ldots$. 
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+\end{document}
+
