@@ -2,6 +2,8 @@
 \usepackage[scale={0.8,0.9},centering,includeheadfoot,dvips, nohead]{geometry}
 \usepackage[obeyspaces,spaces]{url}
 \usepackage{amsmath}
+% \usepackage{algorithm}
+\usepackage{algpseudocodex}
 
 \pagestyle{empty}
 
@@ -25,6 +27,7 @@
 
 
 \begin{document}
+
 
 \noindent
  UCSC CSE201 Homework 1 \hfill Fall 2025 \\
@@ -123,7 +126,56 @@ Consider every pair of values $(L, H)$ from this set such that $L \le H$. For ea
 \item Give a polytime algorithm to determine if a given pair $(L, H)$ is feasible (assume $L, H >0 $. Explain why the run time is polynomial in $n$. Be concise. 
 
 
+\textbf{Solution}
+
+% note this solution finds the answer for both parts (a) and (b)
+
+
+
+\begin{algorithmic}[1]
+    \State \(S[i] = \sum_{a=1}^i x_a\)
+    \State new array A, size k by n. set all values to False
+    \For{\(j\in \{1,\dots,n\}\)} \label{line:init}
+        \If{L\(\leq\)S[j]\(\leq\)H }
+            \State A[0][j]= True
+        \EndIf
+    \EndFor
+    \For{\(i \in \{0,\dots,k-1\}\)} \label{line:startl}
+        \For{\(j\in \{1,\dots,n\}\)}
+            \If{A[i][j] is True}
+                \For{\(k\in\{j,\dots,n\}\)}
+                    \If{\(L\leq S[k]-S[j]\leq H\)}
+                        \State A[i+1][k] = True
+                    \EndIf
+                \EndFor
+            \EndIf
+        \EndFor
+    \EndFor\label{line:endl}
+    \If{A[-1][-1] is True}
+        \State \Return True
+    \EndIf
+    \State \Return False
+\end{algorithmic}
+
+note that  \(S[a]-S[b]\) is the number of pages between the chapters b to a.
+
+step~\ref{line:init} is initializing the first row of A. the loop determines if the chapter \(j\) can be in the 1st volume. the each row of A is answering the question, is it possible for this chapter to be in the \(i+1\)th volume
+
+the loop from step~\ref{line:startl} to~\ref{line:endl} is answering, if the volume started at chapter \(j\), is it possible for chapter \(k\) to be in book \(i+1\). 
+
+the for loop on step 6 contributes a constant time since k is fixed. the for loop on step 7 contributes \(O(n)\), and the for loop on 9 also contributes \(O(n)\), thus teh total loop on steps 6 to 11 run in \(O(n^2)\) time. 
+
+
+
+
+
 \item Given a feasible pair $(L, H)$, explain how to find a partitioning of chapters into $k$ volumes so that every volume's page count is between $L$ and $H$. 
+
+
+
+% looking at the array \(A\) from part (a), 
+
+% given a feasable pair,
 
 
 \end{enumerate}
