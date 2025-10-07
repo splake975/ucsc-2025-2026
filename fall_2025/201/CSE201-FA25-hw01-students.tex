@@ -96,6 +96,22 @@ time.
 Give an algorithm for this problem that only has $O(n)$ 
 run time. 
 
+\textbf{solution}
+
+\begin{algorithmic}
+    \State A is a list of len n, init to 0
+    \State B is a list of len n, init to 0
+    \State B[0] = B[1] = 2 
+    \For i in \(\{2,\dots,n\}\)
+        A[i]= A[i-1] + F[i+1]
+    \EndFor
+\end{algorithmic}
+
+
+
+if we store all \(F[i]\), then finding the next term takes \(O(1)\) since it requires computing one extra term, which takes 
+
+
 
 \end{enumerate}
 
@@ -220,6 +236,13 @@ Give a polynomial time algorithm for this problem.
 The running time of your algorithm should be independent of
 $B$ and $L$. For convenience, assume that the dates are given as integers, and 
 $d_1 = 1 < d_2 < d_3 < \ldots$. 
+
+
+
+\textbf{solution}
+
+try for 1 card, then 2, then 3. find best interval for \(L,2L,3L\). note that there can only be up to \(n\) cards since that would cover every trip and thus this is actually independent of L. 
+
 
 \end{enumerate}
 

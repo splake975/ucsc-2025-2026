@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\norm}[1]{\lvert #1 \rvert}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{definition}[1. NE]
+    A strategy profile such that each player is playing a best response
+\end{definition}
+
+\begin{definition}[2. NE]
+    A strategy profile and beliefs for each player about how each of the other players will play ST
+    \begin{itemize}
+        \item each player is maximizing payoff given those beliefs
+        \item beliefs are correct
+    \end{itemize}
+\end{definition}
+
+
+\begin{definition}[rational]
+    player doesnt do things that give an inferior payoff
+\end{definition}
+
+if each player is rational and plays the rational response to the rational response to oinfinity, then it is noted that "rationality is common knowledge"
+
+\begin{definition}[rationalizable profiles]
+    profile + beliefs for each player:
+    \begin{itemize}
+        \item each player maximizes payoff wrt their beliefs
+        \item beliefs are not inconsistent with rationality being common knowledge
+    \end{itemize}
+\end{definition}
+
+
+\section{example: sealed first price auction}
+
+consider p1 has valuation 3.5, p2 has valuation 1
+
+assume each player knows the other players valuation
+
+assume 1 is win, 0 i sloss
+
+\begin{equation}
+    P(i)=\begin{cases}
+        i=1, \text{valuation}-\text{bid}\\
+        i=0, 0
+    \end{cases}
+\end{equation}
+if tie, \begin{equation}
+    \frac{1}{2}(\text{valuation}-\text{bid})
+\end{equation}
+
+
+strongly/strictly dominated strategies are ones in which all possible outcomes for strategy a have less payoffs for strategy b 
+
+
+a weakly dominated strategy is one in which all payouts are \(leq\) 
+
+
+after removing strictly dominated strategies, you can reevaluate for new strictly dominated strategies
+
+
+\begin{definition}[Iterated deletion of strictly dominated strategies]
+    removing dominated strategies over and over until there are no more dominated strategies to remove. includes using mixed strategies
+\end{definition}
+
+\begin{equation}
+    \text{all strategies} \subseteq \text{IDSDS} \subseteq \text{Rationalizable} \subseteq \text{NE}
+\end{equation}
+
+\section {ppng example}
+
+\begin{equation}
+    \begin{matrix}
+        ~&~&&Kenney\\
+        ~&~&&N&&&S\\
+        Kimura&N&&0,0&&&10,-10\\
+        ~&S&&5,-5&&&-1,1
+    \end{matrix}
+\end{equation}
+
+if kenney goes north, then kimura goes south
+
+if kenney goes south, then kimura goes north
+
+if kimura goes north, kenney goes north
+
+if kimura goes south, kenney goes south
+
+
+therefore there is no pure strategy nash equilibrium
+
+\textbf{IMPORTANT, solving}
+
+p is probability kimura goes north, q is probability kenney goes north
+
+kimura payoff N = payoff S 
+if this is the case, then kenney is \emph{indifferent}
+
+\begin{equation}\begin{split}
+    q\cdot 0 = (1-q)\cdot 10 &= 5q + -1(1-q)\\
+    q&=\frac{11}{16}
+\end{split}
+\end{equation}
+
+kimuras indifference gives kenneys mix and vice versa. 
+
+
+\begin{equation}
+    \begin{split}
+        0p + (-5)(1-p)&= -10p + (1-p)\\
+        p=\frac{3}{8}\\
+    \end{split}
+\end{equation}
+
+
+
+\section{battle of the people}
+
+\begin{equation}
+    \begin{matrix}
+        ~&~&&bailey~&&&~&&&~\\
+        ~&~&&F&&&o&&&D\\
+        adrian&F&&3,2&&&1,1&&&-10,3\\
+        ~&O&&0,0&&&2,3&&&-10,3\\
+        ~&D&&-3,-10&&&-3,-10&&&-5,-5
+    \end{matrix}
+\end{equation}
+
+3 pure strategy ne, f,f; o,o; d,d
+
+hypothesis: there is a mixed NE w A's support fod, and B's support being fod
+
+
+adrian prob: \(p_1,p_2,1-(p_1+p_2)\)
+
+bailey prob: \(q_1,q_2,1-(q_1+q_2)\)
+
+\begin{equation}\begin{split}
+    3q_1+q_2-(1-q_1-q_2)&= 0+2q_2-10(1-q_1-q_2)\\
+    &= -3q_1-3q_2-5(1-q_1-q_2)\\
+\end{split}
+\end{equation}
+\begin{equation}
+        q_1=\frac{5}{38}, q_2=\frac{15}{38}, q_3 = \frac{18}{38}
+\end{equation}
+
+
+if you get inconsistent or negative probabilities, then the strategies w those specific supports are not valid
+
+
+
+
+\textbf{make all payoffs for player equal, find payoff based on opponents probability variables. set player profit equal, this find p2's probabilities}
+
+\textbf{setting payoff equal for p1 gives probabilities for p2}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
