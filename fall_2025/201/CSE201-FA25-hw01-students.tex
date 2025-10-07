@@ -134,24 +134,24 @@ Consider every pair of values $(L, H)$ from this set such that $L \le H$. For ea
 
 \begin{algorithmic}[1]
     \State \(S[i] = \sum_{a=1}^i x_a\)
-    \State new array A, size k by n. set all values to False
+    \State new array A, size k by n. set all values to []
     \For{\(j\in \{1,\dots,n\}\)} \label{line:init}
         \If{L\(\leq\)S[j]\(\leq\)H }
-            \State A[0][j]= True
+            \State A[0][j].append(0)
         \EndIf
     \EndFor
     \For{\(i \in \{0,\dots,k-1\}\)} \label{line:startl}
         \For{\(j\in \{1,\dots,n\}\)}
-            \If{A[i][j] is True}
-                \For{\(k\in\{j,\dots,n\}\)}
+            \If{A[i][j] is nonempty}
+                \For{\(k\in\{j+1,\dots,n\}\)}
                     \If{\(L\leq S[k]-S[j]\leq H\)}
-                        \State A[i+1][k] = True
+                        \State A[i+1][k].append(j)
                     \EndIf
                 \EndFor
             \EndIf
         \EndFor
     \EndFor\label{line:endl}
-    \If{A[-1][-1] is True}
+    \If{A[-1][-1] is nonempty}
         \State \Return True
     \EndIf
     \State \Return False
@@ -171,7 +171,11 @@ the for loop on step 6 contributes a constant time since k is fixed. the for loo
 
 \item Given a feasible pair $(L, H)$, explain how to find a partitioning of chapters into $k$ volumes so that every volume's page count is between $L$ and $H$. 
 
+\textbf{Solution}
 
+starting from A[-1][-1], pick any element \(a\) inside that array. \(a+1\) to the final chapter forms the final book. repeat the same process from A[-2][a] until you reach the final row, in which you make sure you start from the 1st chapter. 
+
+There must exist a path because it was necessary for A[-1][-1] to be nonempty
 
 % looking at the array \(A\) from part (a), 
 
