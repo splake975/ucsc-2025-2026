@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usetikzlibrary{trees}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+semi definite programming (?)
+
+often try to take discrete problem, use continous relaxation then approxmate back into the discrete problem
+
+
+
+
+continuous relaxation
+
+\section{max cut algorithm}
+max cut - maximize number of edges that cross between the two "sets"
+
+\(G(V,E,W)\), \(w\in W>0\)
+
+an algorithm \(A:V\rightarrow\{0,1\}\)
+
+objective: maximize \[\sum_{uv\in E} w_{uv}\mathbbm{1} \{A(u)\neq A(v)\}\]
+
+bipartite graph can be cut perfectly in half
+
+new idea:
+for every vertex \(v\in V\), variable \(x_v\in \{0,1\}\) tells whether the vertex \(v\) goes left or right. for every edge \(e\in E\), \(z_e\in \{0,1\}\) tells whether the edge is cut or not. 
+
+objective function becomes:
+\begin{equation}\label{2}
+    \text{max}\sum_{uv\in E} w_{uv} Z_e
+\end{equation}
+
+w constraint: \begin{equation}\label{1}
+    \begin{split}
+        z_{uv}&\leq x_u+x_v\\
+        z_{uv}&\leq 2-(x_u+x_v)
+    \end{split}
+\end{equation}
+this is extremely cursed, use 
+\(z_{uv} = x_u\oplus x_v\)?
+\footnote{\(\oplus \) is xor}
+
+nah 
+
+approx is to use intervale \([0,1]\) for both x and z. \footnote{this breaks the xor notation}
+
+\begin{definition}[LP]
+    shorthand for linear program
+\end{definition}
+
+problem for usnig the interval, using~\ref{1},~\ref{2}, setting all \(x\) to 0.5, we can set \(z\) to 1 for everything and all programs give the max value again.
+
+try another formulation since the last one doesnt work
+
+\(\forall v\in V\), \(y\in \{-1,1\}\). use
+\begin{equation}
+    \text{max}\sum_{uv\in E} w_{uv}\frac{1-y_vy_u}{2}
+\end{equation} 
+
+try allow \(y_v\in \mathbb R^n\) where \(\abs{v}=n\), \(\abs{y_v} = 1\)
+
+after placing the vertecies of \(y_u\) in space, taking random hyperplane to divide the set of vectors, we get something that is 0.878 optimal \footnote{???}
+
+
+finding another algorithm that is better shows P=np ??????
+
+
+
+
+
+
+
+
+\end{document}
