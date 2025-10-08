@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 % \usepackage{algorithm}
 \usepackage{algpseudocodex}
+\usepackage{hyperref}
 
 \pagestyle{empty}
 
@@ -89,7 +90,23 @@ time.
 
 \textbf{solution}
 
+we want A[i] = F[i]F[i-1]
 
+\begin{algorithmic}[1]\label{algo1.1}
+    \State A is a list of len n, init to 0
+    \State F is a list of len n, init to 0
+    \State F[0] = F[1] = 2 
+    \State A[1] = 2\cdot 2
+    \For {i in \(\{2,\dots,n\}\)}\label{1.1}
+        \State A[i]= F[i-1] + F[i-2]
+        \For {j in \(\{1,\dots,i\}\)}\label{1.2}
+            \State F[i]+=A[j]
+        \EndFor
+    \EndFor
+    \State \Return F[n]
+\end{algorithmic}
+
+note the loop on line~\ref{1.1} iterates n times, and within it line ~\ref{1.2} iterates \(n\) times as well, thus the program runs in \(n^2\) time
 
 
 \item
@@ -98,19 +115,42 @@ run time.
 
 \textbf{solution}
 
-\begin{algorithmic}
-    \State A is a list of len n, init to 0
-    \State B is a list of len n, init to 0
-    \State B[0] = B[1] = 2 
-    \For i in \(\{2,\dots,n\}\)
-        A[i]= A[i-1] + F[i+1]
-    \EndFor
-\end{algorithmic}
+% G[j] \(n\in \{2,\dots,n\}\) is \begin{equation}
+%     \sum_{i=1}^{j-1} A[i]
+% \end{equation}
+
+% \begin{algorithmic}
+%     \State A is a list of len n, init to 0
+%     \State F is a list of len n, init to 0
+%     \State G is a list of len n, init to 0
+%     \State F[0] = F[1] = 2 
+%     \State A[1] = 2\cdot 2
+%     \State G[2] = A[1]
+%     \For {i in \(\{2,\dots,n\}\)}\label{1.2.1}
+%         \State A[i]= F[i-1] + F[i-2]
+%         \State G[i]
+%     \EndFor
+%     \State \Return F[n]
+% \end{algorithmic}
+
 
 
 
 if we store all \(F[i]\), then finding the next term takes \(O(1)\) since it requires computing one extra term, which takes 
 
+\begin{algorithmic}[1]
+    \State A is a list of len n, init to 0
+    \State F is a list of len n, init to 0
+    \State F[0] = F[1] = 2 
+    \State A[1] = \(2\cdot 2\)
+    \For{i in \(\{2,\dots,n\}\)}\label{1.2.1}
+        \State A[i] = F[i-1] + F[i-2]
+        \State F[i] = F[i-1] + A[i]
+    \EndFor
+    \State \Return F[n]
+\end{algorithmic}
+
+this removes one loop~\ref{1.2} in~\hyperref[algo1.1]{algo 1} thus it runs in \(O(n)\)
 
 
 \end{enumerate}
@@ -241,7 +281,14 @@ $d_1 = 1 < d_2 < d_3 < \ldots$.
 
 \textbf{solution}
 
-try for 1 card, then 2, then 3. find best interval for \(L,2L,3L\). note that there can only be up to \(n\) cards since that would cover every trip and thus this is actually independent of L. 
+consider a matrix \(C\) w dimension \(n\times n\) where \(n\) is the total number of trips. the first index \(i\) represents the price of the first \(i\) trips, given that the last pass was bought on the second index \(j\). 
+
+note for 
+\begin{equation}
+    C[j][i] = \min_{j^\prime < i}(C[i-1][j^\prime]) + B + 0.5 \sum_{i^\prime=j+1}^{i}\delta(i^\prime,j) d_i + \sum_{i^\prime=j+1}^{i}\delta'(i^\prime,j) d_i 
+\end{equation}
+
+where \(\delta(i,j)\) is the indicator function for when a trip i is within the card timeframe of j and \(\delta^\prime(i,j)\) is the indicator function for when the trip is outside the timeframe of a card bought at trip j.
 
 
 \end{enumerate}
