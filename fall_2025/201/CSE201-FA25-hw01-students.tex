@@ -320,7 +320,7 @@ and
     f(i) = j, (0\leq d_j-d_i\leq L) \land (d_{j+1}-d_i>L)
 \end{equation}
 
-when the first option in~\ref{3.1} is choosen, set \(B[-i]\) to false (denoting that the card was not bought) and \(C[-i]\) remains 0. if the second option is choosen, set \(B[-i]\) to true and set \(C[-i]=f(i)+1\)
+when the first option in eq~\ref{3.1} is choosen, set \(B[-i]\) to false (denoting that the card was not bought) and \(C[-i]\) remains 0. if the second option is choosen, set \(B[-i]\) to true and set \(C[-i]=f(i)+1\)
 
 
 after iterating completely through A, until i=n, we construct when to buy cards using this algorithm.
@@ -338,7 +338,7 @@ after iterating completely through A, until i=n, we construct when to buy cards 
 
 one should buy bahncards on the dates \(d_i\) if D[i]=1 for the optimal solution.
 
-note that~\ref{3.1} requires time \(O(n)\) to run. the first term runs in \(O(1)\), the second term runs in \(O(n)\) due to the summation and \(f(i)\). note that accessing values in \(A\) takes constant time. since the loop runs~\ref{3.1} \(n\) times, the runtime is \(O(n^2)\)
+note that alg~\ref{3.1} requires time \(O(n)\) to run. the first term runs in \(O(1)\), the second term runs in \(O(n)\) due to the summation and \(f(i)\). note that accessing values in \(A\) takes constant time. since the loop runs eq~\ref{3.1} \(n\) times, the runtime is \(O(n^2)\)
 
 finally,~\ref{3.2} is also run in O(n)
 
