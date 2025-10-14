@@ -8,6 +8,7 @@
 
 \pagestyle{empty}
 
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
 
 
 % Type 1: no solution 
@@ -96,7 +97,7 @@ we want A[i] = F[i]F[i-1]
     \State A is a list of len n, init to 0
     \State F is a list of len n, init to 0
     \State F[0] = F[1] = 2 
-    \State A[1] = 2\cdot 2
+    \State A[1] = \(2\cdot 2\)
     \For {i in \(\{2,\dots,n\}\)}\label{1.1}
         \State A[i]= F[i-1] + F[i-2]
         \For {j in \(\{1,\dots,i\}\)}\label{1.2}
@@ -281,14 +282,69 @@ $d_1 = 1 < d_2 < d_3 < \ldots$.
 
 \textbf{solution}
 
-consider a matrix \(C\) w dimension \(n\times n\) where \(n\) is the total number of trips. the first index \(i\) represents the price of the first \(i\) trips, given that the last pass was bought on the second index \(j\). 
+% consider a matrix \(C\) w dimension \(n\times n\) where \(n\) is the total number of trips. the first index \(i\) represents the price of the first \(i\) trips, given that the last pass was bought on the second index \(j\). 
 
-note for 
+% note for 
+% \begin{equation}
+%     C[j][i] = \min_{j^\prime < i}(C[i-1][j^\prime]) + B + 0.5 \sum_{i^\prime=j+1}^{i}\delta(i^\prime,j) d_i + \sum_{i^\prime=j+1}^{i}\delta'(i^\prime,j) d_i 
+% \end{equation}
+
+% where \(\delta(i,j)\) is the indicator function for when a trip i is within the card timeframe of j--that is \(0\leq d_i-d_j\leq L\)--and \(\delta^\prime(i,j)\) is the indicator function for when the trip is outside the timeframe of a card bought at trip j, \(d_i-d_j\leq0  \lor L\leq d_i-d_j\).
+
+
+
+consider an array \(A\) of length \(n\). initialize to 0.
+
+also consider array \(B\) which holds bools, and \(C\) which holds ints initialized to 0. 
+
+start from \(A[-1]\) this is the base case which is initialized to 
 \begin{equation}
-    C[j][i] = \min_{j^\prime < i}(C[i-1][j^\prime]) + B + 0.5 \sum_{i^\prime=j+1}^{i}\delta(i^\prime,j) d_i + \sum_{i^\prime=j+1}^{i}\delta'(i^\prime,j) d_i 
+    \min\left(p_{-1},B+\frac{p_{-1}}{2}\right)
 \end{equation}
 
-where \(\delta(i,j)\) is the indicator function for when a trip i is within the card timeframe of j and \(\delta^\prime(i,j)\) is the indicator function for when the trip is outside the timeframe of a card bought at trip j.
+incrementing backwards, we find that 
+\begin{equation}\label{3.1}
+    A[-i] = \min\left(p_{-i}+A[-i+1],B+0.5\sum_{i^\prime = i}^{n}p_{i^\prime}\delta(i,i^\prime)+A[f(i)+1]\right)
+\end{equation}
+
+where \(\delta(i,j)\) is the indicator function defined as
+\begin{equation}
+    \delta(i,j)=\begin{cases}
+        1 &0\leq d_j-d_i\leq L\\
+        0& \text{else}\\
+    \end{cases}
+\end{equation}
+
+and
+\begin{equation}
+    f(i) = j, (0\leq d_j-d_i\leq L) \land (d_{j+1}-d_i>L)
+\end{equation}
+
+when the first option in eq~\ref{3.1} is choosen, set \(B[-i]\) to false (denoting that the card was not bought) and \(C[-i]\) remains 0. if the second option is choosen, set \(B[-i]\) to true and set \(C[-i]=f(i)+1\)
+
+
+after iterating completely through A, until i=n, we construct when to buy cards using this algorithm.
+
+\begin{algorithmic}[1]\label{3.2}
+    \State \(D\) is len \(n\) array w/ index 1
+    \State \(i=1\)
+    \While{\(i<n+1\)}
+        \If{B[i]}
+            \State D[i]=True
+            \State i=C[i]
+        \EndIf
+    \EndWhile
+\end{algorithmic}
+
+one should buy bahncards on the dates \(d_i\) if D[i]=1 for the optimal solution.
+
+note that alg~\ref{3.1} requires time \(O(n)\) to run. the first term runs in \(O(1)\), the second term runs in \(O(n)\) due to the summation and \(f(i)\). note that accessing values in \(A\) takes constant time. since the loop runs eq~\ref{3.1} \(n\) times, the runtime is \(O(n^2)\)
+
+finally,~\ref{3.2} is also run in O(n)
+
+thus the whole algorithm runs in polytime
+
+
 
 
 \end{enumerate}

@@ -1,5 +1,8 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{array}
+\usepackage{booktabs}
+
 
 \title{hw1}
 \date{\today}
@@ -11,19 +14,121 @@
 for defenders there are no dominated strategies.
 note for offense that turnover is totally dominated by field goal. 
 
-there are no pure nash equilibria. touchdown s/n are symmetric, and switching from field goal to td is not strictly better; the inverse is also not strictly better. 
-
-let the probability of defenders to defend north to be \(a\) and defend south to be \(b\). let the probability of offense to td north be \(p\), td south be \(q\) and field goal be \(r\). 
-
-\[r = 1-p-q\]
-
-thus the payoff for attackers is:
+also note that the field goal strategy is dominated by a 5050 split between touchdown N and S. 
 
 \begin{equation}
-    
+    \frac{1}{2}\cdot 0+\frac{1}{2}\cdot 7 = 3.5
 \end{equation}
 
+which is greater than the 3 given by field goal. 
 
+let us find the nash equilibria given by the supports touchdown N, S and defend N, S
+
+assume that the probability of defend n is given by \(p\) and the probability of touchdown n is given by \(q\). 
+
+to make the offense indifferent, 
+\begin{equation}
+    0\cdot p + 7\cdot (1-p) = 0\cdot (1-p)  + 7\cdot p 
+\end{equation}
+
+we find \(p=0.5\). 
+
+similarly for defense, 
+\begin{equation}
+    0\cdot q - 7\cdot (1-q) = 0\cdot (1-q)  - 7\cdot q 
+\end{equation}
+
+we find that \(q=0.5\) 
+\newpage
+\section{2}
+
+joe vote 0 table
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c c}
+\toprule
+ & S0 & S1 \\
+\midrule
+L0 & (-1,0,0) & (1,-1,0) \\
+L1 & (0,0,0) & (0,1,0) \\
+\bottomrule
+\end{tabular}
+
+\end{table}
+
+joe vote 1 table
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c c}
+\toprule
+ & S0 & S1 \\
+\midrule
+L0 & (1,0,-1) & (1,1,1) \\
+L1 & (0,0,1) & (0,1,1) \\
+\bottomrule
+\end{tabular}
+
+\end{table}
+
+
+
+no person has any dominated strategies.
+
+
+
+
+\newpage
+\section{3}
+
+
+
+% remove strictly dominated pure strategies. 
+
+
+let the remaining options for player one be the set \(A\) and the set for player two to be \(B\). loop over the powerset of \(P=(\mathcal{P}(A)\setminus\emptyset\times \mathcal{P}(B)\setminus\emptyset)\). wlog let \(i\in P\)
+
+\(i[a]\) represents the support for which the iteration in the loop tries strategies for p1, and \(i[b]\) represents the strategies for p2.
+
+evaluate for mixed strategies by setting probabilities \(a_i\) for each option in \(i[a]\) and \(b_i\) in \(i[b]\). consider the set of equations over \(m\)
+\begin{equation}\label{3.1}
+    \sum_{n\in i[x_{-1}]} (x_{-1})_{n}\cdot f_x(n,m)
+\end{equation}
+where \(x\) denotes player 1 or 2 (stands in for \(a\) and \(b\)), \(x_{-1}\) represents the other player, and \(f_x(n,m)\)  represents the payoff for player \(x\) given player \(x\) does action \(m\) and player \(x_{-1}\) does action \(n\). 
+
+setting the set of equations over m of eq~\ref{3.1} equal and solving for \((x_{-1})_n\) results in either
+\begin{itemize}
+    \item a consistent set of equations
+    \item an inconsistent set of equations
+\end{itemize}
+
+if a consistent set of equations is found for both players, check if switching to any other pure strategy not in \(A\setminus i[x]\) is unilaterally better, for both players. if not, then a NE is found. otherwise, continue with a new element in the powerset \(P\)
+
+
+
+\newpage
+\section{4}
+
+\begin{enumerate}
+    \item if 1 person taking the bus generates enough shame to make the other 5 take the bus, then any additional bus takers also results in the plane takers switching. thus we need to find \(S\) such that
+    
+    \begin{equation}
+        -S\cdot\frac{1}{5}\leq -1
+    \end{equation}
+    
+    note that \(\frac{1}{5}\leq \frac{6-n}{n},n\in\{1,2,3,4\}\)
+    
+    we find that if \(S>5\), then everyone takes the bus. 
+    \item if 5 people taking the bus generates less shame for 1 person than -1, each person taking the bus would switch to taking the plane.
+    
+    \begin{equation}
+        -1\leq-5S\frac{6-1}{1}
+    \end{equation}
+
+    if S
+
+
+
+\end{enumerate}
 
 
 \end{document}
