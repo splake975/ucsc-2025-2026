@@ -52,7 +52,7 @@ Last update: 10/1/2025 \\
 
 I thoroughly read the course syllabus
 
-
+\newpage
 \item
 Consider the recurrence relation
 $F(0)=F(1)=2$ and for $n>1$
@@ -140,13 +140,13 @@ run time.
 if we store all \(F[i]\), then finding the next term takes \(O(1)\) since it requires computing one extra term, which takes 
 
 \begin{algorithmic}[1]
-    \State A is a list of len n, init to 0
+    % \State A is a list of len n, init to 0
     \State F is a list of len n, init to 0
     \State F[0] = F[1] = 2 
-    \State A[1] = \(2\cdot 2\)
+    \State F[2] = \(2\cdot 2\)
     \For{i in \(\{2,\dots,n\}\)}\label{1.2.1}
-        \State A[i] = F[i-1] + F[i-2]
-        \State F[i] = F[i-1] + A[i]
+        % \State A[i] = F[i-1] + F[i-2]
+        \State F[i] = F[i-1]F[i-2] + F[i-1]
     \EndFor
     \State \Return F[n]
 \end{algorithmic}
@@ -156,6 +156,7 @@ this removes one loop~\ref{1.2} in~\hyperref[algo1.1]{algo 1} thus it runs in \(
 
 \end{enumerate}
 
+\newpage
 
 
 \item Informally in this problem we consider how to divide the chapters in a story into volumes (think the 7 volumes of Harry Potter
@@ -248,7 +249,7 @@ There must exist a path because it was necessary for A[-1][-1] to be nonempty
 
 
 
-
+\newpage
 
 \item 
 Consider the problem where the input is a collection of $n$ train
