@@ -6,3 +6,5 @@
 *.out
 fraas.pdf
 fraas.out
+/venv
+.python-version

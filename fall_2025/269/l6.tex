@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+
+\section{HC}
+
+beat greedy baseline of \(\frac{1}{3}-\alpha px\). this is average linkage or random
+
+this alg will give \(\geq .336 OPT\)
+
+\begin{equation}
+    \sum_{ij\in E}^{}w_{ij}\left( n-\abs{T_{ij}} \right)=\sum_{ij\in E}^{}w_{ij}\sum_{k\neq i,j}^{}\mathbbm 1 \{\text{k not  aleaf of $T_{ij}$}\}
+\end{equation}
+
+
+consider
+\begin{equation}
+    y_{ijk} = w_{ij}\mathbbm 1 \{\text{k not  aleaf of $T_{ij}$}\}
+\end{equation}
+
+it only atkes on values of \(w_{ij},0\)
+
+
+\begin{equation}
+    y_{ij} = \sum_{k\neq i,j}^{}y_{ijk}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

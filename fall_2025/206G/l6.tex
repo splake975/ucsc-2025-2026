@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb,bbm}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\norm}[1]{\lvert #1 \rvert}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+
+
+
+\begin{definition}[NP-hard]
+    every problem in NP can be efficiently reduced to any other problem in np hard
+\end{definition}
+
+
+max cut game:
+each node is a player, each player decides if they wnat to move to the other side to increase the total score
+
+this is equal to the local search for maxcut
+
+\begin{definition}
+    ppad complete (?), pls complete (?)
+\end{definition}
+
+\begin{definition}[pls class]
+    has 3 algos that are efficient over input size.
+    \begin{enumerate}
+        \item initialization
+        \item evaluation
+        \item locally opt checker - report local opt or return better
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[pls reduction]
+    start from problem that is hard, transform into new algo in poly time, from \(\pi_1\) to \(\pi_2\).
+
+    w requirements,
+    \begin{enumerate}
+        \item every \(x\in \pi_1\) maps to \(A(x)\in \pi_2\)
+        \item maps every local optimum \(A(x)\) to \(x\) 
+    \end{enumerate}
+
+
+
+
+
+
+\end{definition}
+
+if you can pls reduce max cut to a new problem and you claim to find local optimum in the new problem, then it would be a contradiction
+
+
+
+
+
+
+
+\end{document}
