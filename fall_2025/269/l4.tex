@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usetikzlibrary{trees}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Random Hyperplane Rounding (RHR)}
+
+\begin{equation}
+    \sum_{ij\in E}^{}w_{ij} \frac{\theta_ij}{\pi}
+\end{equation}
+
+
+optimal sdp value is 
+
+\begin{equation}
+    \max \sum_{ij\in E}^{} w_{ij}\left( \frac{1-\vec y_i\vec y_j}{2} \right)
+\end{equation}
+
+
+SDP value \(\geq\) OPT maxcut
+
+\section{ hierarchical clustering HC}
+
+\begin{equation}\label{1}
+    \max \sum_{ij\in E}^{} w_{ij}\left( n-\abs{T_{ij}} \right)
+\end{equation}
+
+note \(n-\abs{T_{ij}}\) is the \# of non leaves
+
+thus eq~\ref{1} can also be written as idk
+
+levels of HC:
+level \(t\) is a partition of \(V\), the verticies, in \(1,\dots, n\) into maximal clusters that have at most \(t\) nodes. 
+
+if there is a \(t=0\), it is the same as \(t=1\).
+
+\begin{definition}[maximal cluster]
+    maximal clusters are such that merging any two clusters does not result in a valid clustering
+\end{definition}
+
+
+every t is considered a graph partitioning problem.
+
+\begin{equation}
+    x_{ij}^t=\begin{cases}
+        0, &\text{at level $t$, $i,j$ are not separated}\\
+        1, &\text{else}
+    \end{cases}
+\end{equation}
+
+
+note eq~\ref{1} is equzl to
+
+\begin{equation}
+    \max \sum_{ij\in E}^{}w_{ij}\sum_{t=0}^{n}(1-x_{ij}^t)
+\end{equation}
+
+
+with constraints
+
+\begin{equation}
+    x_{ij}^{t+1}\leq x_{ij}^{t}
+\end{equation}
+
+and \begin{equation}
+    \sum_{j\in V\setminus i}^{}x_{ij}^t\leq n-t
+\end{equation}
+
+
+this condition is called the spreading condition
+
+
+for all \(i\in V\) assign \(\vec v_i^t\in \mathbb R^n\)
+
+relaxing x into not just 0 and 1,
+
+\begin{equation}
+    x_{ij}^t = 1-v_i^tv_j^t
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

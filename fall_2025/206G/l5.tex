@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb,bbm}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\norm}[1]{\lvert #1 \rvert}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{matlab}
+
+solving for modified battle of sexes from lec 4
+
+set A,B matrix of payoffs,
+
+\begin{equation}
+    Ay=\text{vector of payoffs for each of adrians pure strategies}
+\end{equation}
+
+where y is baileys mix probabilities
+
+
+for adrian to consider mixing across all strategies, \(Ay\) needs to equal a vector where each component is equal.
+
+thus
+
+\begin{equation}
+    y=\frac{A^{-1} 1}{\norm{A^{-1} 1}}
+\end{equation}
+
+where \(1\) represents the ones vector
+
+
+\(x^T\) is adrians mix, \textbf{\(x\) is transposed since representing the top player on the side requires transpose of the given matrix, thus more accurately it is described as \(B^Tx\)} where \(B\) is the apparent payoff matrix and \(x\) is adrians mix as a column
+\begin{equation}
+    x^TB
+\end{equation}
+
+\(x^TB\) is vector of expected payoffs of baileys strategies
+
+
+for partial support strategies, remove the columns/rows that are not being played, and set y to zero on the non supported strategies. alternatively you can also just remove them from the matrix and mix vectors.
+
+checking strategies outside of support is multiply 
+\begin{equation}
+    Ay
+\end{equation}
+and check if the payoff of the options outside of the support are greater or less than the supposed NE. 
+
+\textbf{note:} the payoffs of the mixed strategies of the strategies minus the supposed support must be a linear combination of the pure strategies, thus only checking pure strategies is necessary
+
+\textbf{question:} does negative, or inconsistent equations mean something? 
+
+\section{systematize }
+
+let \(A\) be a payoff matrix of a symmetric game.
+
+assume that \(A \) is non-negative and \(n\times n\). (you can add constant matricies and outcomes dont change proof?)
+
+consider the polytope 
+\begin{equation}
+    Az\leq \mathbbm{1}, z\geq 0
+\end{equation}
+
+note both of the inequalities have n entries
+
+the bounds of these equations results in n tight inequalities, draws out a polytope
+
+
+\begin{equation}
+    Az\leq 1 \implies A\left(\frac{z}{\norm{z}}\leq \frac{1}{\norm{z}}\right)
+\end{equation}
+
+
+if this inequality is tight, i.e. the inequality becomes an equality, then it is a best response
+
+\begin{definition}[represented strategies]
+    strategy \(i\) is \emph{represented} at vertex \(z\) if either \(z_i=0\) or \(A_iz=1\)
+\end{definition}
+
+
+\textbf{observation: } if a vertex has all strategies represented, excluding the origin, then that vertex is a nash equilibrium
+
+start at \(\vec 0=v_0\). pick an arbitrary strategy \(j\). look at vertecies adjacent to \(v_0\). in each of these verticies, exactly one positivity constraint gives slack and one constraint in \(Az=1\) is tight. therefore make positiviy constraint j, get slack and increase until something in \(Az\leq1\) tight. call the component that becomes tight, \(k\).
+
+if \(k=j\), then j is the best response to itself and \(j\) is a pure equilibrium.
+
+if \(k\neq j\), then \(k\) is doubly represented. \(z_k=0\),\([Az]_k=1\)
+
+look at doubily represented strategy \(k\)
+
+\begin{equation}
+    (v_i)_k=0 
+\end{equation}
+
+and
+\begin{equation}
+    [Av_i]_k=1
+\end{equation}
+
+relaxing either of these, gives 2 new vertices
+
+one of these has to be \(v_{i-1}\), go to the other vertex that wasnt just visited
+
+\(Ax\leq b\), \(x\geq 0\),
+
+\begin{equation}
+    \begin{pmatrix}
+        A|\mathbbm 1 
+    \end{pmatrix}
+    \begin{pmatrix}
+        x\\
+        s
+    \end{pmatrix}
+\end{equation}
+where s is the slack variables. the first matrix is \(x\times 2n\) and the second \(2n\times 1\).
+
+
+
+
+
+
+
+
+\end{document}
