@@ -45,9 +45,108 @@ consider
 it only atkes on values of \(w_{ij},0\)
 
 
-\begin{equation}
+\begin{equation}\label{6.1}
     y_{ij} = \sum_{k\neq i,j}^{}y_{ijk}
 \end{equation}
+
+\section{ALG1}
+random always
+
+for a given triplet \(i,j,k\), the probability \(P[ij\vert k]\)\footnote{see lec 5} is \(\frac{1}{3}\). 
+
+\section{ALG 2}
+SDP first, random next
+
+% combination of SDP and random
+
+solve sdp for hc, look for vectors at mid level, \(t^*=\lfloor{n/2}\), then we set \(x^t_{ij} = x^{t^*}_{ij}\).
+
+
+do hyperplane rounding to partition into \(S,\bar{S}\)
+
+
+
+randomalways S, and sdp \(\bar{S}\).
+
+
+recursive max uncut bisection gives 0.585.
+
+
+remember \(x^t_{ij}\), at level t each cluster is at most size t. 
+
+sdp objective,
+
+\begin{equation}
+    \max \sum_{t=1}^{n}\sum_{ij\in E}^{}w_{ij}(1-x^t_{ij})
+\end{equation}
+
+constraints:
+\begin{equation}
+    \sum_{i\neq j}^{}x_{ij}^t\geq n-t, \forall i, \forall t
+\end{equation}
+
+
+\begin{equation}
+    x^{t+1}_{ij}\leq x^{t}_{ij} \forall ij\in E, \forall t, x_{ij}^{(0)}=1
+\end{equation}
+
+
+to convert to sdp, \(x^t+{ij}\frac{1}{2}\abs{v_i^t-v_j^t}_2^2\), \(v_i^{((t))}\in \mathbb R^n\)
+
+
+\section{case 1}
+
+\begin{equation}
+    OPT<(1-\epsilon_1)(n-2)\sum_{ij\in E}^{}w_{ij}
+\end{equation}
+
+
+if \(\epsilon_1\) is large then just use random always
+
+\section{case2} 
+if SDP\(\geq \)OPT \(\geq (1-\epsilon_1)W\),
+
+consider 3 cases
+
+\(\epsilon_{ij}\) ij is together,
+\(\epsilon_{ijk}\) ijk all together
+\(\epsilon_{ij\vert k}\)ij together but k split
+
+the final one is \(\frac{\theta_{ik}+\theta_{jk}-\theta_{ij}}{2\pi}\)
+
+
+the expectation of \ref{6.1} is
+
+\begin{equation}\label{6.2}
+    E[y_{ijk}]=\frac{w_{ij}}{3}p[\epsilon_{ijk}]+w_{ij}P[\epsilon_{ij\vert k}]
+\end{equation}
+
+\begin{equation}\label{6.3}
+    E[y_{ij}] = \sum_{k\neq i,j}^{}E[y_{ijk}]
+\end{equation}
+
+
+because 
+\begin{equation}
+    P[\epsilon_{ij}] = 1-P[\epsilon_{ijk}]-P[\epsilon_{ij\vert k }]
+\end{equation}
+
+we get that \ref{6.2} is also equal to 
+
+\begin{equation}
+    \frac{w_{ij}}{3}P[\epsilon_{ij} + \frac{2w_{ij}}{3}P[\epsilon_{ij\vert k}]]
+\end{equation}
+
+and \ref{6.3} is
+
+\begin{equation}
+    E[y_{ij}]=\frac{w_{ij}}{3}\left( (n-2)P[\epsilon_{ij}] + 2\sum_{k\neq i,j}^{}P[\epsilon_{ij\vert k}] \right)
+\end{equation}
+
+the equation above requires too many variables so lets bound some to worst case
+
+
+
 
 
 
