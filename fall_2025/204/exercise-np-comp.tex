@@ -1,0 +1,220 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.54cm]{geometry}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{amsfonts,amsmath,amssymb,amsthm,mathtools}
+\usepackage{paralist}
+\usepackage{algorithmic,algorithm}
+\usepackage{bm}
+\usepackage{xspace}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=BrickRed,pdfstartview=FitH]{hyperref}
+\usepackage{xspace,prettyref}
+\usepackage{color}
+%\usepackage{MnSymbol}
+%% For hyperlinks. Should always be the last package.
+%\usepackage[colorlinks,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\let\pref=\prettyref
+\newcommand{\savehyperref}[2]{\texorpdfstring{\hyperref[#1]{#2}}{#2}}
+\newcommand{\comment}[1]{ {\color{BrickRed} \footnotesize[#1]}\marginpar{\footnotesize\textbf{\color{red} To Do!}}}
+\newcommand{\ignore}[1]{}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemmata}[theorem]{Lemmata}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{subclaim}{Subclaim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}{Definition}
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
+\newtheorem{observation}{Observation}
+
+\def\R{\RR}
+\def\RR{\mathbb R}
+\def\ZZ{\mathbb Z}
+\def\eqdef{~\triangleq~}
+\def\eps{\varepsilon}
+\def\bar{\overline}
+\def\floor#1{\lfloor {#1} \rfloor}
+\def\ceil#1{\lceil {#1} \rceil}
+\def\script#1{\mathcal{#1}}
+
+\newenvironment{proofof}[1]{\smallskip\noindent{\bf Proof of #1:}}%
+        {\hspace*{\fill}$\Box$\par}
+
+%% Hypercube related macros
+
+\def\B{{\mathsf D}}
+\def\Hyp{{\sf Hyp}}
+\def\D{{\sf K}}
+\def\G{{\mathsf G}}
+\def\d{{\sf d}}
+\def\a{{\mathfrak a}}
+\def\b{{\mathfrak b}}
+\def\c{{\mathfrak c}}
+\def\db{{\mathfrak d}}
+\def\e{{\mathfrak e}}
+\def\f{{\mathfrak f}}
+\def\h{{\mathfrak h}}
+\def\g{{\mathfrak g}}
+
+\newcommand{\PTIME}{\mathbb{P}}
+
+
+\newcommand{\hu}{\widehat{u}}
+
+\newcommand{\hcd}{\mathsf{hcd}}
+\newcommand{\VG}{VG}
+\newcommand{\md}[1]{\ (\operatorname{mod} #1)}
+
+\newcommand{\cupdot}{\sqcup}
+
+%% Calligraphic letters
+
+\newcommand{\cA}{{\cal A}}
+\newcommand{\cB}{{\cal B}}
+\newcommand{\cC}{{\cal C}}
+\newcommand{\cD}{{\cal D}}
+\newcommand{\cE}{{\cal E}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cH}{{\cal H}}
+\newcommand{\cI}{{\cal I}}
+\newcommand{\cJ}{{\cal J}}
+\newcommand{\cL}{{\cal L}}
+\newcommand{\cM}{{\cal M}}
+\newcommand{\cP}{{\cal P}}
+\newcommand{\cR}{{\cal R}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cT}{{\cal T}}
+\newcommand{\cU}{{\cal U}}
+\newcommand{\cV}{{\cal V}}
+
+%% Bold letters
+
+\newcommand{\bS}{{\bf S}}
+
+\newcommand{\NN}{\mathbb{N}}
+
+%% Hyper-linked References
+\newcommand{\Sec}[1]{\hyperref[sec:#1]{\S\ref*{sec:#1}}} %section
+\newcommand{\Eqn}[1]{\hyperref[eq:#1]{(\ref*{eq:#1})}} %equation
+\newcommand{\Fig}[1]{\hyperref[fig:#1]{Fig.\,\ref*{fig:#1}}} %figure
+\newcommand{\Tab}[1]{\hyperref[tab:#1]{Tab.\,\ref*{tab:#1}}} %table
+\newcommand{\Thm}[1]{\hyperref[thm:#1]{Theorem\,\ref*{thm:#1}}} %theorem
+\newcommand{\Lem}[1]{\hyperref[lem:#1]{Lemma\,\ref*{lem:#1}}} %lemma
+\newcommand{\Prop}[1]{\hyperref[prop:#1]{Prop.~\ref*{prop:#1}}} %property
+\newcommand{\Cor}[1]{\hyperref[cor:#1]{Corollary~\ref*{cor:#1}}} %corollary
+\newcommand{\Def}[1]{\hyperref[def:#1]{Definition~\ref*{def:#1}}} %definition
+\newcommand{\Alg}[1]{\hyperref[alg:#1]{Alg.~\ref*{alg:#1}}} %algorithm
+\newcommand{\Ex}[1]{\hyperref[ex:#1]{Ex.~\ref*{ex:#1}}} %example
+\newcommand{\Clm}[1]{\hyperref[clm:#1]{Claim~\ref*{clm:#1}}} %example
+
+
+\def\yes{{\sf YES }}
+\def\no{{\sf NO }}
+\def\Lip{{\sf Lip}}
+\def\poly{{\sf poly}}
+
+\newcommand{\ab}{\hbox{ab}}
+\newcommand{\abs}[1]{{|#1|}}
+\newcommand{\hd}[2]{{||#1 - #2||_1}}
+\newcommand{\proj}{{\mathsf{proj}}}
+\newcommand{\drop}{\hbox{drop}}
+\newcommand{\dist}[2]{\eps_{#1,#2}}
+\newcommand{\hM}{\widehat{M}}
+\newcommand{\hX}{\widehat{X}}
+
+\newcommand{\flo}[1]{\lfloor #1 \rfloor}
+
+\newcommand{\EXPTIME}{\mathbb{EXP}}
+\newcommand{\NP}{\mathbb{NP}}
+\newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
+\newcommand{\NEXP}{\mathbb{NEXP}}
+
+
+
+\newcommand{\Sesh}[1]{{\color{red} Sesh says: #1}}
+
+\title{CSE204: Exercises in NP-completeness\\
+{\small \copyright C. Seshadhri, 2025}}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Please cite any collaborations
+or online sources. All assignments must be done in Latex and submitted as pdfs.
+
+\section{Easier problems}
+
+Try to make some attempts by yourself, before collaborating with others. Ideally, do not use GenAI for these
+problems. The answers are not that long. We can use any previous statement to prove subsequent ones.
+
+\begin{enumerate}
+
+    \item Prove that the language
+
+    $\cL = \{\langle M, x, 1^t\rangle | \textrm{M is a non-determinisitic TM
+     that runs in t steps and accepts $x$}\}$ is $\NP$-complete.
+
+    \item Consider the Cook-Levin reduction for a language in $\cL \in \PTIME$. It will still construct a Boolean formula
+        $\phi_x$, given an input $x$, such that $x \in \cL$ iff $\phi_x$ is satisfiable. Prove that a satisfying assignment
+        for $\phi_x$ can be computed in polynomial time.
+
+    \item Complete the proof that CLIQUE is $\NP$-complete. (Show that the reduction given in class works.)
+
+    \item Prove that 4SAT is $\NP$-complete. 
+
+    \item Prove formally that Integer Linear Programming is $\NP$-complete.
+
+    \item $\cL$ is $\coNP$-complete if: $\cL \in \coNP$ and $\forall \cL' \in \coNP$, $\cL' \leq_p \cL$.
+    Prove that the class of $\coNP$-complete problems is exactly the set of co-($\NP$-complete) problems.
+
+\end{enumerate}
+
+
+\section{ChatGPT questions} 
+
+Put this question ChatGPT and get the answer. You are allowed to discuss further. Please put a link to the response and your conversation. 
+Given the response, you must first say whether: (i) the response is correct, (ii) the response is false, or (iii) you are really not sure.
+In the first case, give a succinct explanation of the proof. In the second case, explain why it is false.
+In the third case, explain your confusion. You do not need to write too much.
+
+\begin{enumerate}
+    \item NAE-3SAT is the language of 3-CNFs with an assignment that does not make all literals in a clause have the same value.
+    Prove that NAE-3SAT is $\NP$-complete. 
+    \item Prove that if FACTORING is $\coNP$-complete, then $TAUT \leq_{p(n)} SAT$ (recall
+    that $TAUT$ is the language of tautologically true Boolean formulas.)
+\end{enumerate}
+
+
+\section{More challenging exercises}
+
+\begin{enumerate}
+    \item Consider a simple, undirected graph $G$. A \emph{cut} is a partition of the vertices in two sets $S, T$. The value of the cut
+    is the number of edges ``crossing" the cut, i.e. the number of edges between $S$ and $T$. Define the language 
+        MAXCUT $= \{\langle G, k\rangle | \textrm{$G$ has a cut of value at least $k$} \}$. Prove that MAXCUT is $\NP$-complete.
+
+    (Hint: A more tricky reduction. Prove NAESAT $\leq_p$ MAXCUT. Start with $\phi$. For each variable, create a sufficiently large bi-clique. So create a bunch
+    of nodes labeled $x_i$ and a bunch labeled $\overline{x_i}$, and connect all pairs of nodes with $x_i$ to those with $\overline{x_i}$. For each clause $y_i \vee y_j \vee y_k$,
+    create a triangle between nodes with these labels. Work out the details to get the reduction correct.)
+    \item Prove Berman's theorem, stated as follows. A language is called \emph{unary} if every string in the language is of the
+    form $1^i$, for some $i \in \NN$. If a unary language is $\NP$-complete, then $\PTIME = \NP$.
+
+    (Hint: start with Boolean formula $\phi$. Using the reduction to a unary language, we get a unary string $s_\phi$.
+    Take a variable in $\phi$, set it to both $0$ and $1$, to get two formulas $\phi_0$ and $\phi_1$. Observe that $\phi$
+    is satisfiable iff either $\phi_0$ or $\phi_1$ is satisfiable. Apply the unary reduction to these new formulas.
+    Keep repeating this process with $\phi_0$ and $\phi_1$, accumulating more unary strings. Show that this
+    process can be run to termination in polynomial time. Use the unary strings to ``prune" branches of this process.)
+
+
+
+\end{enumerate}
+\end{document}
