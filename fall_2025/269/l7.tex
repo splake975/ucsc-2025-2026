@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{approximation resistance}
+if an algorithm is \emph{approximation resistant}, then it has an upper bound in how well a polynomial time problem can approximate the best solution. beating the upper bound would prove \(\mathbb P=\mathbb{NP}\)
+
+
+
+imagine a ranking. you can query an oracle for rankings of two people and it tells you which one is greater. trivial random ordering gives 0.5 worst case.
+
+use SDP
+
+make a graph where if \(a<b\), then there is a directed edge w weight 1 from \(a\) to \(b\), and a directed edge with weight \(-1\) from \(b\) to \(a\). max cut gives a better than optimal configuration for each half. 
+
+if the right side of maxcut has more +'s going in, then it becomes the right half of the ordering. recurse. 
+
+
+
+
+
+
+
+
+
+\end{document}
