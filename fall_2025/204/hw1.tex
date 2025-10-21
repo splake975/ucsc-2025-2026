@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{graphicx}
+
+\newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
+
+\title{hw1}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{ChatGPT questions} 
+
+Put this question ChatGPT and get the answer. You are allowed to discuss further. Please put a link to the response and your conversation. 
+Given the response, you must first say whether: (i) the response is correct, (ii) the response is false, or (iii) you are really not sure.
+In the first case, give a succinct explanation of the proof. In the second case, explain why it is false.
+In the third case, explain your confusion. You do not need to write too much.
+
+Conversations can be found here: 
+
+\begin{enumerate}
+    \item Give a bijection from $\{x | x > 1, x \in \mathbb R\}$ and the interval $(0,1)$.
+    
+
+    \textbf{claude 3.5 response}
+
+    I'll solve this by constructing a bijective function between the set of real numbers greater than 1 and the open interval (0,1).
+
+    \begin{enumerate}
+        \item Bijection Construction
+    
+        A classic and elegant solution to this problem is to use the following function:
+    
+        $f(x) = \frac{1}{x-1}$
+    
+        \item Proof of Bijectivity
+    
+        \begin{enumerate}
+            \item Injective (One-to-One)
+            Let $x_1, x_2 \in \{x | x > 1, x \in \mathbb R\}$
+            If $f(x_1) = f(x_2)$, then:
+            $\frac{1}{x_1-1} = \frac{1}{x_2-1}$
+            This implies $x_1 = x_2$, proving injectivity.
+        
+            \item Surjective (Onto)
+            For any $y \in (0,1)$, we can find an $x$ such that $f(x) = y$:
+            $y = \frac{1}{x-1}$
+            $x = \frac{1}{y} + 1$
+        \end{enumerate}
+    
+        Note that:
+        - When $y \in (0,1)$, $x = \frac{1}{y} + 1 > 1$
+        - $f(x) = \frac{1}{(\frac{1}{y} + 1) - 1} = y$
+    
+        Thus, $f$ maps $\{x | x > 1, x \in \mathbb R\}$ bijectively onto $(0,1)$.
+
+
+
+
+    \end{enumerate}
+    \textbf{End response}
+
+    the response is correct. it shows that for \(x>1, x\in \mathbb R\), the map \(f(x)=\frac{1}{x-1}\) is injective and surjective to the interval \((0,1)\). 
+
+
+
+
+\end{enumerate}
+\begin{enumerate}
+    \item NAE-3SAT is the language of 3-CNFs with an assignment that does not make all literals in a clause have the same value.
+    Prove that NAE-3SAT is $\mathbb{NP}$-complete. 
+
+    \textbf{response}
+
+    the proof is incorrect. the mapping from 3sat to nae3sat is invalid since the clauses are not 3 literals, and it doesnt give a way to convert the 4 literals into 3 literals.
+
+
+
+    \item Prove that if FACTORING is $\coNP$-complete, then $TAUT \leq_{p(n)} SAT$ (recall
+    that $TAUT$ is the language of tautologically true Boolean formulas.)
+
+    \textbf{response}
+
+    i am not sure if this proof is correct. it is almost certainly wrong but the words dont make any sense. claude is totally hallucinating. 
+
+
+
+
+\end{enumerate}
+
+\end{document}

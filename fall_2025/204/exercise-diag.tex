@@ -1,0 +1,198 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.54cm]{geometry}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{amsfonts,amsmath,amssymb,amsthm,mathtools}
+\usepackage{paralist}
+\usepackage{algorithmic,algorithm}
+\usepackage{bm}
+\usepackage{xspace}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=BrickRed,pdfstartview=FitH]{hyperref}
+\usepackage{xspace,prettyref}
+\usepackage{color}
+%\usepackage{MnSymbol}
+%% For hyperlinks. Should always be the last package.
+%\usepackage[colorlinks,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\let\pref=\prettyref
+\newcommand{\savehyperref}[2]{\texorpdfstring{\hyperref[#1]{#2}}{#2}}
+\newcommand{\comment}[1]{ {\color{BrickRed} \footnotesize[#1]}\marginpar{\footnotesize\textbf{\color{red} To Do!}}}
+\newcommand{\ignore}[1]{}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemmata}[theorem]{Lemmata}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{subclaim}{Subclaim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}{Definition}
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
+\newtheorem{observation}{Observation}
+
+\def\R{\RR}
+\def\RR{\mathbb R}
+\def\ZZ{\mathbb Z}
+\def\eqdef{~\triangleq~}
+\def\eps{\varepsilon}
+\def\bar{\overline}
+\def\floor#1{\lfloor {#1} \rfloor}
+\def\ceil#1{\lceil {#1} \rceil}
+\def\script#1{\mathcal{#1}}
+
+\newenvironment{proofof}[1]{\smallskip\noindent{\bf Proof of #1:}}%
+        {\hspace*{\fill}$\Box$\par}
+
+%% Hypercube related macros
+
+\def\B{{\mathsf D}}
+\def\Hyp{{\sf Hyp}}
+\def\D{{\sf K}}
+\def\G{{\mathsf G}}
+\def\d{{\sf d}}
+\def\a{{\mathfrak a}}
+\def\b{{\mathfrak b}}
+\def\c{{\mathfrak c}}
+\def\db{{\mathfrak d}}
+\def\e{{\mathfrak e}}
+\def\f{{\mathfrak f}}
+\def\h{{\mathfrak h}}
+\def\g{{\mathfrak g}}
+
+\newcommand{\PTIME}{\mathbb{P}}
+\newcommand{\NP}{\mathbb{NP}}
+\newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
+
+
+\newcommand{\hu}{\widehat{u}}
+
+\newcommand{\hcd}{\mathsf{hcd}}
+\newcommand{\VG}{VG}
+\newcommand{\md}[1]{\ (\operatorname{mod} #1)}
+
+\newcommand{\cupdot}{\sqcup}
+
+%% Calligraphic letters
+
+\newcommand{\cA}{{\cal A}}
+\newcommand{\cB}{{\cal B}}
+\newcommand{\cC}{{\cal C}}
+\newcommand{\cD}{{\cal D}}
+\newcommand{\cE}{{\cal E}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cH}{{\cal H}}
+\newcommand{\cI}{{\cal I}}
+\newcommand{\cJ}{{\cal J}}
+\newcommand{\cL}{{\cal L}}
+\newcommand{\cM}{{\cal M}}
+\newcommand{\cP}{{\cal P}}
+\newcommand{\cR}{{\cal R}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cT}{{\cal T}}
+\newcommand{\cU}{{\cal U}}
+\newcommand{\cV}{{\cal V}}
+
+%% Bold letters
+
+\newcommand{\bS}{{\bf S}}
+
+\newcommand{\NN}{\mathbb{N}}
+
+%% Hyper-linked References
+\newcommand{\Sec}[1]{\hyperref[sec:#1]{\S\ref*{sec:#1}}} %section
+\newcommand{\Eqn}[1]{\hyperref[eq:#1]{(\ref*{eq:#1})}} %equation
+\newcommand{\Fig}[1]{\hyperref[fig:#1]{Fig.\,\ref*{fig:#1}}} %figure
+\newcommand{\Tab}[1]{\hyperref[tab:#1]{Tab.\,\ref*{tab:#1}}} %table
+\newcommand{\Thm}[1]{\hyperref[thm:#1]{Theorem\,\ref*{thm:#1}}} %theorem
+\newcommand{\Lem}[1]{\hyperref[lem:#1]{Lemma\,\ref*{lem:#1}}} %lemma
+\newcommand{\Prop}[1]{\hyperref[prop:#1]{Prop.~\ref*{prop:#1}}} %property
+\newcommand{\Cor}[1]{\hyperref[cor:#1]{Corollary~\ref*{cor:#1}}} %corollary
+\newcommand{\Def}[1]{\hyperref[def:#1]{Definition~\ref*{def:#1}}} %definition
+\newcommand{\Alg}[1]{\hyperref[alg:#1]{Alg.~\ref*{alg:#1}}} %algorithm
+\newcommand{\Ex}[1]{\hyperref[ex:#1]{Ex.~\ref*{ex:#1}}} %example
+\newcommand{\Clm}[1]{\hyperref[clm:#1]{Claim~\ref*{clm:#1}}} %example
+
+
+\def\yes{{\sf YES }}
+\def\no{{\sf NO }}
+\def\Lip{{\sf Lip}}
+\def\poly{{\sf poly}}
+
+\newcommand{\ab}{\hbox{ab}}
+\newcommand{\abs}[1]{{|#1|}}
+\newcommand{\hd}[2]{{||#1 - #2||_1}}
+\newcommand{\proj}{{\mathsf{proj}}}
+\newcommand{\drop}{\hbox{drop}}
+\newcommand{\dist}[2]{\eps_{#1,#2}}
+\newcommand{\hM}{\widehat{M}}
+\newcommand{\hX}{\widehat{X}}
+
+\newcommand{\flo}[1]{\lfloor #1 \rfloor}
+
+\newcommand{\Sesh}[1]{{\color{red} Sesh says: #1}}
+
+\title{CSE104: Exercises\\Diagonalization\\{\small \copyright C. Seshadhri, 2025}}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Please cite any collaborations
+or online sources. All assignments must be done in Latex and submitted as pdfs.
+
+\section{Easier problems}
+
+Try to make some attempts by yourself, before collaborating with others. Ideally, do not use GenAI for these
+problems. The answers are not that long. We can use any previous statement to prove subsequent ones.
+
+\begin{enumerate}
+    \item Prove that the smallest infinite cardinal number is $\aleph_0$. (In other words: consider a set $S$ that is infinite, and has an injection (a 1-1 mapping) into $\NN$. Prove that there exists a bijection between $S$ and $\NN$.) You can use this statement in your later proofs; things become much easier.
+    \item For two infinite sets $A, B$, we say that $|A| \leq |B|$ if there exists a 1-1 map (injection) between $A$ and $B$. 
+Prove: if $|A| \leq |B$ and $|B| \leq |C|$, then $|A| \leq |C|$.
+    \item Consider any finite alphabet $\Sigma$, and consider $\Sigma^*$, the set of finite strings over $\Sigma$. Prove that
+        there is a bijection from $\Sigma^* \to \NN$. (Hint: think encodings.
+        And use this fact in the next problems.)
+    \item Prove that $|\NN^2| = |\NN|$. So show a bijection between the set of pairs $(x,y)$ of natural numbers and the set of natural numbers.
+    \item Prove that $|\mathbb{Q}| = \aleph_0$. This means that the cardinality of rational numbers is the same as the cardinality of natural numbers.
+        (Hint: feel free to use the statements above, and you will see a short proof.)
+\end{enumerate}
+
+
+\section{ChatGPT questions} 
+
+Put this question ChatGPT and get the answer. You are allowed to discuss further. Please put a link to the response and your conversation. 
+Given the response, you must first say whether: (i) the response is correct, (ii) the response is false, or (iii) you are really not sure.
+In the first case, give a succinct explanation of the proof. In the second case, explain why it is false.
+In the third case, explain your confusion. You do not need to write too much.
+
+\begin{enumerate}
+    \item Give a bijection from $\{x | x > 1, x \in \RR\}$ and the interval $(0,1)$.
+\end{enumerate}
+
+
+\section{More challenging exercises}
+
+\begin{enumerate}
+    \item Prove that $\bigcup_{d \in \NN} \RR^d$ and $\RR$ have the same cardinality. 
+    \item The Cantor-Schr\"{o}der-Bernstein theorem states that if $|A| \leq |B|$ and $|B| \leq |A|$, then $|A| = |B|$. This is a fundamental theorem
+        that shows that the infinities form an ordering.
+
+        We will prove this theorem in this exercise. By assumption, there is an injection $f: A \to B$ and an injection $g: B \to A$. Construct a colored bipartite graph between
+        $A$ and $B$ as follows. For each pair $(a, f(a))$, insert the red edge $(a, f(a))$. For each pair $(b, g(b))$, insert
+        the blue edge $(g(b), b)$. (Note that $g(b) \in A$, so we flipped the order to describe the edge.) An \emph{alternating path} is 
+        a finite path of edges that keeps switching colors: so either red, blue, red, blue, $\ldots$, or blue, red, blue, red, $\ldots$.
+        \begin{enumerate}
+            \item Definite relation $a \to b$ if there is an alternating path from $a$ to $b$. Prove that this relation is an equivalence relation.
+            \item Prove that $A \cup B$ can be partitioned into set of: (i) alternating cycles, (ii) finite alternating paths, (iii)
+                semi-infinite alternating paths, or (iv) doubly infinite alternating paths. (A semi-infinite alternating path has one endpoint;
+                a doubly infininte alternating path has no endpoint.)
+            \item Construct a bijection between $A$ and $B$, going over the four cases above.
+        \end{enumerate}
+\end{enumerate}
+\end{document}
