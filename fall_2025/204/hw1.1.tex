@@ -1,0 +1,160 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{graphicx}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+
+\newtheorem{lemma}[theorem]{Lemma}
+
+
+
+\newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
+
+\title{hw1}
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    
+    \item The Cantor-Schr\"{o}der-Bernstein theorem states that if $|A| \leq |B|$ and $|B| \leq |A|$, then $|A| = |B|$. This is a fundamental theorem
+            that shows that the infinities form an ordering.
+    
+            We will prove this theorem in this exercise. By assumption, there is an injection $f: A \to B$ and an injection $g: B \to A$. Construct a colored bipartite graph between
+            $A$ and $B$ as follows. For each pair $(a, f(a))$, insert the red edge $(a, f(a))$. For each pair $(b, g(b))$, insert
+            the blue edge $(g(b), b)$. (Note that $g(b) \in A$, so we flipped the order to describe the edge.) An \emph{alternating path} is 
+            a finite path of edges that keeps switching colors: so either red, blue, red, blue, $\ldots$, or blue, red, blue, red, $\ldots$.
+            \begin{enumerate}
+                \item Definite relation $a \to b$ if there is an alternating path from $a$ to $b$. Prove that this relation is an equivalence relation.
+                
+                \textbf{solution}
+                to prove equivalence relation, we need to show reflexivity, transitivity and symmetric.
+    
+                \begin{enumerate}
+                    \item reflexivity:
+                    
+                    if \(a\) is connected to \(b\) through path \(c\), then \(b\) is connected to \(a\) through \(c^{-1}\).
+    
+                    \item transitivity:
+                    
+                    if \(a\) is connected to \(b\) with path \(y\), and \(b\) to \(c\) through path \(z\), then a must be connected through path \(y\circ z\)
+
+                    \item symmetric:
+                    
+                    \(a\) is connected to itself with the trivial path
+                \end{enumerate}
+    
+    
+                \item Prove that $A \cup B$ can be partitioned into set of: (i) alternating cycles, (ii) finite alternating paths, (iii)
+                    semi-infinite alternating paths, or (iv) doubly infinite alternating paths. (A semi-infinite alternating path has one endpoint;
+                    a doubly infininte alternating path has no endpoint.)
+
+
+
+                
+
+                \textbf{solution}
+                
+                
+
+                \begin{lemma}\label{lem1}
+                    if a connected component has a loop then the size of the loop must be the size of the connected component. 
+                \end{lemma}
+
+                \begin{proof}
+                    for a loop, there must exist some \(x\) ST \((fg)^n(x)=x\). if the connected component has some \(y\) such that \(y \neq (fg)^n(y)\), there must be some \((fg)^m(y)=z\) such that \((fg)^n(z)=z\), \((fg)^{n-1}(z)\neq y\). but \(f\) is injective, so the existence of two distinct elements, \(y\) and \((fg)^{n-1}(z)\) mapping to \(z\) is a contradiction.
+                \end{proof}
+
+                \begin{lemma}\label{lem2}
+                    any finite subset of nodes must have either 0 or 2 terminal nodes.
+                \end{lemma}
+
+                \begin{proof}
+                    a loop has 0 terminal nodes. a finite line has 2 terminal nodes. any other number of terminal nodes must have a junction similar to lemma~\ref{lem1}. if there is 1 terminal node, there must be a loop which is a contradiction by lemma~\ref{lem1}. for any number of terminal nodes \(\geq 3\), there exists a subset of 3 elements such that the map of either \(f\), or \(g\) is not injective. the three terminal nodes must meet at a junction node where the three map from 2 elements to one by the pigeonhole principle which is a contradiction.
+                \end{proof}
+
+
+
+
+
+                % note each connected component must only 
+
+                paths have either 0 terminating points, 1 terminating point, 2 terminating point, or \(\geq 3\) terminating points. let us go over each case.
+
+                \begin{enumerate}
+                    \item 0 terminating points:
+                    
+                    if the connecetd component is finite, then it must loop. if the component has \(n\) points, then after \(n+1\) jumps, it must have returned to a point it has already visited by pigeonhole. namely, it must return to the first element since if nothing returns to the first element, tracing the path backwards the first element would be an endpoint violating our assumption. (we will see a loop with an endpoint is impossible later)
+
+                    if the component is infinite, we get the doubly infinite path. with no loops by lemma~\ref{lem1}
+
+                    \item 1 terminating point:
+                    
+                    there cannot exist a finite path with 1 terminating point by lemma~\ref{lem1}
+
+                    an infinite path with 1 terminating point must not have any loops, by lemma~\ref{lem1}
+
+                    \item 2 terminating points:
+                    
+                    if the path is finite, it must not have any loops
+
+                    there cannot exist an infinite path with two terminating points by lemma~\ref{lem2}
+                    
+                \end{enumerate}
+
+                \item Construct a bijection between $A$ and $B$, going over the four cases above.
+                
+
+                \textbf{solution}
+
+                if there is a loop, either f or g is a bijection. if the graph is doubly infinite, either f or g is a bijection. if there is a singly infinite graph and the junction ends on \(x\in A\), then \(f\) or \({f^{-1}}\) on that component is a bijection. similarly for \(y\in B\), \(g\) or \(g^{-1}\) is the bijection. for a finite non-loop, either \(f\) or \(g\) is a bijection. 
+            \end{enumerate}
+    \item Prove that the language
+
+    $\mathcal L = \{\langle M, x, 1^t\rangle | \textrm{M is a non-determinisitic TM
+     that runs in t steps and accepts $x$}\}$ is $\mathbb{NP}$-complete.
+
+    \textbf{solution}
+
+    we will map SAT onto this language, and we will provide a certificate that runs in poly time. 
+
+    there exists a way to encode boolean sat problems in unary. convert sat into binary , then conver the binary into unary. \(M_sat\), the normal sat solver, will take these unary strings and outputs accept if satisfiable. this means that SAT is reducable to a subproblem in \(\mathcal{L}\).
+
+    a certificate exists by just running a string on M. since the machine \(M\) runs in polynomial time to the size of the input, and the length of the input is O(the size of the input), M will verify the input in polynomial time.
+
+    therefore the language is \(\mathbb{NP}\)-complete
+
+
+
+
+
+    \item formally prove that integer linear programming is \(\mathbb{NP}\)-complete. 
+    
+    
+    
+    \textbf{solution}
+    
+    an integer program can be verified by plugging in the values into the constraints and checking if they are valid, thus it is in np.
+
+    we prove that integer linear programming is np hard by mapping SAT onto it. all literals are either 0 or 1. for each clause, add a constraint saying each \(\sum_{x_i\in c_n}^{}f(x_i)>0\) where \begin{equation}
+        f:x_{i}\mapsto\begin{cases}
+            x_i &x_i \text{if true}\\
+            (1-x_i) & x_i\text{ is false}
+        \end{cases}
+    \end{equation}. there exists a solution of \(x_i\) iff the SAT problem is satisfiable. each clause is satisfied iff at least one var is true, iff each constraint is satisfied.
+
+
+
+        
+    
+    
+    
+\end{enumerate}
+
+
+\end{document}
