@@ -5,7 +5,11 @@
 \usepackage{booktabs}
 \usepackage{textcomp}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
 
+\newtheorem{lemma}[theorem]{Lemma}
 \newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
 
 \title{hw1}
@@ -20,49 +24,50 @@ Given the response, you must first say whether: (i) the response is correct, (ii
 In the first case, give a succinct explanation of the proof. In the second case, explain why it is false.
 In the third case, explain your confusion. You do not need to write too much.
 
-Conversations can be found here: 
+Conversations can be found here: \href{https://github.com/splake975/ucsc-2025-2026/blob/master/fall_2025/204/duck.ai_2025-10-19_00-41-47.txt}{here}
 
 \begin{enumerate}
     \item Give a bijection from $\{x | x > 1, x \in \mathbb R\}$ and the interval $(0,1)$.
     
+    \textbf{response}
 
-    \textbf{claude 3.5 response}
+    % \textbf{claude 3.5 response}
 
-    I'll solve this by constructing a bijective function between the set of real numbers greater than 1 and the open interval (0,1).
+    % I'll solve this by constructing a bijective function between the set of real numbers greater than 1 and the open interval (0,1).
 
-    \begin{enumerate}
-        \item Bijection Construction
+    % \begin{enumerate}
+    %     \item Bijection Construction
     
-        A classic and elegant solution to this problem is to use the following function:
+    %     A classic and elegant solution to this problem is to use the following function:
     
-        $f(x) = \frac{1}{x-1}$
+    %     $f(x) = \frac{1}{x-1}$
     
-        \item Proof of Bijectivity
+    %     \item Proof of Bijectivity
     
-        \begin{enumerate}
-            \item Injective (One-to-One)
-            Let $x_1, x_2 \in \{x | x > 1, x \in \mathbb R\}$
-            If $f(x_1) = f(x_2)$, then:
-            $\frac{1}{x_1-1} = \frac{1}{x_2-1}$
-            This implies $x_1 = x_2$, proving injectivity.
+    %     \begin{enumerate}
+    %         \item Injective (One-to-One)
+    %         Let $x_1, x_2 \in \{x | x > 1, x \in \mathbb R\}$
+    %         If $f(x_1) = f(x_2)$, then:
+    %         $\frac{1}{x_1-1} = \frac{1}{x_2-1}$
+    %         This implies $x_1 = x_2$, proving injectivity.
         
-            \item Surjective (Onto)
-            For any $y \in (0,1)$, we can find an $x$ such that $f(x) = y$:
-            $y = \frac{1}{x-1}$
-            $x = \frac{1}{y} + 1$
-        \end{enumerate}
+    %         \item Surjective (Onto)
+    %         For any $y \in (0,1)$, we can find an $x$ such that $f(x) = y$:
+    %         $y = \frac{1}{x-1}$
+    %         $x = \frac{1}{y} + 1$
+    %     \end{enumerate}
     
-        Note that:
-        - When $y \in (0,1)$, $x = \frac{1}{y} + 1 > 1$
-        - $f(x) = \frac{1}{(\frac{1}{y} + 1) - 1} = y$
+    %     Note that:
+    %     - When $y \in (0,1)$, $x = \frac{1}{y} + 1 > 1$
+    %     - $f(x) = \frac{1}{(\frac{1}{y} + 1) - 1} = y$
     
-        Thus, $f$ maps $\{x | x > 1, x \in \mathbb R\}$ bijectively onto $(0,1)$.
+    %     Thus, $f$ maps $\{x | x > 1, x \in \mathbb R\}$ bijectively onto $(0,1)$.
 
 
 
 
-    \end{enumerate}
-    \textbf{End response}
+    % \end{enumerate}
+    % \textbf{End response}
 
     the response is correct. it shows that for \(x>1, x\in \mathbb R\), the map \(f(x)=\frac{1}{x-1}\) is injective and surjective to the interval \((0,1)\). 
 
@@ -91,5 +96,155 @@ Conversations can be found here:
 
 
 \end{enumerate}
+
+
+\newpage
+\section{regular problems}
+\begin{enumerate}
+    
+    \item The Cantor-Schr\"{o}der-Bernstein theorem states that if $|A| \leq |B|$ and $|B| \leq |A|$, then $|A| = |B|$. This is a fundamental theorem
+            that shows that the infinities form an ordering.
+    
+            We will prove this theorem in this exercise. By assumption, there is an injection $f: A \to B$ and an injection $g: B \to A$. Construct a colored bipartite graph between
+            $A$ and $B$ as follows. For each pair $(a, f(a))$, insert the red edge $(a, f(a))$. For each pair $(b, g(b))$, insert
+            the blue edge $(g(b), b)$. (Note that $g(b) \in A$, so we flipped the order to describe the edge.) An \emph{alternating path} is 
+            a finite path of edges that keeps switching colors: so either red, blue, red, blue, $\ldots$, or blue, red, blue, red, $\ldots$.
+            \begin{enumerate}
+                \item Definite relation $a \to b$ if there is an alternating path from $a$ to $b$. Prove that this relation is an equivalence relation.
+                
+                \textbf{solution}
+                to prove equivalence relation, we need to show reflexivity, transitivity and symmetric.
+    
+                \begin{enumerate}
+                    \item reflexivity:
+                    
+                    if \(a\) is connected to \(b\) through path \(c\), then \(b\) is connected to \(a\) through \(c^{-1}\).
+    
+                    \item transitivity:
+                    
+                    if \(a\) is connected to \(b\) with path \(y\), and \(b\) to \(c\) through path \(z\), then a must be connected through path \(z\circ y\)
+
+                    \item symmetric:
+                    
+                    \(a\) is connected to itself with the trivial path
+                \end{enumerate}
+    
+    
+                \item Prove that $A \cup B$ can be partitioned into set of: (i) alternating cycles, (ii) finite alternating paths, (iii)
+                    semi-infinite alternating paths, or (iv) doubly infinite alternating paths. (A semi-infinite alternating path has one endpoint;
+                    a doubly infininte alternating path has no endpoint.)
+
+
+
+                
+
+                \textbf{solution}
+                
+                
+
+                \begin{lemma}\label{lem1}
+                    if a connected component has a loop then the size of the loop must be the size of the connected component. 
+                \end{lemma}
+
+                \begin{proof}
+                    for a loop, there must exist some \(x\) ST \((fg)^n(x)=x\). if the connected component has some \(y\) such that \(y \neq (fg)^n(y)\), there must be some \(z=(fg)^m(y)\) such that \((fg)^n(z)=z\), \((fg)^{n-1}(z)\neq y\). but \(f\) is injective, so the existence of two distinct elements, \(y\) and \((fg)^{n-1}(z)\) mapping to \(z\) is a contradiction.
+                \end{proof}
+
+                \begin{lemma}\label{lem2}
+                    any finite subset of nodes must have either 0 or 2 terminal nodes.
+                \end{lemma}
+
+                \begin{proof}
+                    a loop has 0 terminal nodes. a finite line has 2 terminal nodes. any other number of terminal nodes must have a junction similar to lemma~\ref{lem1}. if there is 1 terminal node, there must be a loop which is a contradiction by lemma~\ref{lem1}. for any number of terminal nodes \(\geq 3\), there exists a subset of 3 elements such that the map of either \(f\), or \(g\) is not injective. the three terminal nodes must meet at a junction node where the three map from 2 elements to one by the pigeonhole principle which is a contradiction.
+                \end{proof}
+
+
+
+
+
+                % note each connected component must only 
+
+                paths have either 0 terminating points, 1 terminating point, or 2 terminating point. let us go over each case.
+
+                \begin{enumerate}
+                    \item 0 terminating points:
+                    
+                    if the connecetd component is finite, then it must loop. if the component has \(n\) points, then after \(n+1\) jumps, it must have returned to a point it has already visited by pigeonhole. namely, it must return to the first element since if nothing returns to the first element, tracing the path backwards the first element would be an endpoint violating our assumption. (we will see a loop with an endpoint is impossible later)
+
+                    if the component is infinite, we get the doubly infinite path. with no loops by lemma~\ref{lem1}
+
+                    \item 1 terminating point:
+                    
+                    there cannot exist a finite path with 1 terminating point by lemma~\ref{lem2}
+
+                    an infinite path with 1 terminating point must not have any loops, by lemma~\ref{lem2}
+
+                    \item 2 terminating points:
+                    
+                    if the path is finite, it must not have any loops
+
+                    there cannot exist an infinite path with two terminating points. if there are two terminating points, there exists a finite subset of the path that has 3 terminating points which is a contradiction by lemma~\ref{lem2}
+                    
+                \end{enumerate}
+
+                \item Construct a bijection between $A$ and $B$, going over the four cases above.
+                
+
+                \textbf{solution}
+
+                if there is a loop, either f or g is a bijection. if the graph is doubly infinite, either f or g is a bijection. if there is a singly infinite graph and the junction ends on \(x\in A\), then \(f\) or \({f^{-1}}\) on that component is a bijection. similarly for \(y\in B\), \(g\) or \(g^{-1}\) is the bijection. for a finite non-loop, either \(f\) or \(g\) is a bijection. 
+            \end{enumerate}
+    \item Prove that the language
+
+    $\mathcal L = \{\langle M, x, 1^t\rangle | \textrm{M is a non-determinisitic TM
+     that runs in t steps and accepts $x$}\}$ is $\mathbb{NP}$-complete.
+
+    \textbf{solution}
+
+    we will map SAT onto this language, and we will provide a certificate that runs in poly time. 
+
+    there exists a way to encode boolean sat problems in unary. convert sat into binary , then conver the binary into unary. \(M_{sat}\), the normal sat solver, will take these unary strings and outputs accept if satisfiable. this means that SAT is reducable to a subproblem in \(\mathcal{L}\).
+
+    a certificate exists by just running M on a proposed string. since the machine \(M\) runs in polynomial time to the size of the input, and the length of the input is O(the size of the input), M will verify the input in polynomial time.
+
+    therefore the language is \(\mathbb{NP}\)-complete
+
+
+
+
+
+    \item formally prove that integer linear programming is \(\mathbb{NP}\)-complete. 
+    
+    
+    
+    \textbf{solution}
+    
+    an integer program can be verified by plugging in the values into the constraints and checking if they are valid. computing \(Ax\) can be done in poly time, thus checking that constraints are satisfied  thus it is in \(\mathbb{NP}\). 
+
+    we prove that integer linear programming is np hard by mapping SAT onto it. all literals are either 0 or 1. for each clause, add a constraint saying each \(\sum_{x_i\in c_n}^{}f(x_i)>0\) where \begin{equation}
+        f:x_{i}\mapsto\begin{cases}
+            x_i &x_i \text{if true}\\
+            (1-x_i) & x_i\text{ is false}
+        \end{cases}
+    \end{equation}. there exists a solution of \(x_i\) iff the SAT problem is satisfiable because each corresponding clause in SAT is true. each clause is satisfied iff at least one var is true, iff each constraint is satisfied.
+
+    if one of the literals is satisfied in the SAT program for cclause \(c_i\), then in the correspoinding \(f_i\), at least one \(x_j\) term is greater than 1. 
+
+    for each constraint, if the value is greater than 1, then one of the \(x_i\) terms is greater than 1, and finding this term gives the boolean in the SAT term that makes the clause true.
+
+
+
+        
+    
+    
+    
+\end{enumerate}
+
+
+
+
+
+
+
 
 \end{document}
