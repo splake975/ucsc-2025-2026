@@ -44,24 +44,55 @@ def optimal_broadcast(R, K):
 
 def optimal_broadcast2(R,K,cost:np.ndarray):
     dp = np.full((K,len(R)),np.inf)
+    opt = np.zeros((K,len(R)))
+    # opt = np.array([[np.array([]) for _ in range(len(R))] for _ in range(K)], dtype=object)
     # dp[0,0]=0
     for i in range(len(R)):
         dp[0,i]=cost[0,i]
+        opt[0,i]=i
     
     for k in range(1,K): #k count
         for i in range(len(R)): # ending
             #j is the cut            
             # print(f"{[dp[k-1,j]+cost[j,i] for j in range(i)]=}")
             if [dp[k-1,j]+cost[j,i] for j in range(i)]:
-                dp[k,i] = min(*[dp[k-1,j]+cost[j,i] for j in range(i)],np.inf)
+                # dp[k,i] = np.inf
+                best_j = 0
+                for j in range(i):
+                    if dp[k-1,j]+cost[j,i]<dp[k,i]: #better at j than j-1
+                        dp[k,i] = dp[k-1,j]+cost[j,i]
+                        best_j = j
+                opt[k,i] = best_j
+                # dp[k,i] = min(*[dp[k-1,j]+cost[j,i] for j in range(i)],np.inf)
             # dp[k,i]=min(,)
-    return dp
-    
+    # print(f"{dp2=}")
+    # print(f"{opt=}")
+    return opt,dp
+
+def postprocess_opt(opt):
+    cut = int(opt.shape[1]-1)
+    print(f"{cut,range(opt.shape[0])=}")
+    ret = [opt.shape[1]-1]
+    # print(f"{opt[0,cut]=}")
+    r = reversed(range(1,opt.shape[0]))
+    for i in r:
+        print(f"{int(opt[i,cut])=}")
+        ret.append(int(opt[i,cut]))
+        cut=int(opt[i,cut])
+    ret = [r+1 for r in ret]
+    return ret
+
+
     
 
 if __name__ == "__main__":
+    k=3
     r=[0, 3, 4, 0, 5, 2, 7]
     cost = precompute_cost(r)
     print(cost)
     print()
-    print(optimal_broadcast2(r,3,cost))
+    opt,dp=optimal_broadcast2(r,k,cost)
+    print(*optimal_broadcast2(r,k,cost))
+    opt_schedule = postprocess_opt(opt)
+    print(opt_schedule)
+    

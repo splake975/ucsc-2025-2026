@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{betweeness (BTW)}
+given a bunch of constraints ABC, b is between a and c, but dont care about order
+
+random gives 1/3 since \(2/3!\) combinaions satisfy
+
+assuming that the constrains are fully satisfied, we get a 1/2 approximation.
+
+
+2 ways, sdp and combinatorial. 
+
+\section{comb}
+
+some of the vertecies are not between. (the farthest on either side cannot be in between since they are satisfiable.) these nodes are called ``free''.
+
+place on either end. 
+
+since there are two ends, the probability it matches any other constraints is 1/2
+
+algo is linear
+
+non-btw has random of 2/3 but has no better than 2/3 polytime algo
+
+\section{SDP}
+
+
+use whats called a ``feasability check'', then use embedding
+
+
+theres no objective, what are the constraints?
+
+inner product and distances are the same (one gives the answer to the other) with unit vectors
+
+for constraint ijk, if we place them on a line, \(d_{ij}^2+d_{jk}^2\leq d_{ik}^2\). notice if the leq is =, then we get a triangle. given a random plane, the probability a projection of points that satisfy \(d_{n\choose 2}\) and also satisfy the original constraints is 1/2. since the inequality requires the triangle to be obtuse. 
+
+
+
+
+
+
+
+
+
+
+\end{document}
