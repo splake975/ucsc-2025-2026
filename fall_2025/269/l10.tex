@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{data representations}
+
+dataset of n items, let a user be a vector in a d dimensional space
+
+preserve relationships of distances between the points. 
+
+\begin{definition}[Distortion]
+    given a metric \(d(x,y)\), apply an embedding algorithm where \begin{equation}
+        f:x\mapsto f(x)
+    \end{equation}
+    and \begin{equation}
+        f:d\mapsto f(d)
+    \end{equation}
+    compare \(d\) and \(f(d)\) with \begin{equation}
+        d\leq f(d)\leq Dd
+    \end{equation}
+
+    where \(D\) is the distortion of \(f\)
+
+\end{definition}
+
+\begin{theorem}[Bourgains thoerem]
+    Every metric can be embedded with distortion \(O(\log n)\) in \(\ell_2\)
+\end{theorem}
+
+\begin{theorem}
+    for any \(\varepsilon>0, n\in \mathbb R^d\) for a projection \(f\), \begin{equation}
+        (1-\varepsilon)\lvert x-y\rvert^2 \leq \lvert f(x)-f(y)\rvert^2\leq (1+\varepsilon)\lvert x-y\rvert^2
+    \end{equation}
+    as long as the dimension of hte projection is \(O(\frac{\log n}{\varepsilon^2})\)
+\end{theorem}
+
+
+\section{monotone embeddings}
+
+cardinal vs ordinal
+
+cardinality, values, numbers vs ordering
+
+want to preserve comparsisons between distances
+
+``a is more similar to b than to c''
+
+are there low dimensional \(\ell _2\) htat respect ordinal comparisons (not the length)
+
+\begin{definition}[Ordinal Embedding]
+    ~\newline
+    let \(X\) be a metric space on points 
+    \(\{1,2,,\dots n\}\) with distance metric \(\delta\). we call \(\phi: X\to \mathbb R^d\) an \emph{Ordered Embedding} if 
+    \begin{equation}
+        \forall x,y,z\in X, \delta(x,y)<\delta(y,z)\implies d(\phi(x),\phi(y))<d(\phi(y),\phi(z))
+    \end{equation}
+\end{definition}
+
+there are three types that make sense
+
+\begin{enumerate}
+    \item \(n\choose 3\) triplets, \((A,B,C)\). (tis is the \emph{dense regime})
+    \item \emph{terminal embeddings} have \(k\) special nodes \(\{t_1,t_2,\dots t_k\}\), if not terminal, like \(t_1, t_n\) then i dont care about order
+    \item \emph{k-nnearest neightbor embeddings} where you only care about the close elements and the farthest elements ordering doesnt matter
+\end{enumerate}
+
+
+the first and third options are still not fully understood, but the second is well understood
+
+in general to preserve all \(n\choose 3\) it requires \(d>\frac{n}{2}\) dimensions to embedd all triplets
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
