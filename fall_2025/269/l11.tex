@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{embedding}
+\(\forall x,y,z,w \in X\)
+\begin{equation}
+    \varphi:X\to \mathbb R^d
+\end{equation}
+ST \(\delta(x,y)<\delta(w,z)\implies\lvert\varphi(x)-\varphi(y)\rvert<\lvert\varphi(w)-\varphi(z)\rvert\)
+
+there are \({{n \choose 2 }\choose {2} }=_?\theta(n^4)\) comparisons
+
+there are \(n choose 2 !\) permutations of orderings on \(\delta\). each \(\delta_{ij}\) has some value and any permutation of this is allowed as the ordering for \(\delta\). 
+
+\section{dimension}
+
+lower bound is best case embedding, upper is worst case embedding (as functions of \(n\)).
+
+the upper bound for n points is \(n\). (remember this is \emph{Ordinal}. this is not true for isometries) and lower bound \(\frac{n}{2}\).
+
+\textbf{SEE LEMMA 2 in bilu linal}
+
+\subsection{upper bound}
+
+take teh \(\rho\) that gives rise to the ordering on \(\delta_{ij}\). take a symmetric matrix \(\epsilon\). diagonal zero, \(\epsilon_{ij}<\frac{1}{n} \). where \(\epsilon_{ij}\) are the consistent w permutations on \(\rho\).
+
+find a matrix \(V=I-\epsilon\).
+
+since it is diagonal dominant and symmetric, the matrix is positive definite (?)
+
+thus there exists some \(M\) ST \(MM^T=I-\epsilon\)
+
+for each \(u_i\) which is \(M_i\) (the vector of row \(i\)), we know that \(u_i\cdot u_j=-\epsilon_{ij}\)
+
+but then \begin{equation}
+    \lvert u_i-u_j\rvert^2 = \lvert u_i\rvert^2 - 2u_iu_j + \lvert u_j\rvert^2 = 2(1+\epsilon_{ij})
+\end{equation}
+\qed
+
+\subsection{lower bound}
+
+\(\forall c>0,\) and large enough \(n\), almost no permutation \(\rho\) can be realized if \(d<\frac{n}{2+c}\).
+
+
+if the number of ordinal embeddings is less than the number of \(\rho\) on n points, then here must be an error (?)
+
+
+cosider a quadruplet \(i_1,j_1\) vs \(i_2,j_2\) 
+define a poly \(P_{i_1j_1,i_2j_2}(x)= \abs{x_{i_1}-x_{j_1}}^2-\abs{x_{i_2}-x_{j_2}}^2\) 
+depends on 4 things
+\begin{itemize}
+    \item \# vars = \(n\cdot d\)
+    \item number of polys \(m\), \(m=O(n^4)\)
+    \item degree = 2
+\end{itemize}
+n is number of points to be embedded, d is dimension
+
+note \(P\) encodes if \(i_1,j_1\) is less than \(i_2,j_2\)
+
+ordinal embeddings have 1 to 1 correspondance w polys here. each P encodes one comparison.
+
+\(x\) has \(n\cdot d\) variables.
+
+give constructions of these graphs in linal
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

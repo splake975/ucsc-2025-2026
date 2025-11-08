@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+at dimension n, we can embed any ordinal relationship
+
+\(d\leq n\) embedding is always possible
+
+use matrix with epsilons, row vectors is embedding for that entry. computing shows this embedding respects ordinality
+
+\begin{equation}
+    \frac{n}{2}\leq d \leq n
+\end{equation}
+
+
+lower bound is proven by saying there are too many comparisons (asymptotically too many), and there arent enough comparisons in \(\mathbb R^{n/2}\)
+
+
+the polynomials have degree 2, since the eucl norm squared gives just \(x_1^2+\dots x_d^2\). there are \(n\cdot d\) variables, and there are \({{n \choose 2}\choose 2 }\approx n^4\) polynomials.
+
+
+\section{Terminal (VIP) ordinal embeddings}
+
+\begin{equation}
+    T=\{t_1\dots t_k\}, V\setminus T = \{v_1\dots v_{n-k}\}
+\end{equation}
+
+you only care about comparing distances of only the terminal nodes, i.e. of the form
+\begin{equation}
+    (t,.)<(t^\prime,.)
+\end{equation}
+
+comparisons between \(v\)s is irrelevant
+
+
+\textbf{this can be done in just \(k\) dimensions}
+
+
+assign all \(t_i\) to \(\vec e_i \cdot k^3n^2\)
+
+the vertex \(t\in T\), \(v\in V\), rank \(r(t,v)\in \{1,2,\dots k\cdot n\}\), specifying the order in which distance \((t,v)\) appears w.r.t. other vertecies. 
+
+to compare \((t,v)\) and \(t^\prime, v^\prime\), 
+\begin{equation}
+    \abs{\varphi(t)-\varphi(v)}= \sum_{i\neq t}^{}r(i,v)^2 + \left( (r(t,v)+M) \right)^2 = \sum_{i}^{}r^2(i,v)+2r(t,v)M+M^2
+\end{equation}
+
+but the first term is  \(\leq k\cdot (km)^2\leq M\)
+
+
+
+\section{diameter}
+
+diameter of a set of points is max 1 norm between two points. 
+
+
+n is number of points and \(d\) is the dimension
+naive is \(O(n^2d)\), better is \(O(nd2^d)\)
+
+generate \(2^d\) sign vectors \(s\) of form \(\prod_d \pm 1 \)
+
+make \(f\) such that \(f(p_i) = s_i\cdot p\)
+
+\(f\) over all p has \(n 2^d\) entries. 
+
+\begin{equation}
+    \abs{p-q}_1 = \abs{f(p)-f(q)}_\infty
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
