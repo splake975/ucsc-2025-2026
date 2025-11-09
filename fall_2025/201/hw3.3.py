@@ -47,8 +47,8 @@ def optimal_broadcast2(R,K,cost:np.ndarray):
     for k in range(1,K): #k count
         for i in range(len(R)): # ending
             #j is the cut            
-            # print(f"{[dp[k-1,j]+cost[j,i] for j in range(i)]=}")
-            if [dp[k-1,j]+cost[j,i] for j in range(i)]:
+            cond = [dp[k-1,j]+cost[j,i] for j in range(i)]
+            if cond:
                 # dp[k,i] = np.inf
                 best_j = 0
                 for j in range(i):
@@ -62,8 +62,6 @@ def optimal_broadcast2(R,K,cost:np.ndarray):
 def optimal_broadcast3(R,K,cost:np.ndarray):
     dp = np.full((K,len(R)),np.inf)
     opt = np.zeros((K,len(R)))
-    # opt = np.array([[np.array([]) for _ in range(len(R))] for _ in range(K)], dtype=object)
-    # dp[0,0]=0
     for i in range(len(R)):
         dp[0,i]=cost[0,i]
         opt[0,i]=i
@@ -126,8 +124,8 @@ if __name__ == "__main__":
     cost = precompute_cost(r)
     print(cost)
     print()
-    opt,dp=optimal_broadcast3(r,k,cost)
-    print(*optimal_broadcast3(r,k,cost))
+    opt,dp=optimal_broadcast2(r,k,cost)
+    print(*optimal_broadcast2(r,k,cost))
     opt_schedule = postprocess_opt(opt)
     opt_schedule.reverse()
     print(opt_schedule)

@@ -1,0 +1,89 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage[scale={0.8,0.9},centering,includeheadfoot,dvips, nohead]{geometry}
+\usepackage[obeyspaces,spaces]{url}
+
+
+\pagestyle{empty}
+
+\newcommand{\solution}{\textbf{Solution}\\}
+
+
+
+
+
+\begin{document}
+
+\noindent
+ UCSC CSE201 Homework 4 \hfill Fall 2025 \\
+Last update: 11/04/2025 \\
+ \rule{\textwidth}{0.5pt}
+
+
+
+\enlargethispage*{1.5cm}
+
+
+
+
+\begin{enumerate}
+
+\item (10 pts) Briefly explain the integrality of max flow. 
+
+\solution
+if the edges in a graph have integer weights, then there exists a max flow where all edges have integer flows.
+
+\item (10 pts) Given an $s$-$t$ network graph, Professor X solved the $s$-$t$ max flow problem and the $s$-$t$ min-cut problem. How  can you \emph{verify} that both his solutions are correct without solving the problems from scratch? That is, given a feasible $s$-$t$ flow $f$ and a valid $s$-$t$ cut $(S, T)$, you want to quickly verify that $f$ is a maximum flow and $(S, T)$ is a minimum cut simultaneously. Explain how.
+
+\solution
+a random cut must be greater than or equal to the true max flow, since any random cut is \(\geq\) than the min cut. similarly, a random flow must be \(\leq\) than the max flow. if one finds a flow that is equal to a cut, then they must be both the max flow and min cut since no cut can be less than a flow, and no flow can be greater than a cut. just verifying that flows are less than capacities and sum the flows exiting \(s\), then verify the cut capacity is what is claimed by summing. 
+
+
+
+\item (10 pts)  Given an $s$-$t$ cut $(S, T)$, explain how to compute the cut value (capacity) in linear time. 
+   
+\solution
+
+use a for loop over all edges. check if start vertex is in \(s\) and end is in \(t\). if so, add the weight. this program ranges over all edges only once and thus is linear
+
+
+
+\item (20 pts) Professor X claims the following: ``Hey, I solved the shortest path problem for you. I computed the shortest distance from $s$ to each vertex $v$, $d_v$. You can check if $d_v$ is indeed the true shortest distance by relaxing every edge once and checking that none of the $d_v$ values change.'' Is his claim true? If it is true, explain why. If not, give a counter example. You can assume that there are no negative weight edges. 
+
+\solution
+this claim is true. the claim is ``if you relax each edge and nothing changes, then the shortest path is found'', but this is equivalent to ``if the shortest path is not found, there exists some edge such that when relaxed the shortest distance is changed''. this second statement is true almost trivially. 
+
+
+\item (20 pts)  We're given as an input an undirected connected graph $G$ with distinct weights on edges along with its MST $T$. Suppose we choose an arbitrary edge $(x,y)$ of the tree $T$ and decrease its weight to $w'(x, y)$ from $w(x, y)$. Explain why the MST remains unchanged after this change. 
+(Hint: for any edge $(a, b)$ of $T$, explain why it is still safe even after the weight change.)
+
+
+
+\solution
+consider a cut and edge \(e\) taht is safe. every edge in the cut has value greater than \(w(e)\), thus if \(w_u(e)<w(e)\) where \(w_u\) is the updated weight, then \(w(e_o)>w_(e)>w_u(e)\) where \(e_o\) are the other edges in the cut. thus the new weighted edge remains safe. 
+
+
+
+\item (20 pts)  There exists a directed acyclic graph $G = (V, E)$ along with two distinct vertices $s$ and $t$ in $V$. At each point in time, each edge $e$ is ``active'' with probability $p_e > 0$, independently of other edges. Our goal is to find an $s$-$t$ path all of whose edges are active with the highest probability. Solve this problem by reducing it to the shortest path problem. What is the run time?
+
+
+
+
+\solution
+
+convert the probabilities to \(1-p\), then log these values which takes \(O(1)\) time assuming the int is fixed size. run dijkstras which takes \(O((V+E)\log V)\) time. i used chatgpt to check runtimes
+
+
+
+
+\item (10 pts; bonus) Write your favorite quote that motivates you. If you do have one but don't want to disclose it, just reflect on it privately and write ``I confirm that I motivated myself.''
+
+``I reject your reality and substitute my own'' - adam savage
+
+
+
+
+\end{enumerate}
+
+
+\end{document}
+
