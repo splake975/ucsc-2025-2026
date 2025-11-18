@@ -4,6 +4,7 @@
 \usepackage{amsthm}
 \usepackage{mathtools}
 \DeclarePairedDelimiter\ev{\langle}{\rangle}%
+\usetikzlibrary{calc}
 
 % \makeatletter
 % \g@addto@macro\normalsize{%
@@ -116,7 +117,7 @@
 \begin{frame}
     \frametitle{Theorem Statement}
     \begin{theorem}
-        Let G be a \(d\)-regular graph with diameter \(D\) and \(\lambda_2\) be the second largest eigenvalue of \(G\)'s adjacency matrix and at least \(d-\frac{1}{2}n\). then \(Sph(G)=\Omega\left( \frac{d-\lambda_2}{D^2(\lambda_2+O(1))} \right)= \Omega(\frac{n}{\lambda_2+1})\) 
+        Let G be a \(d\)-regular graph with diameter \(D\) and \(\lambda_2\) be the second largest eigenvalue of \(G\)'s adjacency matrix and at least \(d-\frac{1}{2}n\). Then \(Sph(G)=\Omega\left( \frac{d-\lambda_2}{D^2(\lambda_2+O(1))} \right)= \Omega(\frac{n}{\lambda_2+1})\).
     \end{theorem}
     
 
@@ -266,6 +267,56 @@
     \begin{equation}
         Sph(K_{n,n})\geq n
     \end{equation}
+
+    \begin{center}
+        \begin{tikzpicture}[scale=3]
+
+    % Side length of equilateral triangle
+    \def\s{1}
+
+    % Shift vector for the prism depth (same length for all three edges)
+    \coordinate (shift) at (0.35,0.25);
+
+    % Front (equilateral) triangle
+    \coordinate (A) at (0,0) ;
+    \coordinate (B) at (\s,0);
+    \coordinate (C) at ({\s/2},{\s*0.866}); % 0.866 = sqrt(3)/2
+
+    % Back triangle (translated by the same shift vector)
+    \coordinate (A') at ($(A)+(shift)$);
+    \coordinate (B') at ($(B)+(shift)$);
+    \coordinate (C') at ($(C)+(shift)$);
+
+    % Draw front face
+    \draw[thick] (A) -- (B) -- (C) -- cycle;
+
+    % Draw back face
+    \draw[thick] (A') -- (B') -- (C') -- cycle;
+
+    % Connect corresponding vertices (equal length edges)
+    \draw[thick,label=below:$1+\varepsilon$] (A) -- (A');
+    \draw[thick] (B) -- (B');
+    \draw[thick] (C) -- (C');
+
+    \node[circle, fill, inner sep=1.5pt, label=below:$A$] (pA) at (A) {};
+    \node[circle, fill, inner sep=1.5pt, label=below:$B$] (pB) at (B) {};
+    \node[circle, fill, inner sep=1.5pt, label=above:$C$,color=red] (pC) at (C) {};
+    \node[circle, fill, inner sep=1.5pt, label=below:$A'$] (pA') at (A') {};
+    \node[circle, fill, inner sep=1.5pt, label=below:$B'$] (pB') at (B') {};
+    \node[circle, fill, inner sep=1.5pt, label=above:$C'$] (pC') at (C') {};
+    
+    \def\r{0.95}
+
+    % outline of sphere
+    \draw[dotted, thick, color=red] (C) circle (\r);
+
+    % equator ellipse (3D effect)
+    \draw[dotted, thick, color=red] (C) ellipse ({\r} and {0.35*\r});
+
+    \end{tikzpicture}
+    \end{center}
+    
+
 
 \end{frame}
 
