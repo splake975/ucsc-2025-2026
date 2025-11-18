@@ -59,6 +59,8 @@
                 \node[circle, fill, inner sep=1.5pt, label=below:$A$] (A) at (0, 0) {};
                 \node[circle, fill, inner sep=1.5pt, label=below:$B$] (B) at (3, 1.6) {};
                 \node[circle, fill, inner sep=1.5pt, label=below:$C$] (C) at (2.2, 2) {};
+                \node[circle, fill, inner sep=1.5pt, label=below:$D$] (D) at (2.2, 2.8) {};
+                \node[circle, fill, inner sep=1.5pt, label=right:$E$] (E) at (3.1, 2.9) {};
         
                 % Optionally, you can connect them with lines to form a triangle
                 % \draw (A) -- (B) -- (C) -- cycle;
@@ -66,6 +68,8 @@
                 \draw (A) circle (1);
                 \draw (B) circle (1);
                 \draw (C) circle (1);
+                \draw (D) circle (1);
+                \draw (E) circle (1);
             \end{tikzpicture}
         \end{aligned}
         \implies
@@ -76,13 +80,17 @@
                 \node[circle, fill, inner sep=1.5pt, label=below:$A$] (A) at (0, 0) {};
                 \node[circle, fill, inner sep=1.5pt, label=below:$B$] (B) at (3, 1.6) {};
                 \node[circle, fill, inner sep=1.5pt, label=below:$C$] (C) at (2.2, 2) {};
+                \node[circle, fill, inner sep=1.5pt, label=left:$D$] (D) at (2.2, 2.8) {};
+                \node[circle, fill, inner sep=1.5pt, label=above:$E$] (E) at (3.1, 2.9) {};
         
                 % Optionally, you can connect them with lines to form a triangle
-                \draw (B) -- (C) -- cycle;
+                \draw (B) -- (C) -- (D) -- (E) -- cycle;
         
                 \path (A) circle (1);
                 \path (B) circle (1);
                 \path (C) circle (1);
+                \path (D) circle (1);
+                \path (E) circle (1);
             \end{tikzpicture}
         \end{aligned}
     \end{equation}
@@ -101,6 +109,7 @@
             \left| E(S, T) - \frac{d}{n} |S||T| \right| \leq \lambda_2 \sqrt{|S||T|}
         \end{equation}
         \item \(\lambda_2\) controls for ``worst case deviation''
+        \item good expander graphs lack local clusters; local clusters are easy to compress
     \end{itemize}
 \end{frame}
 
@@ -223,6 +232,9 @@
     
         \item on edges, \(A_{ij} = 1-\alpha\), on non edges \(A_{ij} = 1\) and we want edge \(A_{ij}\) to be less than -1 by our optimization problems, thus \(\alpha\geq 2\)
         \item finally, we can check that A's eigenvalues are the same as Ms, with an eigenvector u having eigenvalue \((\alpha d-n)-\alpha\lambda_i\). to ensure this is psd, alpha is set to \(\frac{n}{d-\lambda_2}. \)
+        \begin{itemize}
+            \item note that \(A\vec 1 = 0\)
+        \end{itemize}
         \item This \(A\) gives an upper bound on the value~\ref{obj}
     \end{itemize}
 
@@ -244,5 +256,18 @@
     \qed
 
 \end{frame}
+
+\begin{frame}
+    \frametitle{some results on bipartite graphs}
+
+    \begin{equation}
+        Sph(K_{m,n})\leq m+\frac{n}{2}-1
+    \end{equation}
+    \begin{equation}
+        Sph(K_{n,n})\geq n
+    \end{equation}
+
+\end{frame}
+
 
 \end{document}
