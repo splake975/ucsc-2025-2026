@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+positive result:
+
+assume realizability, assume \(m\) combinations of 3 points instead of 4 point comparisons
+
+\(O(\sqrt{m} )\) suffices
+
+create dependency graph, draw edges for constraint (abc), draw on (ab),(ac)
+
+the answer will depend on \emph{arboricity}
+
+\begin{definition}[arboricity]
+    the arboricity of a graph is the min \# of forests in which edges can be partitioned
+\end{definition}
+
+if r is the arboricity, and \(S\) is the set of subgraphs of \(G\),
+\begin{equation}
+    r = \max_S{\frac{|E_S|}{|V_S|-1}}
+\end{equation}
+
+if a graph \(G\) has arb \(r\), then it is \(2r\) colorable
+
+\(r\leq 2\sqrt{|E_G|}\)
+
+
+\(\exists\) an ordering of \(V\in G\), \(x_1,\dots,x_n\), every \(|N(x_i)\leq 2r-1\) for \(i<j\) for \(x_j\) where \(N\) gives the neighbors of \(x\)
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usetikzlibrary{trees}
+\usetikzlibrary{graphs}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+
+\title{lecture}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{relaxation}
+
+distortion: if a distance is 1, then it gets converted to 17 then 17 is the distortion?
+
+\subsection{ordinal relaxation \(\alpha\)}
+
+cosnider \begin{equation}
+    \phi:(X,\delta)\to (Y,\delta^\prime)
+\end{equation}
+
+if \(\alpha\delta(ij)<\delta(k,l)\implies\delta^\prime(ij)<\delta^\prime(kl)\)
+
+then \(\phi\) is an oridnal embedding w relaxation \(\alpha\)
+
+i.e. distances that are different enough should be preserved (distances that are close to being the same can be violated)
+
+
+\section{tradeoffs \(\alpha\) vs d}
+
+for every int d, n, families of metric spaces cannot be embedded unless high relaxation \(\alpha\) is allowed. i.e. \(\exists \) metric space \(T\) on n points such that the \emph{triplet relaxation } of any ordinal embedding of \(T\) into \(d\)-dimensional euclidean space will be at least \begin{equation}
+    \frac{\log n}{\log d + \log\log n+8}-1
+\end{equation}
+
+
+\begin{definition}[girth]
+    size of the smallest cycle in a agraph
+\end{definition}
+
+
+the idea:
+create a large number of metric spaces using one graph with large girth. the number of metrics here will be greater than the number of ordinal embeddings in \(\mathbb R^a\), thus cutting just one will cause the distance between some two points to be at least the girth minus one, which means the distortion/relaxation has to be at least \(G-1\). 
+
+key question: How dense can a graph be with a high girth?
+
+
+\begin{proof}
+    pick a high girth graph \(G(V,E)\) with \(\lvert V\rvert = n\).\begin{equation}
+        m=\lvert E\rvert \geq \frac{1}{4}n^{1+\frac{1}{g}}
+    \end{equation}
+    idea, start w random graph, delete edges that create small cycles. the number of edges needed to be removed is ``not htat many''
+
+    pick \(g=\frac{\log n}{\log d + \log\log m + 8}\)
+
+    the number of \(\lvert E\rvert>16nd\log n\approx n log n\)
+
+
+    \subsection{idea}
+    now subsample the graph. large number \(N\), \(G_1,\dots G_n\) (\(G_i\) are graphs)
+
+    for a pair \(G_i,G_j\), \(\exists v\in V\) ST in \(G_i\) \(v w\) are connected, but in \(G_j\) they are not connected. but also another pair \(v,u\) are connected in \(G_j\) but not in \(G_i\). 
+
+
+    i.e. \(E_{G_j}(v)\setminus E_{G_j}(v)\neq \null\) and \(E_{G_j}(v)\setminus E_{G_i}(v)\neq \null\) where \(E(v)\) are the edges around \(v\). 
+
+    \(v\) is called the ``witness''. in a sense, v is a vertex where \(G_{ij}\) differ.
+
+
+    \subsection{continue}
+    now lets do the subsampling property.
+
+    independently sample each edge in the original graph w probability \(\frac{1}{2}\) w \(m\) edges. this generates \(N = 2^{bm}\) graphs for \(b<\frac{1}{2}\log_2 \frac{4}{3}\). 
+
+    \begin{lemma}
+        the set of subgraphs \(G_i\) satisfy the faraway property in the idea section.
+    \end{lemma}
+
+    \begin{proof}
+        simplifying assumptions: 
+        \begin{itemize}
+            \item the original graph (the one w high girth) is \(k\) regular.
+            \item independence on \(v\) being a witness for any 3 sets of \(G_ijk\)
+
+        \end{itemize}
+
+        the probability of \(v \) being not a witness for \(G_i,G_j\) is \(\leq 2\left( \frac{3}{4} \right)^k \)
+
+    \end{proof}
+
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+\end{document}
