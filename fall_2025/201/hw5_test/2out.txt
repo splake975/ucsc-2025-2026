@@ -1,0 +1,5 @@
+Please enter the name of the file (e.g., my_data.txt):  2.txt
+
+=== Result ===
+Max Profit: 1099
+Projects: 0, 1, 2, 3, 6, 7
