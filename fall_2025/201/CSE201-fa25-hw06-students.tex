@@ -1,0 +1,247 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage[scale={0.8,0.9},centering,includeheadfoot,dvips, nohead]{geometry}
+\usepackage[obeyspaces,spaces]{url}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{amsmath}
+
+\pagestyle{empty}
+
+\usepackage{tikz}
+
+
+% Type 1: no solution 
+% Type 2: with solution
+% Type 3: with solution + details for TA/instructor
+
+
+\def\doctype{3}
+% \input{toggle-header}
+
+
+\newcommand{\hamcycle}{\textsc{HamCycle}\xspace}
+\newcommand{\hampath}{\textsc{HamPath}\xspace}
+\newcommand{\clique}{\textsc{Clique}\xspace}
+\newcommand{\tsat}{\textsc{3SAT}\xspace}
+\newcommand{\sss}{\textsc{Subset-Sum}\xspace}
+\newcommand{\partition}{\textsc{Partition}\xspace}
+\newcommand{\balance}{\textsc{Balance}\xspace}
+\newcommand{\sws}{\textsc{SWS}\xspace}
+
+
+
+\begin{document}
+
+\noindent
+ UCSC CSE201 Homework 6 \hfill Fall 2025 \\
+Last update: 11/26/2025 \\
+ \rule{\textwidth}{0.5pt}
+
+
+
+
+\begin{enumerate}
+
+
+\item (10) {Reduction from \textsc{Partition} to \textsc{Subset-Sum}}
+
+Using the fact that \textsc{Partition} is NP-hard, show that \textsc{Subset-Sum} is also NP-hard. (This is a straightforward problem and we saw the reduction in the opposite direction). 
+
+Recall:
+\begin{description}
+    \item[\textsc{Partition}:] We are given $m$ positive integers $a_1, a_2, \ldots, a_m$. The instance is a yes-instance if they can be partitioned into two groups with an equal sum.
+    \item[\textsc{Subset-Sum}:] We are given $n$ positive integers $b_1, b_2, \ldots, b_n$, together with a target integer $T$. The question is if there exists a subset of the integers that add up to exactly $T$.
+\end{description}
+
+\textbf{solution}
+
+the reduction is to ask if there exists a subset sum of 
+\begin{equation}
+    T=\frac{\sum_{i=1}^{m}a_m}{2}
+\end{equation} on the same set 
+
+note if the partition exists, the value each half sums to is exactly this value. deviations means that the sum of each partition does not add up to the total sum of the set which is a contradicton.
+
+this proves that if the mapped to the instance returns false then partition is also false by contrapositive. 
+
+if subset sum is true, then one half of the partition is the returned subset. the other half has sum \begin{equation}
+    \sum_{i=1}^{m}a_m - \frac{\sum_{i=1}^{m}a_m}{2} = \frac{\sum_{i=1}^{m}a_m}{2}
+\end{equation} and thus the partition exists
+
+
+
+
+\item (10) Recall that in the \textbf{Secretary Problem}, we interview $n$ candidates in random order for one position and wish to hire the best one. The important constraint is that we should make the hiring decision immediately and irrevocably. Suppose we first observe $\lambda n$ secretaries (without hiring) and hire the first candidate thereafter who is better than the best observed in the first phase.
+
+
+
+Briefly explain why we hire the best secretary with probability at least $\lambda(1 - \lambda)$. Here, we assume that $n$ is sufficiently large and $\lambda \in (0, 1)$ is a constant.
+
+
+
+\textbf{solution}
+
+the actual probability is all combinations of successes, but one combination of success is where the second best candidate appears in the first \(\lambda\) percent of the candidates and the best is in the \(1-\lambda\) percent. the probability of this outcome is \(\lambda(1 - \lambda)\) as n goes to infinity, thus the probability is at least this value. 
+
+
+\newpage
+
+\item (20) In the Max-Coverage problem, we are given a collection of sets $\mathcal{S} = \{S_1, S_2, \dots, S_m\}$ over a universe $U$ of size $n$, and an integer $k$. We would like to recap the analysis of the greedy algorithm (see the pseudocode below) for this problem for a special case. 
+
+That is, assume that there exists $Y \subseteq \{1, 2, \ldots, m\}$ with $|Y| = k$ such that $|E(Y)| = n$, where $E(Y) := \bigcup_{i \in Y} S_i$. In other words, there exist $k$ sets that cover all the elements.
+
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwIn{A collection of sets $\mathcal{S} = \{S_1, S_2, \dots, S_m\}$, integer $k$}
+\KwOut{A set of indices $X$}
+
+ $X \gets \emptyset$\;
+ \While{$|X| < k$}{
+  $E \gets \bigcup_{j \in X} S_j$\;
+  \tcc{Select the set that covers the maximum number of uncovered elements. }
+  $i \gets \arg \max_{j} |S_j \setminus E|$\;
+  $X \gets X \cup \{i\}$\;
+ }
+ \Return{$X$}\;
+ \caption{Greedy Maximum Coverage}
+\end{algorithm}
+
+Our goal is to show that $|E(X)| \geq (1 - 1/e) n$, where $E(X) := \bigcup_{i \in X} S_i$, meaning that our solution covers at least a $(1 - 1/e)$ fraction of the whole universe.
+
+\begin{enumerate}
+    \item Let $X_t$ denote the first $t$ set indices our greedy algorithm chose. Let $z_t := n - |E(X_t)|$. Explain why $z_{t+1} \leq (1 - 1/ k) z_t$.
+    
+    \item Show that $z_k \leq (1 - 1/ k)^k n$.
+    
+    \item Show that $z_k \leq \frac{1}{e} n$ using the fact that $1+ x \leq e^x$ for all $x$.
+    
+    \item Show that $|E(X)| \geq (1 - 1/e) n$.
+\end{enumerate}
+
+\newpage
+\item (20) Consider the following two problems.
+
+\begin{description}
+    \item[(Limited) Load Balancing:] We have $n$ jobs where each job $j$ has a positive integer size $p_j$. We have 10 identical parallel machines and a target max load of $T$. We want to know if it is possible to assign each job to one of the machines so that every machine's load (defined as the total size of jobs assigned to the machine) is at most $T$.
+    
+    \item[Partition Problem:] We are given $m$ positive integers $a_1, a_2, \ldots, a_m$. The instance is a yes-instance if they can be partitioned into two groups with an equal sum.
+\end{description}
+
+It is known that Partition is NP-hard. By reducing Partition to Load Balancing, show that Load Balancing is NP-hard.
+
+\textbf{solution}
+
+let \begin{equation}
+    S=\sum_{i=1}^{m}a_i
+\end{equation}
+
+feed the jobs into load balancing with the set \(A\) and 8 additional jobs with each one costing \(S/2\). the max load is defined to be \(T = S/2\). 
+
+the solution must make the two ``real'' jobs be equal to \(S/2\) and it is possible iff the partition problem is solvable. the partition in the load balancing is exactly the partition that solves the partition problem. 
+
+
+\newpage
+\item (20) We learned Algorithm ``R'' in class for drawing a uniform sample from a stream of items. See the following pseudocode. 
+
+\begin{algorithm}
+\KwIn{A stream of items $S = x_1, x_2, \dots$; integer $k > 0$}
+\KwOut{A set of $k$ items (the reservoir)}
+
+ $R \gets \{x_1, \dots, x_k\}$\;
+ $i \gets k + 1$\;
+ \While{$x_i \in S$}{
+  With a probability $\frac{k}{i}$:\;
+  \Indp
+    Evict one item from $R$ uniformly at random.\;
+    Add $x_i$ to $R$.\;
+  \Indm
+  $i \gets i + 1$\;
+ }
+ \Return{$R$}\;
+ \caption{Reservoir Sampling (Algorithm R)}
+\end{algorithm}
+
+This algorithm returns a uniform sample $R$ of size $k$ from $S$, meaning that for each $x_i \in S$, $\Pr[x_i \in R] = k / |S|$. Now suppose each item $x_i$ is associated with a positive integer weight $w_i$. Modify the algorithm, so that the sample chooses items in proportion to their weight. In other words, your goal is to ensure
+$\Pr[x_i \in R] = k \cdot w_i / W$ where $W := \sum_{j \in S} w_j$. For simplicity, you can assume that $i$ is sufficiently large so that $k w_j / |S| \leq 1$  for all $j \leq i$ and you only need to modify lines 3-7 in the algorithm. 
+
+\textbf{solution}
+
+\begin{algorithm}
+\KwIn{A stream of items $S = x_1, x_2, \dots$; integer $k > 0$}
+\KwOut{A set of $k$ items (the reservoir)}
+
+ $R \gets \{x_1, \dots, x_k\}$\;
+ $i \gets k + 1$\;
+ \(W \gets \sum_{j=1}^{k}w_i\)\;
+
+
+ \While{$x_i \in S$}{
+ \(W+=w_i\)\;
+  With a probability $\frac{kw_i}{W}$:\;
+  \Indp
+    % Evict one item \(x_j\in R\) with probability  \(1-\frac{w_j}{w_i}\).\;
+    Evict one item \(x_j\in R\) with probability  \(\frac{w_j}{kw_i}\).\;
+    % Evict one item \(x_j\in R\) with probability  \(\frac{1-w_j/W}{kw_j/W}\).\;
+    % Evict one item \(x_j\in R\) with probability  \(\frac{W-w_j}{kW}\).\;
+    Add $x_i$ to $R$.\;
+  \Indm
+  $i \gets i + 1$\;
+ }
+ \Return{$R$}\;
+ \caption{Reservoir Weighted Sampling (Algorithm Weighted R)}
+\end{algorithm}
+
+note, we assume that \(\textrm{Pr}[x_j\in R \text{before}] = \frac{kw_j}{W-w_j}.\)
+
+% probability of eviction is 
+% \begin{equation}
+%     1-\frac{kw_i}{W} \cdot \left( 1-\frac{w_j}{w_i} \right) = 1-\frac{k\left( w_i-w_j \right)}{W} 
+% \end{equation}
+thus after step i we want, 
+
+\begin{equation}\begin{split}
+        \frac{kw_j}{W} = \frac{kw_j}{W-w_j} \cdot \frac{W-w_j}{W}
+        % =&\frac{kw_j}{W-w_j} \cdot 1-\frac{k\left( w_i-w_j \right)}{W} \\
+        % =&\frac{kw_j}{W-w_j} \cdot \frac{W-k\left( w_i-w_j \right)}{W} \\
+\end{split}
+\end{equation}
+
+thus we want \(\frac{W-w_j}{W} = \) probability of survival. 
+
+\begin{equation}
+    \frac{W-w_j}{W} = 1-\left( \frac{kw_i}{W} \cdot a \right)
+\end{equation}
+
+where a is the probability of eviction given that an element is choosen to replace an element in R.
+
+\begin{equation}
+    a = \frac{w_j}{kw_i}
+    % a = 
+    % \frac{W-w_j}{W} = 1-\left( \frac{kw_i}{W} * a \right)
+\end{equation}
+
+
+i used chat gpt to explain the original algorithm
+
+
+
+
+\newpage
+\item (20) 
+Recall that we can solve maximum cardinality bipartite matching using max flow. Now, consider the following variant: We are given a bipartite graph $G = (L \cup R, E)$. It is convenient to think of $L$ as a set of kids and $R$ as a set of items. An edge $(u, v)$ for $u \in L$ and $v \in R$ means that we can give item $v$ to kid $u$. The set of items $R$ is partitioned into two groups, $A$ and $B$. Due to inventory constraints, we can distribute at most $c_A$ items from group $A$, at most $c_B$ items from group $B$, and at most $c$ items in total. Our goal is to determine if it is possible for every kid to receive exactly one item.
+
+Solve this problem. Make your solution concise by focusing on how you can modify the solution for the original maximum cardinality matching. 
+
+\textbf{solution}
+
+take the original solution to max flow. instead of connecting the start node to each A,B, add two intermediary nodes. make the flow from hte start to the A intermediary node capacity \(c_a\) and B intermediary node to be \(c_b\). then connect the intermediary A node to the elements in A and intermediary B to B. make sure the connections out of each item in R is 1 (to the terminal node)
+
+
+if the max flow is \(|A|+|B|\), then it is possible for each child to receive one item. 
+
+
+\end{enumerate}
+
+
+\end{document}
+
