@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{graphicx}
+
+\usepackage{amsmath,amsfonts,amsthm,tikz} %packages for math symbols
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\newenvironment{solution}
+  {\begin{proof}[Solution]}
+  {\end{proof}}
+
+
+\title{hw 1}
+\author{Ian Chi}
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item the sum over all x and y should add up to 1. 
+        \begin{equation}
+            \sum_{x\in\{0,1,2\}}^{}\sum_{y\in\{0,1\}}^{}c(x+y) = 1
+        \end{equation}
+
+        this implies \(c =\left( \sum_{x\in\{0,1,2\}}^{}\sum_{y\in\{0,1\}}^{}(x+y) \right)^{-1}\)
+        \(c = 1/9\)
+
+
+        \item \begin{equation}
+            P(x) = \sum_{y}^{} c(x+y) = c(x+1)
+        \end{equation}
+        \begin{equation}
+            P(y) = \sum_{x}^{} c(x+y) = c(y+3)
+        \end{equation}
+        \item \begin{equation}
+            P(x|y=1) = \sum_{x}^{}c_2(x+1)
+        \end{equation}
+        where \(c_2 = 1/6\)
+
+        \item no. the distribution for x changes based on whether y is 0 or 1.
+
+
+    \end{enumerate}
+
+    \item 
+
+
+\end{enumerate}
+
+\end{document}
