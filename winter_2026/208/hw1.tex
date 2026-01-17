@@ -57,14 +57,69 @@
         \end{equation}
         \item the pmf just follows a binomial distribution with \(p=p\)
         \begin{equation}
-            P(x)  = {n\choose x} p^x (1-p)^n-x
+            P(x)  = {n\choose x} p^x (1-p)^{n-x}
         \end{equation}
         \begin{equation}
-            P(x\geq k) = \sum_{k}^{n} {n\choose x} p^x (1-p)^n-x
+            P(x\geq k) = \sum_{k}^{n} {n\choose x} p^x (1-p)^{n-x}
+        \end{equation}
+        \item \begin{equation}
+            P(Z_1 = 1|S_n\geq 1) =\frac{P(S_n\geq 1| Z_1 = 1) P(Z_1)}{P(S_n\geq 1)} = \frac{1 \cdot p}{\sum_{k}^{n} {n\choose x} p^x (1-p)^{n-x}}
+        \end{equation}
+        the probability changes since we know one at least is true, each one is more likely to be working.
+        \item \begin{equation}
+            P(T > m | S_n \geq 1) = \frac{1}{(1-p)^T}P(Z_1 = 1|S_{n-m}\geq 1)
+        \end{equation}
+        this question is the same as the original problem except the first m failed. the probability that the first m failed is \(\frac{1}{(1-p)^T}\) thus we multiply them together and they are independent since no packet affects the outcome of the next packet.
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item the distribution is an exponential distribution but discrete. 
+        \begin{equation}
+            P(T=k) = (1-p)^{k-1}p
+        \end{equation}
+        \item \begin{equation}
+            1- \sum_{i=0}^k  (1-p)^{i-1}p = (1-p)^k
+        \end{equation}
+        \item apply \begin{equation}
+            \sum kr^{k-1} = \frac{1}{(1-r)^2}
+        \end{equation} for r between 0 and 1. since 1-p is between 0 and 1,\begin{equation}
+            \mathbb E(T) = \sum kP(T=k) = \frac{1}{p}
         \end{equation}
         \item 
-    \end{enumerate}
+        \begin{equation}
+            \begin{split}
+                P(T>m+n|T>m) &= \frac{P(T>m|T>m+n)P(T>m+n)}{P(T>m)} \\
+                &= \frac{1\cdot(1-p)^{m+n}}{(1-p)^m} = (1-p)^n
+            \end{split}
+        \end{equation}
 
+        it means we sort of can restart our algorithm at the beginning if something fails before. 
+
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item the probability is \(\frac{1}{100}\). 
+        \item the probability is concentrated into one door and thus the probability is \(\frac{99}{100}\).
+        \item staying always results in \(\frac{1}{100}.\) swapping gives probability 
+        \begin{equation}
+            \frac{99}{100} \frac{1}{99-k}
+        \end{equation}
+        where k is the number of doors opened. the probability is concentrated into \(99-k\) doors so the probability is distributed \(\frac{1}{99-k}\) ways.
+        \item yes. the probability in the equation above is greater than \(\frac{1}{100} \) for all \(k\geq 1\)
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item since each person removes a month from the possibilities of the next persons birthday we see the probability is \begin{equation}
+            \frac{12!}{(12-n)!(12)^n}
+        \end{equation}
+        for \(n\leq 12\). then 0 for \(n>12\). 
+        \item the probability is \begin{equation}
+            1-\frac{12!}{(12-n)!(12)^n}
+        \end{equation}.
+        each person removes a 1/12 probability that the next person has of colliding. 
+        \item it takes 5 people. p(same birth month with 5 people) = .61806
+        \item the probability 3 birthdays collide is \(\frac{1}{12}^2\). there should be approx \({n\choose 3}\) ways fo this to happen, thus
+        \begin{equation}
+            P_3(n) = \frac{{n\choose 3}}{144}
+        \end{equation}
+    \end{enumerate}
 
 \end{enumerate}
 
