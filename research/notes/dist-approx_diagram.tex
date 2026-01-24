@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{graphicx}
+
+\usepackage{amsmath,amsfonts,amsthm,tikz} %packages for math symbols
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\newenvironment{solution}
+  {\begin{proof}[Solution]}
+  {\end{proof}}
+
+
+\title{diagram for keeping track of terms in part 2}
+\author{Ian Chi}
+\date{\today}
+\begin{document}
+\maketitle
+
+\(C\) is a subset that can be removed to get opt. it is of size \(\varepsilon_f n\) where n is the size of the list.\\
+
+\(\delta\) big elements  \(i \in [n]\) and have another \(j\in [n]\) such that \(\frac{1}{2} - \delta\) percent of elements between \(i\) and \(j\) violate monotonicity. 
+
+Claim: opt requires removing exactly half of all 0-big\\
+
+
+~\\
+\quad
+
+\begin{tabular}{ |c|c|c|c| } 
+    term & directional & can be in c & must be in c\\
+    \hline
+    \(\delta\) big      & n & y & n\\
+    high/low critical   & y & y & n\\
+    left/right big      & y & y & n
+\end{tabular}
+
+~\\
+\(\delta \) big implies it is either left or right big and vice versa.
+
+\end{document}
