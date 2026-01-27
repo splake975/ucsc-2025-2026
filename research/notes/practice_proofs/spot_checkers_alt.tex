@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{graphicx}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+
+\newtheorem{lemma}[theorem]{Lemma}
+
+
+
+\newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
+
+\title{spot chekers lis alt proof}
+\author{Ian Chi}
+\date{\today}
+\begin{document}
+\maketitle
+
+0 big can be checked in \(\log n\) time.
+candidate \(2^{n}\) being witness for i being 1/4 big is checked in O(1) (this overfails but thats ok)
+assume that \(i\) is 0-big. check s elements in interval \([i,i+2^{n}]\). the probability that a witness \(j\) in the interval \([i+2^{n-1},i+2^{n}]\) is NOT found is \((3/4)^s\). making s large makes the probability that the algo fails to find 0-big very small. note \(s\) is \(O(1)\). 
+
+
+
+
+
+
+
+given the sequence should fail, the expected number of violations sampled is 1. 
+
+P(output F| bad sequence) = 3/4
+
+P(output F | test bad element) = \(1-\delta\)
+P(test bad element | bad sequence) = \(\varepsilon\) 
+
+P(A) = P(A|B) P(B)
+
+
+assume:
+\(\varepsilon\) violate monotonicity 
+
+
+
+
+
+
+
+check \(1/\varepsilon\) times. 
+    check for 0 big. if not found, continue. else fail.
+
+pass
+
+
+
+
+\begin{lemma}
+    if an element \(i\) is in a subset \(s\) such that when \(n-s\) gives an optimal monotone subsequence, then \(i\) is 0 big.
+\end{lemma} 
+
+\begin{proof}
+    \(i\) must have at least one witness \(j\) such that \(i<j, f(i)> f(j)\) or \(i>j, f(i)<f(j )\).  
+\end{proof}
+
+\begin{lemma}
+    given an element in a list length \(n\) and that is \(\varepsilon_f n\) away from monotonicity there exists an algorithm detects its violation from monotonicity that runs in \(\log n\) time
+    % given an element violates monotonicity there exists an algorithm that tests for this fact in \(\log n\) time where \(n \) is the size of the array.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+
+\end{document}

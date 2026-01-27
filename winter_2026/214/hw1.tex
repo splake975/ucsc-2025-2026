@@ -37,4 +37,112 @@ Time: 26.229 ms
 
 \section{}
 
+\begin{enumerate}
+    \item 1 is not. the query relies on checking every element in the database even if the active domain of E is small. 
+    
+    2. the only values that ever get returned are x and z that show up in R or S. so this query is DI
+
+    3. the formula is only more restrictive than 2 so it is also DI
+
+    \item 2 is a theta join over y then project on x and z. 
+    
+    \begin{equation}
+        \pi_{x,z} ( R \bowtie_{R.y = S.y} S )
+    \end{equation}
+    
+    3 is a theta join over y, then a filter with z = x, project on x and z.
+    \begin{equation}
+        \pi_{x,z} ( \sigma_{z=x}(R \bowtie_{R.y = S.y} S) )
+    \end{equation}
+
+    1. 
+    \begin{verbatim}
+    SELECT R.x, S.z
+    FROM R
+    JOIN S ON R.y = S.y;
+    \end{verbatim}
+
+
+    2. 
+    \begin{verbatim}
+    SELECT R.x, S.z
+    FROM R
+    JOIN S ON R.y = S.y
+    WHERE R.x = S.z;
+    \end{verbatim}
+    
+
+    TIMINGS:
+
+    \begin{verbatim}
+    epinions=# SELECT COUNT(*) FROM (
+    epinions(#     SELECT DISTINCT R.src AS x, S.dst AS z
+    epinions(#     FROM edges AS R
+    epinions(#     JOIN edges AS S
+    epinions(#     ON R.dst = S.src
+    epinions(# ) AS full_query;
+    count
+    ----------
+    20580980
+    (1 row)
+
+
+    Time: 11004.263 ms (00:11.004)
+    \end{verbatim}
+
+    % SELECT COUNT(*) FROM (
+    % SELECT DISTINCT R.src AS x, S.dst AS z
+    % FROM edges AS R
+    % JOIN edges AS S
+    % ON R.dst = S.src
+    % WHERE S.dst = R.src
+    % ) AS full_query;
+
+    \begin{verbatim}
+    epinions=# SELECT COUNT(*) FROM (
+    epinions(#     SELECT DISTINCT R.src AS x, S.dst AS z
+    epinions(#     FROM edges AS R
+    epinions(#     JOIN edges AS S
+    epinions(#     ON R.dst = S.src
+    epinions(#     WHERE S.dst = R.src
+    epinions(#     ) AS full_query;
+    count
+    -------
+    31100
+    (1 row)
+
+
+    Time: 221.799 ms
+    \end{verbatim}
+
+
+    
+
+    \item if you executed them in the order written in RA, then it seems like 2 would be faster, but in fact 3 is faster. this is probably because SQL knew to swap the order so the equivalence of x and z was checked first making the query faster.
+
+    
+
+
+
+\end{enumerate}
+
+\section{}
+\begin{enumerate}
+    \item consider the relations \(G^\prime\) describing graph \(G\) where the schema is source and terminal nodes for edges. (G can be directed).
+
+    the k clique problem would be 
+    \begin{equation}
+        \exists x_1 \dots \exists x_k \bigwedge_\text{ over all combinations of $x_i$,$x_i'$ } G^\prime(x_i,x_i')
+    \end{equation}
+
+    note that this conversion takes approx \(n^2\) time to complete. \({n\choose 2}\approx n^2\) asymptotically
+
+    this shows this problem is np hard. 
+    to show this problem is in np, a polynomial time verifiable certificate could be the exact set \(\{x_1\dots x_k\} \) such that the formula comes out true. this can be verified in polytime of the input because each clause takes at most O(1) to verify since we know there are only two arguments. 
+    \item this problem is now in P. given there are \(n\) clauses and \(m\) different elements in the domain and \(a\) variables, we can break the query into \(a\) single variable queries. each element in the domain takes at most \(n\) attempts per query. in total it would take \(a m n\) time which is in \(\mathbb P\).
+\end{enumerate}
+
+
+
+
 \end{document}
