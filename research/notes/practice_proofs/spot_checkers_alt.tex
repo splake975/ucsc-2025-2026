@@ -8,6 +8,8 @@
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[section]
+\usepackage{algpseudocodex}
+
 
 \newtheorem{lemma}[theorem]{Lemma}
 
@@ -20,6 +22,86 @@
 \date{\today}
 \begin{document}
 \maketitle
+
+\begin{lemma}\label{0big}
+    an element \(i\) being 0 big can be detected with probability \(\frac{3}{4}\) in \(O(\log n)\) time.
+\end{lemma}
+
+\begin{proof}
+    wlog let \(j\) be the smallest witness to \(i\)'s bigness and \(j>i\). There exists some \(n\) such that \(j\in [i+2^n,i+2^{n+1}]\). Since \(j\) is the smallest witness, the number of violations that \(i+2^n\) sees is \(<\frac{1}{2}\). the number of violations that \(i+2^{n+1}\) witnesses is at least \(\frac{j-i+1}{2}\geq \frac{1}{4}\cdot 2^{n+1}\). The probability of finding a violation given \(n\) samples is \((1-\frac{3}{4})^n\). If \(n\) is large enough, the probability that arbitrarily picking an element \(k\) in \([i+2^n,i+2^{n+1}]\) a violation \(f(k)<f(i)\) is found is greater than \(\frac{3}{4}\). Doing this procedure on \(i\) for all \(n\) in both directions until indecies exceed the bounds of the array guarantees that this algorithm returns BIG in \(2 \log_2 n\) time with at least \(\frac{3}{4}\) probability. 
+\end{proof}
+
+\begin{lemma}
+    Given an array of booleans of length \(n\) with \(\varepsilon\) Trues, the probability of picking at least 1 True given \(m\) samples of the uniform distribution is \(\geq 1-(e^{-m \varepsilon/2})\). \footnote{this is independent of \(n\) (!!)}
+\end{lemma}
+
+\begin{proof}
+    We know \begin{equation}
+        P(X \le (1-\delta)\mu) \le e^{-\frac{\mu\delta^2}{2}}
+    \end{equation} by the Chernoff bound formula.
+    The expected number of times True is picked given \(m\) samples is \(m \varepsilon\). By setting \(\delta=1\) and \(X\) to be the sum of \(m\) outcomes of Bernoulli distribution with success \(\varepsilon\), we see the probability of none of the Bernoulli distributions returning 1 (i.e. sampling true) is \begin{equation}
+        P(X = (1-1)\mu=0) \le e^{-\frac{m\varepsilon 1^2}{2}}
+    \end{equation}
+
+    The probability of picking at least 1 True is 1 minus this value.\footnote{The RHS of the can be set arbitrarily small by setting \(m=O\left( \frac{1}{\varepsilon}  \right) \). }
+
+    
+\end{proof}
+
+\begin{lemma}\label{violation_bigness_correspondance}
+    Given \(a<b\in [n]\) and \(f(a)>f(b)\), either \(a\) or \(b\) is 0 big.
+\end{lemma}
+\begin{proof}
+    let \(c\in (a,b)\). \(f(c)\) is either
+    \begin{enumerate}
+        \item greater than \(f(a)\)
+        \item less than \(f(a)\) and greater than \(f(b)\)
+        \item less than \(f(b)\)
+    \end{enumerate}
+    We count the number of violations \(a\) witnesses for \(b\), and \(b\) witnesses for \(a\). The proof would follow if either \(a\) is the bigness witness for \(b\) or \(b\) is the bigness witness for \(a\). 
+    Respective to the enumeration, \(c\) is in violation of \(b\), \( a\) and \( b\), \(a\) in each case respectively. Since every \(c\) is assigned as a violation for either \(a\) or \(b\), by pigeonhole there must be at least \(\frac{b-a+1}{2}\) violations for either \(a \) or \(b\). 
+\end{proof}
+
+
+\section{The algorithm}
+
+Given \(f:[n]\rightarrow \mathbb R\)
+\begin{algorithmic}
+    \For l \(O(\frac{1}{\varepsilon})\) times:
+        \State pick element \(a\in[n]\) and check if \(a\) is 0 big using lemma~\ref{0big}
+        \If {0 big} 
+            \State return FAIL
+        \EndIf
+    \EndFor
+
+\State return PASS
+\end{algorithmic}
+
+
+The probability detecting an element \(a\) is 0 big given it is in fact 0 big should be set to be \(\frac{3}{4} \dot\iota\) and the number of times the for loop repeats should be set so that the probability of sampling a 0 big element is at least \(\dot \iota\). 
+
+If \(\varepsilon n\) elements must be removed for the function \(f\) to be monotone, then there must exist at least \(\varepsilon n\) 0 big elements. This is true because an element \(e\) in violation of monotonicity implies \(e\) either works as \(a\) or \(b\) in lemma~\ref{violation_bigness_correspondance}. 
+
+\begin{equation}
+    \begin{split}
+        &=P(\text{FAIL}|\varepsilon \text{ violations of monotonicity}) \\
+        &= P(\text{FAIL}|\text{$\varepsilon$ 0 big elements}) \\
+        &= P(\text{FAIL}|\text{test 0 big element}) \cdot P(\text{test 0 big element}|\text{$\varepsilon$ 0 big elements})\\
+    \end{split}
+\end{equation}
+
+The final line is equal to greater than \(\frac{3}{4}\).
+
+
+
+
+\newpage
+NOTES: ignore
+
+
+
+\(m \varepsilon\) is the expected value
+
 
 0 big can be checked in \(\log n\) time.
 candidate \(2^{n}\) being witness for i being 1/4 big is checked in O(1) (this overfails but thats ok)
