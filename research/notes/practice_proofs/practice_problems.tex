@@ -10,6 +10,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \usepackage{algpseudocodex}
 
+\newcommand{\sol}{\textbf{sol.}}
 
 \newtheorem{lemma}[theorem]{Lemma}
 
@@ -22,6 +23,44 @@
 \date{\today}
 \begin{document}
 \maketitle
+
+\section{1.7}
+
+suppose we choose a permutation \(\pi\) of the ordered set \(N=\{1,2,\dots n\}\) uniformly at random from the space of all permutations of \(N\). let  \(L(\pi)\) denote the length of the longest increasing subsequence in permutation \(\pi\).
+\begin{itemize}
+    \item for large \(n\) and some positive constant \(c\), prove that \(\mathbb{E}[L(\pi)]\geq c\sqrt{n}\). 
+    
+    thoughts:
+
+    there must be some symmetry thing here
+    
+    i looked up hint that the product of lis and lds is \(n\).
+
+    \sol
+
+    
+
+
+
+
+    \item is the bound on (a) tight?   
+\end{itemize}
+
+\section {1.9}
+
+prove that FIND is \(O(n)\)
+
+\sol  
+
+binning takes \(O(n)\) to the input size. 
+
+each pivot being choosen has a chance of \(\frac{1}{n}\). the sum of 
+
+\begin{equation}
+    \mathbb E [T(n)] = cn+\sum_1^{n-1}\Pr(n)T[n] = cn+\frac{1}{n}O(n^2) = O(n)
+\end{equation}
+
+% in terms of the number of comparisons, the algorithm never compares the same element twice. the only time an element is compared is in the base case. 
 
 
 \end{document}
