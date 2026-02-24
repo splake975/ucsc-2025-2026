@@ -79,8 +79,8 @@
                     \begin{itemize}
                         \item AGM guarantees \(O(n^5)\)
                     \end{itemize}
-                    \item If \(n=\emptyset\), yanakakis will finish in \(O(n) \)
-
+                    \item If in one of the relations \(R_i\), there are no values. yanakakis will finish in \(O(n) \).
+                    \item if \(R_i\) is the root node, the bottom up phase removes nothing (\(R_i\) has nothing to remove) and the top down phase removes everything in \(O(n)\)
                 \end{itemize}
 
 
