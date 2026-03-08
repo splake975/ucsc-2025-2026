@@ -28,7 +28,7 @@
 \end{lemma}
 
 \begin{proof}
-    wlog let \(j\) be the smallest witness to \(i\)'s bigness and \(j>i\). There exists some \(n\) such that \(j\in [i+2^n,i+2^{n+1}]\). Since \(j\) is the smallest witness, the number of violations that \(i+2^n\) sees is \(<\frac{1}{2}\). the number of violations that \(i+2^{n+1}\) witnesses is at least \(\frac{j-i+1}{2}\geq \frac{1}{4}\cdot 2^{n+1}\). The probability of finding a violation given \(n\) samples is \((1-\frac{3}{4})^n\). If \(n\) is large enough, the probability that arbitrarily picking an element \(k\) in \([i+2^n,i+2^{n+1}]\) a violation \(f(k)<f(i)\) is found is greater than \(\frac{3}{4}\). Doing this procedure on \(i\) for all \(n\) in both directions until indecies exceed the bounds of the array guarantees that this algorithm returns BIG in \(2 \log_2 n\) time with at least \(\frac{3}{4}\) probability. 
+    wlog let \(j\) be the smallest witness to \(i\)'s bigness and \(j>i\). There exists some \(n\) such that \(j\in [i+2^n,i+2^{n+1}]\). Since \(j\) is the smallest witness, the number of violations that \(i+2^n\) sees is \(<\frac{1}{2}\). the number of violations that \(i+2^{n+1}\) witnesses is at least \(\frac{j-i+1}{2}\geq \frac{1}{4}\cdot 2^{n+1}\). The probability of finding a violation given \(n\) samples is \(1-\left( \frac{3}{4} \right)^n\). If \(n\) is large enough, the probability that arbitrarily picking an element \(k\) in \([i+2^n,i+2^{n+1}]\) a violation \(f(k)<f(i)\) is found is greater than \(\frac{3}{4}\). Doing this procedure on \(i\) for all \(n\) in both directions until indecies exceed the bounds of the array guarantees that this algorithm returns BIG in \(2 \log_2 n\) time with at least \(\frac{3}{4}\) probability. 
 \end{proof}
 
 \begin{lemma}
