@@ -158,7 +158,14 @@ See Figure 1 that shows two motif equations that relate properties of the adjace
     \label{fig:my_label}
 \end{figure}
 
+\sol 
 
+\begin{enumerate}
+    \item assume arbitrary two verticies \(u,v\) that are not edges. \(A^2\) counts the number of these distance two paths. for each of these, if we choose 2 then this forms a 4 vertex subgraph, however we dont know how the internal edges are, other than \(uv\) is an edge. Since there is an internal edge, it must not count any cycles. diamonds are counted once since the diagonal edge only shows up once. A clique is counted 6 times because cliques on 4 vertecies have 6 edges and each edge contributes once to the count. 
+
+
+    \item assume arbitrary two verticies \(u,v\) that are not edges. \(A^2\) counts the number of these distance two paths. for each of these, if we choose 2 then this forms a 4 vertex subgraph, however we dont know how the internal edges are, other than \(uv\) is not an edge. since \(uv\) is not an edge, any \(uv\) and choose two other edges must not be a clique. if it is a cycle, then it is double counted (if the 4 vertecies are \(u,v,w,z\), \(uv\) is not an edge and contributes once to the count, then \(wz\) contributes another). if it is a diamond, only the non edge contributes once to the count. 
+\end{enumerate}
 
 
 
