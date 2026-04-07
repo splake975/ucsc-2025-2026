@@ -1,9 +1,14 @@
+#latex
+
 *.aux
 *.fdb_latexmk
 *.fls
 *.log
 *.synctex.gz
 *.out
+
+#other
+
 fraas.pdf
 fraas.out
 /venv
@@ -12,3 +17,5 @@ venv
 win26-LF-splake975 # cse 201a materials
 101m
 cse_16
+CSE_16_pub/csvs/
+CSE_16_pub/processed/
