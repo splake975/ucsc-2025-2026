@@ -1,0 +1,254 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{graphics}
+\usepackage{pdfpages}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+
+\newtheorem{lemma}[theorem]{Lemma}
+
+
+
+\newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
+
+\title{cse 242 hw1}
+\author{Ian Chi}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{}
+
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item the characteristic polynomial for this matrix \(\Sigma\) is 
+        \begin{equation}
+            \lambda^2-41\lambda+175
+        \end{equation}
+        which results in eigenvalues of 
+        
+        \begin{equation}
+            \frac{1}{2}(41\pm 3\sqrt{109})
+        \end{equation}
+
+        setting \(\left( \Sigma-\lambda 1 \right) v =0\), solving for \(v\) gives the eigenvectors of \(\lambda\). this results in \((\frac{1}{10}(3\pm\sqrt{109}),1)\)
+
+        we can check if 
+
+        \begin{equation}
+            \begin{pmatrix}
+                25 & 15\\
+                15&16
+            \end{pmatrix}
+            \begin{pmatrix}
+                \frac{1}{10}(3\pm\sqrt{109})\\
+                1
+            \end{pmatrix}
+             = \frac{1}{2}(41+3\sqrt{109})\begin{pmatrix}
+                \frac{1}{10}(3\pm\sqrt{109})\\
+                1
+            \end{pmatrix}
+        \end{equation}
+
+        and we find that this equation holds. 
+
+        \begin{equation}
+            \begin{split}
+            \begin{pmatrix}
+                25 & 15\\
+                15&16
+            \end{pmatrix}
+            \begin{pmatrix}
+                \frac{1}{10}(3\pm\sqrt{109})\\
+                1
+            \end{pmatrix} &= \begin{pmatrix}
+                15+\frac{5}{2}(3\pm\sqrt{109})\\
+                16+\frac{3}{2}(3\pm\sqrt{109})\\
+            \end{pmatrix}\\
+            &=\frac{1}{2}(41+3\sqrt{109})\begin{pmatrix}
+                \frac{1}{10}(3\pm\sqrt{109})\\
+                1
+            \end{pmatrix}
+            \end{split}
+        \end{equation}
+
+        \item a plot of the pdf would have 1 std extend 4 units in 1 axis and 5 in the other. the level curve would be an ellipse with some positive correlation between the two axis since the cov is positive. 
+        \item the direction that preserves the most variance is the one corresponding to the largest eigenvector of the matrix. 
+        
+        the fraction of variance preserved would be \(\lambda/41\approx 0.88\) where 41 is the trace of the cov matrix. 
+    \end{enumerate}
+    \item \begin{equation}
+        \begin{split}
+            Tr(AB)&= \sum_i^m(AB)_{ii}\\
+            &= \sum_i^{m}\sum_j^n (A_{ij}B_{ji}) \\
+            &= \sum_j^{n}\sum_i^m (A_{ij}B_{ji}) \\
+            &= \sum_j^n(BA)_{jj}\\
+            &= Tr(BA)\\
+        \end{split}
+    \end{equation}
+    \item 
+    \begin{equation}
+        \begin{split}
+            E[x^TAx]&=E[(\mu+(x-\mu))^TA(\mu+(x-\mu))]\\
+            &= E[(\mu^TA\mu) + (\mu^TA(x-\mu)) \\
+            &\quad+ ((x-\mu)^TA\mu) + ((x-\mu)^TA((x-\mu)))]\\
+            &= (\mu^TA\mu) + E[(\mu^TA(x-\mu)) \\
+            &\quad+ ((x-\mu)^TA\mu) + ((x-\mu)^TA((x-\mu)))]\\
+            &= (\mu^TA\mu) + E[(\mu^TA(x-\mu)) \\
+            &\quad+ ((x-\mu)^TA\mu) + ((x-\mu)^TA((x-\mu)))]\\
+            &= (\mu^TA\mu) + E[((x-\mu)^TA((x-\mu)))]\\
+            &= (\mu^TA\mu) + E[A((x-\mu)^T((x-\mu)))]\\
+            &= (\mu^TA\mu) + tr(A\epsilon)
+            % &= (\mu^TA\mu) + E[((x-\mu)^TA\mu) + ((x)^TA((x-\mu)))]\\
+        \end{split}
+    \end{equation}
+    \item 
+
+    \begin{equation}
+        E[X]=\int_{-1}^1 \frac{x}{2} dx = 0
+    \end{equation}
+    \begin{equation}
+        E[X^2]=\int_{-1}^1 \frac{x^2}{2} dx = \frac{1}{3}
+    \end{equation}
+    \begin{equation}
+        E[X^3]=\int_{-1}^1 \frac{x^3}{2} dx = 0
+    \end{equation}
+    \begin{equation}
+        E[XY]=\int_{-1}^1 \frac{x^3}{2} dx = 0
+    \end{equation}
+    Cov is however, 
+
+    \begin{equation}
+        E[X^3]-E[X]E[X^2]=0
+    \end{equation}
+
+    since cov is zero, so is correlation but XY are obviously dependent. 
+\end{enumerate}
+
+\section{}
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item \begin{equation}\begin{split}
+                P(d|+)=\frac{P(+|d)P(d)}{P(+)} &= 
+                P(d|+)=\frac{P(+|d)P(d)}{P(+ | d) \cdot P(d) + P(+ | \neg d) \cdot P(\neg d)} \\
+                &=\frac{1}{100}
+        \end{split}
+        \end{equation}
+        $$P(+ | d) \cdot P(d) = 0.99 \cdot 0.0001 = 0.000099$$
+        $$P(+) = (0.99 \cdot 0.0001) + (0.01 \cdot 0.9999)$$
+        $$P(D | +) = \frac{0.000099}{0.010098}\approx 0.0098$$
+        \item this statement doesnt work because it doesnt take in account of the prior probability of having the disease.
+        \item $$P(d | +) = \frac{P(+ | d) \cdot P(d)_{new}}{P(+)_{new}}$$
+        $$0.99 \cdot 0.0098039 \approx 0.0097059$$
+        $$P(+) = (0.99 \cdot 0.0098039) + (0.01 \cdot 0.9901961) \approx 0.0196$$
+        $$P(d | +_{second}) = \frac{0.0097059}{0.0196079} \approx 0.495$$
+        \item $$\frac{P(+|d) \cdot P(d)}{P(+|d) \cdot P(d) + (1 - s) \cdot P(\neg d)} \ge 0.5$$
+        \(s \ge 0.99990099...\)
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item the prosecutor is miscalculating the prior. since the prior is known, the statement that the chance is exactly .99 of being guilty is wrong
+        \item the defender is not acknowledging that having this evidence changes the prior. future evidence will build on this new prior instead of the old one. 
+        \item you would need to know the prior probability of the defendant being guilty. 
+    \end{enumerate}
+
+    \item \begin{enumerate}
+        \item maximize \begin{equation}
+            P^3((1-P)^2)
+        \end{equation}
+        we get the max at .6
+        \item instead we maximize \begin{equation}
+            P^3((1-P)^2)2P
+        \end{equation}
+        which gives \(P=\frac{2}{3}\)
+        \item \(a=b=1\) means there were two flips, one heads one tails. when they equal two, there were 4 flips w 2 heads 2 tails. as \(a+b\) gets large, it means that there were many flips before and that you are very certain to the probability of heads. \(\hat \theta_{MAP}\) therefore does not change much given an extra sample point or two. 
+        
+    \end{enumerate}
+    \item $$L(\mu, \sigma^2) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right)$$$$L(\mu, \sigma^2) = \left( 2\pi\sigma^2 \right)^{-n/2} \exp\left( -\frac{1}{2\sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2 \right)$$
+        
+        we can take log to make derivatives easier while preserving maximums. 
+
+        $$l(\mu, \sigma^2) = \ln \left[ \left( 2\pi\sigma^2 \right)^{-n/2} \exp\left( -\frac{1}{2\sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2 \right) \right]$$
+
+        solving for \(\mu,\) we can take \(\sigma^2\) to be constant,      
+        $$\frac{\partial l}{\partial \mu} = \frac{\partial}{\partial \mu} \left( -\frac{1}{2\sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2 \right)=\frac{1}{\sigma^2} \left( \sum_{i=1}^{n} x_i - n\mu \right) = 0$$
+
+        gives \(\mu = 4\)
+
+        $$\frac{\partial l}{\partial \sigma^2} = -\frac{n}{2} \frac{1}{\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^{n} (x_i - \mu)^2$$
+
+        implies $$-n\sigma^2 + \sum_{i=1}^{n} (x_i - \mu)^2 = 0 \implies \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2$$
+        $$\hat{\sigma}^2 = \frac{(1-4)^2 + (3-4)^2 + (5-4)^2 + (7-4)^2}{4}=5$$
+        \item 
+        \begin{enumerate}
+        \item Likelihood: $P(x_1 | \mu) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-\frac{(x_1 - \mu)^2}{2\sigma^2}\right)$
+
+        Prior: $P(\mu) = \frac{1}{\sqrt{2\pi \tau^2}} \exp\left(-\frac{(\mu - \mu_0)^2}{2\tau^2}\right)$ where $\mu_0 = 0$ and $\tau^2 = 1$.
+
+
+        $$\log P(\mu | x_1) \propto -\frac{(5 - \mu)^2}{2(4)} - \frac{\mu^2}{2(1)}$$
+
+        $$\frac{d}{d\mu} \left[ -\frac{(5 - \mu)^2}{8} - \frac{\mu^2}{2} \right] = \frac{5 - \mu}{4} - \mu = 0$$
+        this gives \(\hat \mu = 1\)
+        \item we instead get $$\log P(\mu | X) \propto -\sum_{i=1}^n \frac{(x_i - \mu)^2}{2\sigma^2} - \frac{(\mu - \mu_0)^2}{2\tau^2}$$
+        $$\frac{d}{dx} \log P(\mu | X) = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu) - \frac{\mu - \mu_0}{\tau^2} = 0$$
+        we get \(\hat \mu = \frac{n}{n+4}\bar x\) where \(\bar x\) represents the mean of the samples. 
+
+        \item the first term in the \(\hat \mu\) in part \(b\) goes to 1 which means it converges to the mean of \(x\) as \(n\to \infty\).
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+        \item \begin{equation}
+            \begin{split}
+                Var(X)&=\frac{\sum ( x-\mu)^2}{N}\\
+                &=\frac{\sum x^2 - 2x\mu + \mu^2}{N}\\
+                &=\frac{\sum x^2 - \sum 2x\mu + \mu^2}{N}\\
+                &=\frac{\sum x^2}{N} - \frac{2\mu \sum x}{N} + \mu^2\\
+                &=\frac{\sum x^2}{N} - {2\mu \mu }{} + \mu^2\\
+                &=E[X^2]-E[X]^2
+            \end{split}
+        \end{equation}
+        \item 
+
+        \begin{equation}
+            \begin{split}
+                Var(aX+b) &= E[(aX+b)^2] - E[aX+b]^2\\
+                &= E[(a^2X^2 + 2aXb+b^2)] - (aE[X]+b)^2\\
+                &= E[(a^2X^2 + 2aXb+b^2)] \\
+                &\quad - [(aE[X])^2 + 2aE[X]b +b^2]\\
+                &= E[(a^2X^2 )] - (aE[X])^2 \\
+                &= a^2 Var(X)\\
+            \end{split}
+        \end{equation}
+        \item 
+
+        \item
+        \begin{align}
+        Var(X+Y) &= E[(X+Y)^2] - E[X+Y]^2\\
+        &= E[X^2+2XY+Y^2] - (E[X]+E[Y])^2\\
+        &= E[X^2+2XY+Y^2] - (E[X]+E[Y])^2\\
+        &= E[X^2+2XY+Y^2] \\
+        &\quad - (E[X]^2 + 2E[X]E[Y] + E[Y]^2)\nonumber\\
+        &= E[X^2]+E[2XY]+E[Y^2]\label{ind1} \\
+        &\quad - (E[X]^2 + 2E[X]E[Y] + E[Y]^2)\nonumber\\
+        &= E[X^2]+2E[X]E[Y]+E[Y^2] \label{ind2}\\
+        &\quad - (E[X]^2 + 2E[X]E[Y] + E[Y]^2)\nonumber\\
+        &= E[X^2]+E[Y^2] - (E[X]^2  + E[Y]^2)\\ 
+        &= Var(X)+Var(Y)
+        \end{align}
+        note the lines~\ref{ind1} and~\ref{ind2} are the lines that require independence. \(E[XY]=E[X]E[Y]\)
+
+
+        \end{enumerate}
+         
+\end{enumerate}
+
+
+\end{document}
