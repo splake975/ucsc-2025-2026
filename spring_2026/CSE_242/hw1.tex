@@ -247,8 +247,129 @@
 
 
         \end{enumerate}
-         
+        
+\end{enumerate}
+\section{}
+\begin{enumerate}
+    \item \begin{equation}
+        \begin{split}
+            Var(u^T X) &= E[(u^T X - u^T \mu)^2]\\
+            &=E[(u^T(X - \mu))(u^T(X - \mu))^T]\\
+            &=E[u^T(X - \mu)(X - \mu)^T u]\\
+            &= u^T E[(X - \mu)(X - \mu)^T] u\\
+            &=u^T \Sigma u\\
+        \end{split}
+    \end{equation}
+    choosing the largest eigenvalues means we get to retain information about the directions that have the largest variance. 
+
+    \item ~
+    
+    \includegraphics[width=0.8 \textwidth]{hw1_scatter_plot_1.png}
+    
+    the correlation is pretty positive here. 
+
+    \item ~
+    
+    \includegraphics[width=0.8 \textwidth]{hw1_pca.png}
+
+
+
+    \begin{verbatim}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('spring_2026\\CSE_242\\synthetic_dataset.csv')
+
+X = df.to_numpy()
+
+print(f"Dataset Shape: {X.shape}")
+print(df.head())
+
+mean = np.mean(X,axis=0)
+print(mean)
+
+# center dataset
+X_centered = X - mean
+
+#find cov
+covariance_matrix = np.cov(X_centered, rowvar=False)
+
+#eig
+eigenvalues, eigenvectors = np.linalg.eig(covariance_matrix)
+
+idx = eigenvalues.argsort()[::-1]
+eigenvalues = eigenvalues[idx]
+eigenvectors = eigenvectors[:, idx]
+
+
+PC1 = eigenvectors[:, 0]
+X_pca = X_centered.dot(PC1)
+
+# --- RESULTS & VISUALIZATION ---
+
+print("Eigenvalues:\n", eigenvalues)
+print("\nEigenvectors (Principal Components):\n", eigenvectors)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(X_centered[:, 0], X_centered[:, 1], alpha=0.5, label='Centered Data')
+
+# eigenvectors scaled
+for i in range(len(eigenvalues)):
+    v = eigenvectors[:, i] * np.sqrt(eigenvalues[i]) * 2
+    plt.quiver(0, 0, v[0], v[1], angles='xy', scale_units='xy', scale=1, 
+               color=['r', 'g'][i], label=f'PC{i+1} Direction')
+
+plt.title("Data with Principal Component Vectors")
+plt.xlabel("Feature 1 (Centered)")
+plt.ylabel("Feature 2 (Centered)")
+plt.legend()
+plt.axis('equal')
+plt.grid(True)
+plt.savefig('scatter_plot.png')
+plt.show()
+
+    \end{verbatim}
+
+    Eigenvalues:
+    [1.43862294 0.46710326]
+
+    Eigenvectors (Principal Components):
+
+    [[ 0.71516355 -0.69895715]
+
+    [ 0.69895715  0.71516355]]
+    \item the largest eig captures \(\approx\frac{1.5}{1.5+.5}=\frac{3}{4}\) of the total vairance. the second captures \(\frac{1}{4}\). the first component captured \(\frac{3}{4}\) of the total variance. the higher dim settings are dependent on the application and how accurate you need something to be. 
+    
+    \item I am using sklearn iris. 
+    
+    eig  are  \([4.22824171, 0.24267075, 0.0782095,  0.02383509]\)
+
+    \includegraphics[width=0.8 \textwidth]{iris_cum_var.png}
+
+    it takes only 2 components to explain 95\% of the varaince
+
+
+
+    
+
+
 \end{enumerate}
 
+\section{}
+
+\begin{enumerate}
+    \item we can use Q1 in compression after taking data
+
+    we can use Q2 in crime analysis
+
+    we can use Q2 in disease diagnosis
+
+    we can use Q2 in recovering empirical values for collected data in general. 
+
+    \item i use pypi and documentation for pandas
+    \item i used gemini fast for pandas and numpy help. 
+    \item Im not sure how long it took since i didnt look ahead but the question part took 2.5 hours. if i had to guess the first parts took longer. 
+\end{enumerate}
 
 \end{document}
