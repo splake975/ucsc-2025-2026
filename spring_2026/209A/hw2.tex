@@ -175,8 +175,165 @@ the final two we can also guess, the diagonal is \(1\pm\sqrt{2}, \pm  \sqrt{2},\
 
   one can guess the main eigenvector \((1,1,1,1)\) with eigenvalue 3. 
 
+  we can also reason that the remaining 3 eigenvalues must be -1. 
+  a vector that does not have eigenvalue 3 must be orthogonal to the all ones vector. suppose the eigenvector is orthogonal, its components must sum to 0. the matrix \(C\) will take each component \(i\) and map it to the sum of the other components which must equal the negative of the component. Thus, any vector that is orthogonal to \((1,1,1,1)\) must be an eigenvector of with eigenvalue -1. 
+
+  Here is a valid set of eigenvectors for eigenvalues 1 through 3. 
+
+  \begin{equation}
+    \begin{split}
+      v_1 &= (1,0,0,-1)\\
+      v_2 &= (0,1,-1,0)\\
+      v_3 &= (1,-1,0,0)
+    \end{split}
+  \end{equation}
+
+  note, these were choosen because they span the remaining 3 dimensions and their components sum to 0. They are not necessarily orthogonal, but they can be made orthogonal since spanning vectors can be converted to orthonormal spanning vectors. 
+  
+  \item 
+  
+  \begin{equation}
+    D = \begin{pmatrix}
+    3 & -1 & -1 & -1 \\
+    -1 & 3 & -1 & -1 \\
+    -1 & -1 & 3 & -1 \\
+    -1 & -1 & -1 & 3
+    \end{pmatrix}
+  \end{equation}
+  
+  we know the all 1s vector has eigenvalue 0. 
+
+  we can use a similar reasoning to the last question. 
+
+  any eigenvector with eigenvalue nonzero (which we know all eigenvectors must be nonzero other than \(\lambda_0\)) must able to be expressed as orthogonal vectors to the all ones vector, i.e. the components must sum to 1. take \(v\) to be an arbitrary vector orthogonal to the all ones. \((Cv)_i\) for any component \(i\) is equal to \(3v_i - \sum_{j\neq i} v_j = 4v_i\). thus any \(v\) orthogonal to the all ones is an eigenvector for \(D\).
+
+  \begin{equation}
+    \begin{split}
+      v_1 &= (1,0,0,-1)\\
+      v_2 &= (0,1,-1,0)\\
+      v_3 &= (1,-1,0,0)
+    \end{split}
+  \end{equation}
+
+  eigenvectors remain the same on complete graphs of \(n\) nodes, that being \(n-1\) eigenvectors are eigenvalue \(n\).
+
+  \item 
+
+  \textbf{adjacency}
+
+  we can solve the two block matricies seperately since the vectors this matrix acts on can be broken into two orthonormal spaces. 
+
+  for the complete graph, we know 
+
+  \(\lambda_0 = 0, \lambda_{2,3} = -1\)
+
+  \begin{equation}
+    \begin{split}
+      v_0&=(1,1,1,0,0,0)\\
+      v_1&= (1,0,-1,0,0,0)\\
+      v_2&= (-1,2,-1,0,0,0)
+    \end{split}
+  \end{equation}
+
+  for the path graph, 
+
+  \begin{equation}
+    F_a = \begin{pmatrix}
+    0 & 1 & 0\\
+    1& 0 &1\\
+    0&1&0
+    \end{pmatrix}
+  \end{equation}
+
+  we can guess 
+
+  \(v_3 = (0,0,0,1,0,-1)\) which has eigenvalue 0. 
+
+  there is also \(v_4 = (0,0,0,1,\sqrt{2},1)\) which has eigenvalue \(\sqrt{2}\). (if you guess 1,2,1 you see that the output is 2,2,2 so scaling down the center element gives you the eigenvector)
+
+  the final eigenvector is \(v_5 = (0,0,0,1,-\sqrt{2},1)\) since we know how polynomials split, the eigenvalue must include \(\lambda_5-\sqrt{2}\) so from this we find he eigenvector.
+
+
+  \textbf{laplacian}
+
+  we know \(v_0,v_1 = (1,1,1,0,0,0), (0,0,0,1,1,1)\) w eigenvalue 0 since they are disconnected. 
+
+  we also know that there exists two eigenvectors w eigenvalue \(3\) in the \(G_1\) component 
+
+  \(v_2,v_3 = (1,0,-1,0,0,0), (-0.5,1,-0.5,0,0,0)\)
+
+  the final two can be found by finding the eigenvectors for the smaller 3x3 
+
+  again, we can guess for the matrix 
+
+  \begin{equation}
+    F_l = \begin{pmatrix}
+    1 & -1 & 0\\
+    -1& 2 &-1\\
+    0&-1&1
+    \end{pmatrix}
+  \end{equation}
+
+  \begin{equation}
+    \begin{split}
+      v_4 &= (0,0,0,1,0,-1)\\
+      v_5 &= (0,0,0,1,-2,1)
+    \end{split}
+  \end{equation}
+
+  \(\lambda_4 = 1, \lambda_5 = 3\)
+
   
 \end{enumerate}
+
+\section{}
+
+consider the graph consisting of two cliques of size 3 and one of size 2. 
+
+assume vertex 1 to 3, 4 to 6, 7,8 are connected. we can write this as a block matrix with the diagonal being \(3,3,3,3,3,3,2,2\) and the off diagonals in each block matrix being \(-1\). 
+
+the eigenvectors for this that have eigenvalue 0 would be 
+
+\begin{equation}
+\begin{split}
+    v_0 = (1,1,1,0,0,0,0,0)\\
+    v_1 = (0,0,0,1,1,1,0,0)\\
+    v_2 = (0,0,0,0,0,0,1,1)\\
+\end{split}
+\end{equation}
+
+we know that since the matrix is block diagonal, we chose the vectors carefully so that the product between the vector and the matrix is only affected by a specific block matrix. since each block matrix is like its own seperate graph, we know the all 1s vectors on each connected component is an eigenvector with eigenvalue 0. 
+
+\section{}
+\begin{enumerate}
+  \item 
+  instantiate an \(n\times n\) matrix \(A\) of all zeros. 
+  \item 
+  for each node \(i\), choose two distinct nodes \(j,k\) that \(i\) is connected to. increment the \(A_{j,k}\) by 1. 
+  \item 
+  if any entry in \(A\) is greater than 2, then there exists a cycle. 
+\end{enumerate}
+
+\textbf{runtime:}
+
+each item above takes \(n^2\) time and are not nested thus the runtime is \(n^2\). 
+
+\textbf{correctness:}
+
+\(A_{i,j}\) can only have an entry greater than two iff at least two distinct vertices \(\alpha,\beta\) are neighbors to both \(i,j\). This means there is a 4 cycle on \(i,\alpha,j,\beta\). 
+
+on vertex \(a\), each loop searches for all possible wedges with center point \(a\) and increments the entry corresponding to the endpoints of the wedge. In the language of loop invariants, after each loop in item 2, the value of \(A_{i,j}\) counts the number of wedges with endpoints \(i,j\) that can be formed using only verticies before the index of the loop. 
+
+in the end, since every possible center point of wedges was checked, \(A\) exactly counts the number of wedges with endpoints \(i,j\). two wedges with distinct center points must mean there is a cycle of length 4. 
+
+\section{}
+
+note
+
+\begin{equation}
+  (CA)_{i,j} = \sum_k C_{i,k} A_{k,j}
+\end{equation}
+
 
 
 
