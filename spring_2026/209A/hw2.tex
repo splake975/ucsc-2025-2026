@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{stackengine,amssymb,graphicx}
+\newcommand\DDiamond{\ensurestackMath{%
+  \stackengine{.5pt}{\Diamond}{\scalebox{.75}[1]{$-$}}{O}{c}{F}{F}{L}}}
+
+\newcommand{\sol}{\textbf{solution}}
+
+\title{CSE105/209A: Modern Algorithmic Toolbox\footnote{PI: Vaggos Chatziafratis}, PSET-2\\ }
+\author{Ian Chi 2253175}
+\date{}
+\begin{document}
+\maketitle
+
+\section{}
+\begin{enumerate}
+  \item 
+  \begin{equation}
+    A = \begin{pmatrix}
+    0 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 1 \\
+    0 & 0 & 1 & 0
+    \end{pmatrix}
+  \end{equation}
+  
+  subtract \(\lambda\) from diagonal
+  
+  \begin{equation}
+    A-\lambda I = \begin{pmatrix}
+    -\lambda & 1 & 0 & 0 \\
+    1 & -\lambda & 1 & 0 \\
+    0 & 1 & -\lambda & 1 \\
+    0 & 0 & 1 & -\lambda
+    \end{pmatrix}
+  \end{equation}
+  
+  the characteristic polynomial is 
+  
+  \begin{equation}
+    \lambda(\lambda(\lambda^2-1)-\lambda) + (-1(\lambda^2-1)) = \lambda^4-3\lambda^2+1 = (\lambda^2 - \lambda - 1)(\lambda^2 + \lambda-1)
+  \end{equation}
+  which gives roots of 
+  
+  \begin{equation}
+    \begin{split}
+      \lambda_1 &= -\frac{1}{2}-\frac{\sqrt{5}}{2}\\
+      \lambda_2 &= \frac{1}{2}-\frac{\sqrt{5}}{2}\\
+      \lambda_3 &= -\frac{1}{2}+\frac{\sqrt{5}}{2}\\
+      \lambda_4 &= \frac{1}{2}+\frac{\sqrt{5}}{2}
+    \end{split}
+  \end{equation}
+
+  to find eigenvalues, find the null space after subtracting \(\lambda I\) from the diagonal of \(A\). 
+
+
+  \begin{equation}
+    (A-\lambda I)x=0 = \begin{pmatrix}
+    -\lambda & 1 & 0 & 0 \\
+    1 & -\lambda & 1 & 0 \\
+    0 & 1 & -\lambda & 1 \\
+    0 & 0 & 1 & -\lambda
+    \end{pmatrix}
+    x = 0
+  \end{equation}
+  
+  \begin{equation}\begin{split}
+  -\lambda x_1 + x_2 &= 0\\
+  x_1 -\lambda x_2 + x_3 &= 0\\
+  x_2 -\lambda x_3 + x_4 &= 0\\
+  x_3 - \lambda x_4  &= 0\\
+  \end{split}
+  \end{equation}
+
+  if we set \(x_1\) to 1, 
+
+  \begin{equation}\begin{split}
+      x_2 &= \lambda\\
+      x_3 &= \lambda^2 - 1=(\lambda-1)(\lambda+1)\\
+      x_4 &= \lambda - 1/\lambda
+  \end{split}
+  \end{equation}
+
+  note
+
+  \begin{equation}
+    \left[\frac{1}{2}(\pm1 \pm \sqrt{5}) - 1\right] \left[\frac{1}{2}(\pm1 \pm \sqrt{5}) + 1\right] = \frac{1}{2}(\mp1 \mp \sqrt{5}) - 1
+  \end{equation}
+  \begin{equation}
+    \left[\frac{1}{2}(\pm1 \mp \sqrt{5}) - 1\right] \left[\frac{1}{2}(\pm1 \mp \sqrt{5}) + 1\right] = \frac{1}{2}(\mp1 \pm \sqrt{5}) - 1
+  \end{equation}
+
+  \begin{equation}
+    \left[\frac{1}{2}(1 \pm \sqrt{5}) - 1\right] - \frac{1}{\left[\frac{1}{2}(1 \pm \sqrt{5}) - 1\right]} = 1
+  \end{equation}
+
+  \begin{equation}
+    \left[\frac{1}{2}(-1 \pm \sqrt{5}) - 1\right] - \frac{1}{\left[\frac{1}{2}(-1 \pm \sqrt{5}) - 1\right]} = -1
+  \end{equation}
+
+  for \(\lambda_1,\) 
+
+  \begin{equation}
+    \begin{split}
+      v_1 &= \left( 1, -\frac{1}{2}-\frac{\sqrt{5}}{2}, \frac{1}{2}+\frac{\sqrt{5}}{2} , -1 \right)\\
+      v_2 &= \left( 1, \frac{1}{2}-\frac{\sqrt{5}}{2}, -\frac{1}{2}+\frac{\sqrt{5}}{2} , 1 \right)\\
+      v_3 &= \left( 1, -\frac{1}{2}+\frac{\sqrt{5}}{2}, \frac{1}{2}-\frac{\sqrt{5}}{2} , -1 \right)\\
+      v_3 &= \left( 1, \frac{1}{2}+\frac{\sqrt{5}}{2}, -\frac{1}{2}-\frac{\sqrt{5}}{2} , 1 \right)\\
+    \end{split}
+  \end{equation}
+  
+  
+  \newpage
+  \item 
+  \begin{equation}
+    B = \begin{pmatrix}
+    1 & -1 & 0 & 0 \\
+    -1 & 2 & -1 & 0 \\
+    0 & -1 & 2 & -1 \\
+    0 & 0 & -1 & 1
+    \end{pmatrix}
+  \end{equation}
+
+  \begin{equation}
+    B-\lambda I = \begin{pmatrix}
+    1-\lambda & -1 & 0 & 0 \\
+    -1 & 2-\lambda & -1 & 0 \\
+    0 & -1 & 2-\lambda & -1 \\
+    0 & 0 & -1 & 1-\lambda
+    \end{pmatrix}
+  \end{equation}
+
+  the characteristic polynomial of B is 
+
+  \begin{equation}
+    (1-\lambda)((2-\lambda)((2-\lambda)(1-\lambda) - 1) -(1-\lambda)) + ((-(2-\lambda)(1-\lambda))+1)
+  \end{equation}
+  which is equal to \(x(x-2)(x^2-4x+2)\) which gives 
+
+  \begin{equation}
+\begin{split}
+    \lambda_0 &= 0\\
+    \lambda_1  &= 2-\sqrt{2}\\
+    \lambda_2 &= 2\\
+    \lambda_3 &= 2+\sqrt{2}
+\end{split}  \end{equation}
+
+for eigenvectors, we know \(v_0=(1,1,1,1)\)
+
+we can also guess \(v_2 = (1,-1,-1,1)\) and it verifies to be correct. 
+
+the final two we can also guess, the diagonal is \(1\pm\sqrt{2}, \pm  \sqrt{2},\pm \sqrt{2}, 1\pm \sqrt{2}\)
+
+\begin{equation}
+  v_1 = (-1,1-\sqrt{2},-1+\sqrt{2},1)
+\end{equation}
+
+\begin{equation}
+  v_3 = (-1,1+\sqrt{2},-1-\sqrt{2},1)
+\end{equation}
+
+\item 
+
+  \begin{equation}
+    C = \begin{pmatrix}
+    0 & 1 & 1 & 1 \\
+    1 & 0 & 1 & 1 \\
+    1 & 1 & 0 & 1 \\
+    1 & 1 & 1 & 0
+    \end{pmatrix}
+  \end{equation}
+
+  one can guess the main eigenvector \((1,1,1,1)\) with eigenvalue 3. 
+
+  
+\end{enumerate}
+
+
+
+
+
+\end{document}
+

@@ -120,6 +120,15 @@ Imagine you you are given a graph $G$ with adjacency matrix $A$, but you forgot 
     
     \sol 
 
+    we can calculate the second eigenvalue of the laplacian matrix. the laplacian matrix is formed by squaring the original matrix, then taking only the diagonal and subtracting the original matrix from it. Then we take the characteristic polynomial to find the eigenvalues. if the second smallest eigenvalue is 0, then it is not connected. if it is not zero, then it is connected. This is because if a graph is disconnected, the vertecies can be permuted and can be written as a block diagonal matrix. Since every laplacian matrix has smallest eigenvalue zero, each block diagonal matrix produces an eigenvector of all ones on indecies the block matrix occupies. this is guaranteed to be an eigenvector for each block matrix, and since there are 1 for each disconnected component in the graph, there must be at least 2 0 eigenvalues if the graph is disconnected.
+
+    if the graph is connected, then the second eigenvalue must be nonzero. 
+
+    consider the quadratic form of the laplacian. 
+
+    $$\mathbf{x}^T L \mathbf{x} = \sum_{(u,v) \in E} (x_u - x_v)^2$$
+
+    this sum must be zero if the eigenvalue of x is zero, since \(Lx=0\) on the LHS. every term must then also be zero since the sum is monotone increasing. In a connected graph, since every edge \(u,v\) is connected, every value \(x_i\) must be 1. therefore the only vector that has eigenvalue 0 is the all 1s vector. 
 
 
 
@@ -161,10 +170,10 @@ See Figure 1 that shows two motif equations that relate properties of the adjace
 \sol 
 
 \begin{enumerate}
-    \item assume arbitrary two verticies \(u,v\) that are not edges. \(A^2\) counts the number of these distance two paths. for each of these, if we choose 2 then this forms a 4 vertex subgraph, however we dont know how the internal edges are, other than \(uv\) is an edge. Since there is an internal edge, it must not count any cycles. diamonds are counted once since the diagonal edge only shows up once. A clique is counted 6 times because cliques on 4 vertecies have 6 edges and each edge contributes once to the count. 
+    \item assume arbitrary two verticies \(u,v\) that are edges. \(A^2\) counts the number of these distance two paths. for each of these, if we choose 2 then this forms a 4 vertex subgraph, however we dont know how the internal edges are, other than \(uv\) is an edge. Since there is an internal edge, it must not count any cycles. diamonds are counted once since for each diamond, the sum checks only the diagonal edge which shows up once. A clique is counted 6 times because cliques on 4 vertecies have 6 edges and each edge contributes once to the count. 
 
 
-    \item assume arbitrary two verticies \(u,v\) that are not edges. \(A^2\) counts the number of these distance two paths. for each of these, if we choose 2 then this forms a 4 vertex subgraph, however we dont know how the internal edges are, other than \(uv\) is not an edge. since \(uv\) is not an edge, any \(uv\) and choose two other edges must not be a clique. if it is a cycle, then it is double counted (if the 4 vertecies are \(u,v,w,z\), \(uv\) is not an edge and contributes once to the count, then \(wz\) contributes another). if it is a diamond, only the non edge contributes once to the count. 
+    \item assume arbitrary two verticies \(u,v\) that are not edges. \(A^2\) counts the number of these distance two paths. for each of these, if we choose 2 then this forms a 4 vertex subgraph, however we dont know how the internal edges are, other than \(uv\) is not an edge. since \(uv\) is not an edge, any \(uv\) and choose two other edges must not be a clique. if it is a cycle, then it is double counted (if the 4 vertecies are \(u,v,w,z\), \(uv\) is not an edge and contributes once to the count, then \(wz\) contributes another). if it is a diamond, only the non-edge contributes once to the count. 
 \end{enumerate}
 
 
@@ -174,5 +183,57 @@ See Figure 1 that shows two motif equations that relate properties of the adjace
 Devise a divide and conquer algorithm that multiplies a matrix $A$ and a matrix $B$ (both of them are $n$-by-$n$) in time $O(n^{\log_2 7})$. This improves over the naive $O(n^3)$ algorithm we learned in high-school.
 
 Your answer should be a clear exposition of the steps needed to perform the multiplication, and also a proof for its runtime. If it helps feel free to assume that $n$ is a power of $2$.
+
+\sol 
+
+Assume that the matrix is of shape \(2^n\) by \(2^n\). If the matrix is not this shape, pad out the matrix with zeros until it is of this size. asymptotically this does not affect runtime. 
+
+Divide the matrix into four quadrants. There exists a way to mix and match different sums of the four quadrants and multiply them together such that direct combinations of sums and differences result in the final matrix result we wished to attain. 
+
+First note, matrix multiplication distributes over addition. Given 
+\begin{equation}
+    A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}, 
+    B = \begin{pmatrix} e & f \\ g & h \end{pmatrix}
+\end{equation}
+
+the naive algorithm uses 8 multiplications to achieve the desired C matrix 
+
+
+\begin{equation}
+    \begin{split}
+        C_{1,1} &= ae + bg\\
+        C_{1,2} &= af + bh\\
+        C_{2,1} &= ce + dg\\
+        C_{2,2} &= cf + dh\\
+    \end{split}
+\end{equation}
+
+
+but strassen uses different values to calculate each \(C_{i,j}\), namely
+
+\begin{equation}
+    \begin{split}
+        P_1 &= A_{1,1}(B_{1,2} - B_{2,2})\\
+        P_2 &= (A_{1,1} + A_{1,2})B_{2,2}\\
+        P_3 &= (A_{2,1} + A_{2,2})B_{1,1}\\
+        P_4 &= A_{2,2}(B_{2,1} - B_{1,1})\\
+        P_5& = (A_{1,1} + A_{2,2})(B_{1,1} + B_{2,2})\\
+        P_6& = (A_{1,2} - A_{2,2})(B_{2,1} + B_{2,2})\\
+        P_7 &= (A_{1,1} - A_{2,1})(B_{1,1} + B_{1,2})
+    \end{split}
+\end{equation}
+
+and 
+
+\begin{equation}
+    \begin{split}
+        C_{1,1} &= P_5 + P_4 - P_2 + P_6\\
+        C_{1,2} &= P_1 + P_2\\
+        C_{2,1} &= P_3 + P_4\\
+        C_{2,2} &= P_1 + P_5 - P_3 - P_7
+    \end{split}
+\end{equation}
+
+
 \end{document}
 
