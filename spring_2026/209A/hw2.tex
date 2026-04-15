@@ -87,13 +87,29 @@
   note
 
   \begin{equation}
-    [\frac{1}{2}(\pm1 \pm \sqrt{5}) - 1] [\frac{1}{2}(\pm1 \pm \sqrt{5}) + 1] = \frac{1}{2}(\mp1 \mp \sqrt{5}) - 1
+    \left[\frac{1}{2}(\pm1 \pm \sqrt{5}) - 1\right] \left[\frac{1}{2}(\pm1 \pm \sqrt{5}) + 1\right] = \frac{1}{2}(\mp1 \mp \sqrt{5}) - 1
+  \end{equation}
+  \begin{equation}
+    \left[\frac{1}{2}(\pm1 \mp \sqrt{5}) - 1\right] \left[\frac{1}{2}(\pm1 \mp \sqrt{5}) + 1\right] = \frac{1}{2}(\mp1 \pm \sqrt{5}) - 1
+  \end{equation}
+
+  \begin{equation}
+    \left[\frac{1}{2}(1 \pm \sqrt{5}) - 1\right] - \frac{1}{\left[\frac{1}{2}(1 \pm \sqrt{5}) - 1\right]} = 1
+  \end{equation}
+
+  \begin{equation}
+    \left[\frac{1}{2}(-1 \pm \sqrt{5}) - 1\right] - \frac{1}{\left[\frac{1}{2}(-1 \pm \sqrt{5}) - 1\right]} = -1
   \end{equation}
 
   for \(\lambda_1,\) 
 
   \begin{equation}
-    v_1 = \left( 1, -\frac{1}{2}-\frac{\sqrt{5}}{2}, \frac{1}{2}+\frac{\sqrt{5}}{2} ,  \right)
+    \begin{split}
+      v_1 &= \left( 1, -\frac{1}{2}-\frac{\sqrt{5}}{2}, \frac{1}{2}+\frac{\sqrt{5}}{2} , -1 \right)\\
+      v_2 &= \left( 1, \frac{1}{2}-\frac{\sqrt{5}}{2}, -\frac{1}{2}+\frac{\sqrt{5}}{2} , 1 \right)\\
+      v_3 &= \left( 1, -\frac{1}{2}+\frac{\sqrt{5}}{2}, \frac{1}{2}-\frac{\sqrt{5}}{2} , -1 \right)\\
+      v_3 &= \left( 1, \frac{1}{2}+\frac{\sqrt{5}}{2}, -\frac{1}{2}-\frac{\sqrt{5}}{2} , 1 \right)\\
+    \end{split}
   \end{equation}
   
   
@@ -118,6 +134,46 @@
   \end{equation}
 
   the characteristic polynomial of B is 
+
+  \begin{equation}
+    (1-\lambda)((2-\lambda)((2-\lambda)(1-\lambda) - 1) -(1-\lambda)) + ((-(2-\lambda)(1-\lambda))+1)
+  \end{equation}
+  which is equal to \(x(x-2)(x^2-4x+2)\) which gives 
+
+  \begin{equation}
+\begin{split}
+    \lambda_0 &= 0\\
+    \lambda_1  &= 2-\sqrt{2}\\
+    \lambda_2 &= 2\\
+    \lambda_3 &= 2+\sqrt{2}
+\end{split}  \end{equation}
+
+for eigenvectors, we know \(v_0=(1,1,1,1)\)
+
+we can also guess \(v_2 = (1,-1,-1,1)\) and it verifies to be correct. 
+
+the final two we can also guess, the diagonal is \(1\pm\sqrt{2}, \pm  \sqrt{2},\pm \sqrt{2}, 1\pm \sqrt{2}\)
+
+\begin{equation}
+  v_1 = (-1,1-\sqrt{2},-1+\sqrt{2},1)
+\end{equation}
+
+\begin{equation}
+  v_3 = (-1,1+\sqrt{2},-1-\sqrt{2},1)
+\end{equation}
+
+\item 
+
+  \begin{equation}
+    C = \begin{pmatrix}
+    0 & 1 & 1 & 1 \\
+    1 & 0 & 1 & 1 \\
+    1 & 1 & 0 & 1 \\
+    1 & 1 & 1 & 0
+    \end{pmatrix}
+  \end{equation}
+
+  one can guess the main eigenvector \((1,1,1,1)\) with eigenvalue 3. 
 
   
 \end{enumerate}
