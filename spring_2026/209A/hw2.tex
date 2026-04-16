@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{stackengine,amssymb,graphicx}
+\usepackage{tikz}
 \newcommand\DDiamond{\ensurestackMath{%
   \stackengine{.5pt}{\Diamond}{\scalebox{.75}[1]{$-$}}{O}{c}{F}{F}{L}}}
 
@@ -334,6 +335,38 @@ note
   (CA)_{i,j} = \sum_k C_{i,k} A_{k,j}
 \end{equation}
 
+this value counts how many "paths missing one edge" that end on \(j\) there are. 
+
+\begin{equation}
+  (AC)_{i,j} = \sum_k C_{i,k} A_{k,j}
+\end{equation}
+
+this value counts how many "paths missing one edge" that start on \(j\). 
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.3\textwidth}{!}{%
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+\draw [dashed] (5.75,11.5) -- (7.375,9.375);
+\draw [] (5.75,11.5) -- (7.75,13.375);
+\draw [] (7.375,9.375) -- (9.125,10.75);
+\draw [dashed] (7.75,13.25) -- (9.125,10.875);
+\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (7.5,14.25) {u};
+\draw [] (7.625,13.25) -- (7.375,9.5);
+\node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (7.375,8.875) {v};
+\draw [ color={rgb,255:red,255; green,41; blue,41}, draw opacity=1, dashed] (5.75,11.5) -- (9.125,10.75);
+\end{tikzpicture}
+}%
+\caption{Your Caption}
+\label{fig:my_label}
+\end{figure}
+
+assume the red dotted line is not an edge. in this case, this motif (path on 4 vertices) gets counted exactly once with the uv edge. 
+
+if the red dotted line is an edge, each edge contributes once to the sum, which is why cycles on 4 nodes get counted 4 times. 
+
+\section{}
 
 
 
