@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{graphics}
+\usepackage{pdfpages}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+
+\newtheorem{lemma}[theorem]{Lemma}
+
+
+
+\newcommand{\coNP}{\textrm{co-}\mathbb{NP}}
+
+\title{cse 242 hw2}
+\author{Ian Chi}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{}
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item \begin{equation}
+        \begin{split}
+                J(w)&=\Big|Xw-y\Big|_2^2 + \lambda\Big|w\Big|_2^2\\
+                J(w)&=(Xw-y)^T(Xw-y) + \lambda w^T w\\
+                J(w)&=w^TX^TXw - w^TX^Ty - y^T Xw - y^Ty + \lambda w^T w\\
+                J(w)&=w^TX^TXw - 2y^T Xw - y^Ty + \lambda w^T w\\
+                \frac{\partial J(w)}{\partial w}&=2X^TXw -2y^TX + 2\lambda w = 0\\
+        \end{split}\end{equation}
+        
+        then we see 
+        \begin{equation}
+            \begin{split}
+                2X^TXw  + 2\lambda w &= 2y^TX\\
+                (X^TX  + \lambda I )w &= y^TX\\
+            \end{split}
+        \end{equation}
+        
+        then we get the solution in the hw. 
+
+        \item as \(\lambda\to 0\), \(w_{ridge}->(X^TX)^{-1}X^Ty\).  as \(\lambda\to \infty\), \(w_{ridge}->0\). 
+        
+        the former is when penalty goes to zero and the latter is when error dominates. 
+
+        \item 
+    \end{enumerate}
+    
+\end{enumerate}
+
+
+
+\end{document}
