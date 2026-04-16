@@ -52,8 +52,49 @@
         the former is when penalty goes to zero and the latter is when error dominates. 
 
         \item 
+
+        \begin{equation}
+            \begin{split}
+                \Big| \hat X w - \hat y\Big| &= (\hat X w - \hat y)^T (\hat X w - \hat y)\\
+                &= w^T\hat X^T \hat X w - \hat y^T \hat X w - w^T \hat X^T \hat y + \Big|\hat y\Big|^2\\
+                &= w^T(X^T X + \sqrt{\lambda}X^TI_d + \sqrt{\lambda}I_d^TX + \lambda I) w \\
+                & \quad - \hat y^T \hat X w - w^T \hat X^T \hat y + \Big|\hat y\Big|^2\\
+            \end{split}
+        \end{equation}
+
+        note \((\sqrt{\lambda}Iw)^2 = \lambda\sum w_i^2\). factoring out \(w^T\), excluding the \(w=0\) solution, the argmin when zero gives the original expression.
+
+        
     \end{enumerate}
     
+    \section{}
+    \begin{enumerate}
+        \item \begin{equation}\begin{split}
+            (X^TX+\lambda I)^{-1} &= (Q\Lambda^2Q^T + \lambda I)^{-1}\\
+            &=(Q\Lambda Q^T + \lambda QIQ^T)^{-1}\\
+            &=(Q(\Lambda^2 + \lambda I)Q^T)^{-1}\\
+            &=(Q^T)^{-1}((\Lambda^2 + \lambda I))^{-1}Q^{-1}\\
+            &=Q((\Lambda^2 + \lambda I))^{-1}Q^{T}\\
+        \end{split}
+        \end{equation}
+        \(\lambda\) inversely scales the eigenvalue
+        \item \begin{equation}
+            \kappa (X^TX) = \frac{\sigma^2_{max}}{\sigma^2_min}
+        \end{equation}
+        since sigmas are positive, the inequality on the right holds. 
+
+        the equality on the left is true because of part a. the eigenvalues are exactly \(\Lambda + \lambda I\)
+
+        we can also see why equality only hods when \(\lambda\) is zero, since every eigenvalue is different on the LHS when \(\lambda\) is nonzero.
+
+        \item if there are zero eigenvalues, it means the matrix is invertable. the smallest eigenvalues with regularization are \(\lambda\) and no eigenvalues are zero, which implies full rank, which implies invertability. 
+    \end{enumerate}
+
+    \item \begin{enumerate}
+        \item 
+    \end{enumerate}
+
+
 \end{enumerate}
 
 
