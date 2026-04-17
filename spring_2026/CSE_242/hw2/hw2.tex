@@ -87,15 +87,94 @@
 
         we can also see why equality only hods when \(\lambda\) is zero, since every eigenvalue is different on the LHS when \(\lambda\) is nonzero.
 
-        \item if there are zero eigenvalues, it means the matrix is invertable. the smallest eigenvalues with regularization are \(\lambda\) and no eigenvalues are zero, which implies full rank, which implies invertability. 
+        \item if there are zero eigenvalues, it means the matrix is non invertable. the smallest eigenvalues with regularization are \(\lambda\) and no eigenvalues are zero, which implies full rank, which implies invertability. 
     \end{enumerate}
 
     \item \begin{enumerate}
+        \item for ols
+        \begin{equation}
+            (X^TX)^{-1}X^Ty = X^T y
+        \end{equation}
+
+        for ridge
+
+        \begin{equation}
+            (X^TX+\lambda I)^{-1}X^T y = ((1+\lambda)I)^{-1}  X^Ty = \frac{1}{1+\lambda}X^Ty
+        \end{equation}
+
         \item 
+        using the hat symbol to denote estimate
+        \begin{equation}
+            \begin{split}
+                E[\hat{w}_{ridge}] &= E\left[ \frac{1}{1+\lambda} X^T y \right]\\
+                &= \frac{1}{1+\lambda} X^T E[y]
+            \end{split}
+        \end{equation}
+
+        $$E[y] = E[Xw^* + \epsilon] = Xw^* + E[\epsilon] = Xw^*$$
+
+        then 
+
+        $$E[\hat{w}_{ridge}] = \frac{w^*}{1+\lambda}$$
+        similarly
+
+        \begin{equation}
+            \begin{split}
+                Var(\hat{w}_{ridge}) &= Var\left( \frac{1}{1+\lambda} X^T y \right)\\
+                &= \left( \frac{1}{1+\lambda} \right)^2 X^T Var(y) (X^T)^T\\
+                &= \frac{1}{(1+\lambda)^2} X^T Var(y) X\\
+                &= \frac{\sigma^2}{(1+\lambda)^2} X^T X
+            \end{split}
+        \end{equation}
+        \item 
+        \begin{equation}\begin{split}
+                \text{Bias}_j &= E[w_{ridge, j}] - w_j^*\\
+                & = \frac{w_j^*}{1+\lambda} - w_j^* \\
+                &= w_j^* \left( \frac{1}{1+\lambda} - 1 \right)\\
+                & = w_j^* \left( \frac{1 - (1+\lambda)}{1+\lambda} \right) \\
+                &= \frac{-\lambda w_j^*}{1+\lambda}\\
+        \end{split}
+        \end{equation}
+
+        therefore 
+
+        $$MSE_j = \left( \frac{\lambda w_j^*}{1+\lambda} \right)^2 + \frac{\sigma^2}{(1+\lambda)^2}$$
+
+        to find optimal \(\lambda\), w wolfram alpha
+        $$\frac{d}{d\lambda} MSE_j = \frac{2(\lambda (w_j^*)^2 - \sigma^2)}{(1+\lambda)^3}$$
+
+        set \(\lambda\) to \(\frac{\sigma^2}{(w^*_j)^2}\) to make the numerator 0 and thus the whole term 0.
+
+        OLS is bad when noise is high and good when noise is low. ridge is better when noise is high.
+    \end{enumerate}
+    \item 
+    \begin{enumerate}
+        \item $$P(w | X, y) = \frac{P(y | X, w) P(w)}{P(y | X)}$$
+        $$\ln P(w | X, y) = \ln P(y | X, w) + \ln P(w) -\ln P(y|X)$$
+
+        both terms are normal distributions so we see 
+
+        $$\ln P(y | X, w) = -\frac{1}{2\sigma^2} \|y - Xw\|_2^2 + C_1$$
+
+        $$\ln P(w) = -\frac{1}{2\tau^2} \|w\|_2^2 + C_2$$
+
+        note, after taking log the constant normalization terms for \(P\) become additive constants.
+
+        thus
+        $$\ln P(w | X, y) = -\frac{1}{2\sigma^2} \|y - Xw\|_2^2 - \frac{1}{2\tau^2} \|w\|_2^2 + C$$
+
+        but this is just the negative of the ridge objective up to constants so maximizing this is the same as minimizing the ridge constant obj.
+
+        \item if \(\lambda\) is large, \(\tau^2\) is small since \(\lambda = \left( \frac{\sigma}{\tau} \right)^2\). the gaussians have small variance and are near zero. since \(\lambda\) controls the weight given to the prior by influencing \(\tau\), it exibhits similar behavior.
+        
     \end{enumerate}
 
 
+
+
 \end{enumerate}
+
+\section{}
 
 
 
