@@ -174,7 +174,28 @@
 
 \end{enumerate}
 
+\newpage
 \section{}
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item \begin{equation}\begin{split}
+            J(w) &= (Xw - y)^T (Xw - y) + {\lambda} w^T w\\
+            &=  (w^T X^T X w - w^T X^T y - y^T X w + y^T y) + {\lambda}{} w^T w\\
+            &=  (w^T X^T X w - 2w^T X^T y + y^T y) + {\lambda}{} w^T w\\
+        \end{split}
+        \end{equation}
+        \begin{equation}\begin{split}
+            \nabla_w J(w)&= 2X^TX w - 2X^ty + 2\lambda w
+        \end{split}
+        \end{equation}
+    \end{enumerate}
+    \item see jupyter notebook
+    \item 0.001 converges the fastest. 0.01 diverges. 0.001 goes fast enough but does not overshoot. 0.01 overshoots too much.
+    \item see jupyter notebook
+
+    they are not that close. 
+\end{enumerate}
 
 
 
