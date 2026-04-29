@@ -189,14 +189,34 @@
             \nabla_w J(w)&= 2X^TX w - 2X^ty + 2\lambda w
         \end{split}
         \end{equation}
-    \end{enumerate}
-    \item see jupyter notebook
-    \item 0.001 converges the fastest. 0.01 diverges. 0.001 goes fast enough but does not overshoot. 0.01 overshoots too much.
-    \item see jupyter notebook
+        \item see jupyter notebook
+        \item 0.001 converges the fastest. 0.01 diverges. 0.001 goes fast enough but does not overshoot. 0.01 overshoots too much.
+        \item see jupyter notebook
 
-    they are not that close. 
+        they are not that close. 
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item if a step in the gradient descent hits exactly \(w_i=0\), the gradient of that point will be undefined which breaks the algorithm.
+        \item see jupyter notebook
+        \item most weights are zero. the higher hte lambda, the lower the fraction of non-zero weights
+        \item lasso creates far sparser solutions. lasso does a better job of recovering nonzero entries. the force that lasso exerts on weights is constant no matter how negative or positive they are from their optimal while ridge slows down the force on weights as they near zero making it take a very long time for them to reach zero. 
+    \end{enumerate}
+    
 \end{enumerate}
 
+\section{}
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item lasso can be used in medicine identifying features that cause disease
+        \item finance can see factors that cause changes in asset pricing
+        \item in natural language processing something like this can be used to find words that are important
+        \item ridge can be used by economists to find the relations between macroeconomic factors, keeping dependence on different factors without losing them competely like lasso might
+    \end{enumerate}
+    \item i used gemini for help w plotting
+    \item gemini fast, used a different chrome tab, no copilot
+    \item it took about 10-12 hours. most of the time was spent coding and verifying answers since they seemed counterintuitive
+    \item i think the way that lasso behaves seems odd since the loss doesnt go to zero. also the weight differences for ridge dont go to zero either which im not sure if thats a mistake or expected. 
+\end{enumerate}
 
 
 \end{document}
