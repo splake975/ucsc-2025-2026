@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{stackengine,amssymb,graphicx}
+\newcommand\DDiamond{\ensurestackMath{%
+  \stackengine{.5pt}{\Diamond}{\scalebox{.75}[1]{$-$}}{O}{c}{F}{F}{L}}}
+
+\title{CSE105/209A: Modern Algorithmic Toolbox\footnote{PI: Vaggos Chatziafratis}, PSET-3,\\ \textbf{Deadline:} \textbf{7 days from now}}
+\author{Ian Chi}
+\date{}
+\begin{document}
+\maketitle
+% \vspace{-2cm}
+\paragraph{Instructions:} Deadline in \textbf{7 days, 11:59pm}. Submit to Canvas a pdf of your solutions, with your name and ucsc id number. Feel free to discuss solutions with your colleagues (other students), explore the internet, read and be inspired from the textbooks etc. But what you type should be typed by you and you only in latex. In algorithms, we appreciate brevity and accuracy: your solutions should be to the point, often one or two sentences suffice to provide all necessary details and descriptions. Unnecessarily long answers will not get full credit.\\
+
+
+
+
+\noindent \textbf{Ex.1 (30pts) (Review of Linear Algebra)}
+
+Just to review some basic concepts from linear algebra we ask you to prove the following (if referenced, matrix $A$ is real and symmetric):
+
+\begin{enumerate}
+    \item Prove: If $A$ is a real, symmetric $n \times n$ matrix, then all of its eigenvalues are real.
+    \item Let $\lambda_i$ and $\lambda_j$ be two eigenvalues of a symmetric matrix $A$, and $u_i$, $u_j$ be the corresponding eigenvectors. Prove the following: If $\lambda_i \neq \lambda_j$, then
+$u_i^Tu_j  = 0$ (inner product is zero so vectors are orthogonal).
+    \item More generally, it is without loss of generality that we can assume that the eigenvectors of $A$ form an orthonormal basis for $\mathbb{R}^n$ (recall, orthonormal basis is a set of vectors that are all of unit length, and any two of them are orthogonal to each other, for example the standard basis vectors form an orthonormal basis).
+    
+    Prove:  Let $\lambda_1 \le\ldots \le  \lambda_n$ be the eigenvalues of $A$ with corresponding eigenvectors $u_1,\ldots,u_n$. Then, $A = \sum_{i=1}^n \lambda_iu_iu_i^T$ (note this $u_iu_i^T$ is \textbf{not} the inner product of the vectors and the result is a matrix).
+    \item Prove the following characterization for the largest eigenvalue (analogous characterizations hold for all other eigenvalues): If $A$ is an $n \times n$ real symmetric matrix, then the largest eigenvalue of $A$ is
+\[
+\lambda_n(A) = \max_{v\in \mathbb{R}^n\setminus\{0\}} \frac{v^TAv}{v^Tv}
+\]
+(Hint: use the fact from part 3 that the eigenvectors form an orthonormal basis to express any vector $v$...)
+    \item Using part 4, prove that for any unweighted, undirected graph the largest eigenvalue of its Laplacian $L$ is at least the maximum degree of the graph $G$, in other words prove:
+    \[
+    \lambda_{max}(L)\ge d_{max}(G)
+    \]
+    (Hint: as always the quadratic form of the Laplacian should be used)
+    \textbf{Bonus/Grads:} Show that actually we can do slightly better: $\lambda_{max}(L)\ge d_{max}(G)+1$. 
+    \item Let $P_n$ be the path graph on $n$ nodes. Prove that $\lambda_2(P_n) = O(\frac{1}{n^2})$.
+    
+    (Hint: Here you should use the characterization for the second smallest eigenvalue of the Laplacian: $\lambda_2(L)=\min_{v\in \mathbb{R}^n\setminus\{0\},v^T\cdot \textbf{1}=0} \frac{v^TAv}{v^Tv}$, where $\textbf{1}$ is the all-1s vector... One more hint: maybe the vector whose $i^{th}$ coordinate is $n+1-2i$ will be helpful in the proof.)\\
+    \end{enumerate}
+
+
+
+
+
+
+
+
+\noindent \textbf{Ex.2 (20pts) (Two More Motifs)}
+See Figure 1 that shows two more motif equations like the previous homeworks. Here, we use the adjacency matrix $A$  and also the adjacency matrix $C$ of the complement graph. We ask you to prove the two motif equations. ($P_4$: this is the path on 4 nodes, and the other patterns are as shown in the figure.)\\
+
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=9cm]{Screen Shot 2025-04-25 at 22.44.12.png}
+    \caption{Two extra Motif Equations. The matrix $C$ corresponds to the complement graph.}
+    \label{fig:my_label}
+\end{figure}
+
+
+
+\noindent \textbf{Ex.3 (20pts) (Embedding the Petersen graph)} 
+Check Figure 2 where we show the Petersen graph. We ask you the following:
+\begin{itemize}
+    \item Compute the eigenvalues and eigenvectors of the Laplacian $L$ matrix. Please comment on the symmetry observed.
+    \item Do the spectral embedding of the Petersen graph onto the second and third smallest eigenvectors of $L$.
+    \item Compute the second eigenvector and run the sweeping cut algorithm to split the graph into two pieces $S$ and $V\setminus S$, so as to (try to) minimize the isoperimetric ratio. Output the set $S$, its boundary and its isoperimetric ratio. What is the optimum isoperimetric ratio of the graph?
+    \item Choose any vertex that you want and delete two of its edges. Then repeat parts 1,2,3 for this graph.
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=6cm]{Petersen1_tiny.svg.png}
+    \caption{The Petersen Graph.}
+    \label{fig:my_label}
+\end{figure}
+
+
+\noindent \textbf{Ex.4 (30pts) (Interview Question I: Geometry and Embeddings)}
+
+Here we explore embeddings of random points. (feel free to use any software/programming language you want to do the calculations (e.g., Python or Matlab) and you don't have to include your calculations, just your final answers and plots.)
+
+
+\begin{itemize}
+    \item Pick 100 random points in the unit square, by independently choosing their $x$ and $y$ coordinates uniformly at random from the interval [0,1] (there are many Python implementations for this). Form a graph by adding an edge between every pair of points whose Euclidean distance is at most $\frac{1}{4}$. 
+
+Using the Laplacian, plot the embedding of the graph onto the second and third eigenvectors (those that correspond to the second and third smallest eigenvalues). Here do \textbf{not} overlay the edges of the graph just plot the vertices.
+
+\item Now, for all points in the original dataset whose $x$ and $y$ coordinates are \textbf{both less} than $\frac 12$, plot their images in the embedding in a different color. Are these points clustered together in the embedding? Why does this make sense?\\
+\end{itemize}
+
+
+
+
+
+\end{document}
+
