@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{\(1+\delta\) approximation in sublinear time}
+\author{Ian Chi}
+\date{}
+
+\begin{document}
+
+\title
+
+\section{Definitions}
+
+For a function \(f:[n]\to \mathbb R\) we say a pair \((i,i+1)\) for \(i\) in \([n-1]\) is 
+\begin{enumerate}
+    \item a "good pair" if there exists an optimal LIS that does not change the values in this pair
+    \item a "bad pair" if no optimal LIS includes this pair untouched
+    % \item a "perfect pair" is a pair that must remain untouched in all optimal LIS
+\end{enumerate}
+
+note that all \((j,j+1)\) such that \(f(j)>f(j+1)\) are "bad pairs" 
+
+
+\section{\(1+\delta\) assuming \(\varepsilon_f<0.5\)}
+
+\begin{theorem}
+    If the true \(\varepsilon_f\) is less than \(0.5\), Using distance-separation\((f,\varepsilon,\delta)\), one can check if a function is \(\varepsilon_f>\varepsilon\) or \(\varepsilon_f<(1/2-\delta)\varepsilon\) for any epsilon and delta. 
+\end{theorem}
+
+
+
+
+
+
+\end{document}
