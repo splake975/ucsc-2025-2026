@@ -15,21 +15,42 @@
 
 For a function \(f:[n]\to \mathbb R\) we say a pair \((i,i+1)\) for \(i\) in \([n-1]\) is 
 \begin{enumerate}
-    \item a "good pair" if there exists an optimal LIS that does not change the values in this pair
-    \item a "bad pair" if no optimal LIS includes this pair untouched
-    % \item a "perfect pair" is a pair that must remain untouched in all optimal LIS
+    \item a \emph{good pair} if there exists an optimal LIS that does not change the values in this pair
+    \item a \emph{bad pair} if no optimal LIS includes this pair untouched
+    \item a \emph{perfect pair} is a pair that must remain untouched in all optimal LIS
 \end{enumerate}
 
-note that all \((j,j+1)\) such that \(f(j)>f(j+1)\) are "bad pairs" 
+Note that all \((j,j+1)\) such that \(f(j)>f(j+1)\) are "bad pairs". Also note that all perfect pairs are also good pairs 
 
 
 \section{\(1+\delta\) assuming \(\varepsilon_f<0.5\)}
 
 \begin{theorem}
-    If the true \(\varepsilon_f\) is less than \(0.5\), Using distance-separation\((f,\varepsilon,\delta)\), one can check if a function is \(\varepsilon_f>\varepsilon\) or \(\varepsilon_f<(1/2-\delta)\varepsilon\) for any epsilon and delta. 
+    For a fixed delta, if the true \(\varepsilon_f\) is less than \(0.5\), Using distance-separation\((f,\varepsilon,\delta)\), the decision problem of if \(f\) is within \(\varepsilon\pm \delta\) is solvable in polylog time. 
 \end{theorem}
 
+\section{good pair analysis}
 
+\subsection{fraction of good pairs}
+
+\begin{theorem}
+    At least half of all increasing pairs are good pairs
+\end{theorem}
+
+\subsection{padding good pairs}
+
+\begin{theorem}
+    given a good pair \((i,i+1)\), constructing a new function \(f_p:[n+1]\to \mathbb R\) were \begin{equation}
+        f_p(x) = \begin{cases}
+            f(x),& x\leq i\\
+            \frac{f(i)+f(i+1)}{2},& x=i+1\\
+            f(x+1),&x\geq i+2
+        \end{cases}
+    \end{equation}
+    forces \((i,i+1),(i+1,i+2)\) to both be perfect pairs in the new function \(f_p\)
+    
+    % adding an additional value between \(i,i+1\) that respects monotonicity results in \((i,i+1),(i+1,i+2)\) to become perfect pairs. 
+\end{theorem}
 
 
 
