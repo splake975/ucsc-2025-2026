@@ -1,0 +1,196 @@
+\documentclass{report}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center} \LARGE Assignment 6 \end{center}
+
+\section*{Part 1: Theory and By-Hand Computation}
+
+\subsection*{Q1. Bellman equations on a small MDP}
+
+(a)
+
+\begin{enumerate}
+    \item \begin{equation}
+        Q^*(A,left)=1.0(5+0.5V^*(end))=5
+    \end{equation}
+    
+    \begin{equation}
+        Q^*(A,right)=0.8(2+0.5V^*(B))+0.2(2+0.5V^*(A))
+    \end{equation}
+    
+    \begin{equation}
+        V^*(A)=max{Q^*(A,left),Q^*(A,right)}
+    \end{equation}
+    \item 
+    \begin{equation}
+        Q^*(B,left)=1+0.5V^*(A)
+    \end{equation}
+    \begin{equation}
+        Q^*(B,right)=0.6(3+0.5V^*(C))+0.4(10)
+    \end{equation}
+    \begin{equation}
+        V^*(B)=max{Q^*(B,left),Q^*(B,right)}
+    \end{equation}
+    \item 
+    \begin{equation}
+        Q^*(C,left)=1+0.5V^*(B)
+    \end{equation}  
+
+    \begin{equation}
+        Q^*(C,right)=8
+    \end{equation}
+
+    \begin{equation}
+        V^*(C)=max{Q^*(C,left),Q^*(C,right)}
+    \end{equation}
+
+\end{enumerate}
+
+
+
+
+
+(b)
+\begin{enumerate}
+    \item \begin{equation}
+        V^*(C)=max(1+0.5V^*(B),8)
+    \end{equation}
+    lets just assume 8 is correct. move on with calc
+    \item \begin{equation}
+        Q^*(B,left)=1+0.5V^*(A)
+    \end{equation}
+    \begin{equation}
+        Q^*(B,right)=8.2
+    \end{equation}
+    assume 
+    \begin{equation}
+        V^*(B)=8.2
+    \end{equation}
+    \item 
+    \begin{equation}
+        Q^*(A,left)=5
+    \end{equation}
+    \begin{equation}
+        Q^*(A,right)=0.8(2+0.5(8.2))+0.2(2+0.5V^*(A))
+    \end{equation}
+    if right is optimal,
+    \begin{equation}
+        V^*(A)=5.28+0.1V^*(A)
+    \end{equation}
+\end{enumerate}
+
+we can check and see that right is in fact optimal
+
+checking for C, the other option is worse than 8 so 8 was in fact optimal.
+
+and we get
+
+\begin{equation}\begin{split}
+        V^*(A) &\approx 5.867\\
+        V^*(B) &= 8.2\\
+        V^*(C) &= 8\\
+\end{split}
+\end{equation}
+
+(c)
+
+optimal policy for all states is right
+
+
+(d)
+
+if \(\gamma\) is 1, then A can return to itself with some probability when going right, and thus \(V^*(A)\) goes to infinity.
+
+\subsection*{Q2. Value iteration by hand on a grid world}
+
+(a)
+\begin{equation}
+    Q((3,3),E)=0.8(1)+0.1(-0.04)+0.1(-0.04) = -.792
+\end{equation}
+
+\begin{equation}
+    Q((3,2),N)=0.8(-0.04)+0.1(-1)+0.1(-0.04) = -.136
+\end{equation}
+\begin{equation}
+    Q((3,1),E)=-0.04
+\end{equation}
+
+(b)
+
+\begin{equation}
+    Q((3,3),E)=0.8(1+0)+0.1(-0.04+0.792)+0.1(-0.04-0.04) = 0.8672
+\end{equation}
+
+\begin{equation}
+    Q((3,2),W)=0.8(-0.04-0.04)+0.1(-0.04+0.792)+0.1(-0.04-0.04) = 0.0032
+\end{equation}
+
+state \((3,1)\) just takes another penalty and the result is \(-.08\)
+
+(c)
+
+
+\begin{equation}
+    \begin{matrix}
+        \rightarrow & \rightarrow & \rightarrow &+1\\
+        \uparrow & WALL & \uparrow & -1\\
+        \uparrow & \rightarrow & \uparrow & \leftarrow
+    \end{matrix}
+\end{equation}
+
+the nodes in column 3 prefer to finish faster than to avoid the -1.
+
+\subsection*{Q3. The effect of discount and living reward}
+
+(a)
+
+\begin{enumerate}
+    \item a small \(\gamma\) means the agent may avoid the tile next to -1 since it is punished. 
+    \item with a large \(\gamma\) the agent may decide to more aggressively head towards the +1 tile.
+\end{enumerate}
+
+(b)
+
+\begin{enumerate}
+    \item with a small \(r\), the agent will try to avoid -1 since existence is punished less
+    \item with a large \(r\), the agent will not mind passing by -1 since -1 once is not as bad as -2 each extra step. 
+\end{enumerate}
+
+(c)
+\(\gamma<1\) is required for cycles to not diverge in reward. the infinite recursive sum might go to \(+\infty\) if the discount factor is 1. 
+
+
+\section*{Reflection + Statistics Section}
+(a)
+
+(b) 
+
+(c) 
+
+(d) 
+
+Contributions: \\
+
+
+
+Total: \\
+
+Part 1: \\
+Q1: \\
+
+Part 2: \\
+Q1: \\
+
+Part 3: \\
+Q1: \\
+
+(e)
+
+
+\end{document}
