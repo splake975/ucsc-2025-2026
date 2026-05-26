@@ -9,6 +9,10 @@
 \thispagestyle{empty}
 \begin{center} \LARGE Assignment 6 \end{center}
 
+\newcommand{\el}{\mathcal{L}}
+\def\brac#1#2{#1^{[#2]}}
+
+
 \section*{}
 \begin{enumerate}
     \item [Q1]
@@ -24,11 +28,102 @@
             \frac{e^{-x}}{1+e^{-x}} = 1-\frac{1}{1+e^{-x}}
         \end{equation}
         \begin{equation}
-            \frac{d}{dx} \sigma(x) = -1(1+e^{-x})^{-2} = 1-\frac{1}{1+e^{-x}}
+            \frac{d}{dx} \sigma(x) = -1(1+e^{-x})^{-2} = \frac{1}{1-e^{-x}}\left( 1-\frac{1}{1+e^{-x}} \right)
         \end{equation}
+        \begin{equation}
+        \frac{\partial \mathcal{L}}{\partial a^{[2]}} = -\left( \frac{y}{a^{[2]}} - (1-y) \frac{1}{1-a^{[2]}} \right)
+    \end{equation}
+    \item \begin{equation}
+        \begin{split}
+            \frac{\partial \mathcal{L}}{\partial z^{[2]}} &= \frac{\partial L }{\partial a^{[2]}} \frac{\partial a^{[2]}}{\partial z^{[2]}}\\
+            &= -\left( \frac{y}{a^{[2]}} - (1-y) \frac{1}{1-a^{[2]}} \right)\left( \sigma(z^{[2]})(1-\sigma(z^{[2]})) \right)\\
+            &= -\left( \frac{y}{\sigma (z^{[2]})} - (1-y) \frac{1}{1-\sigma(z^{[2]})} \right)\left( \sigma(z^{[2]})(1-\sigma(z^{[2]})) \right)\\
+            &= \sigma(z^{[2]}) - y \\
+            &= a^{[2]} - y
+        \end{split}
+    \end{equation}
+    \item \begin{equation}\begin{split}
+            \frac{\partial \el  }{\partial \brac{W}{2}} &= \partial_{\brac{z}{2}} \el \cdot \partial_{\brac{W}{2}}{\brac{z}{2}} \\
+            &= \left( \brac{a}{2}-y \right) \left( \brac{a}{1} \right)^T
+    \end{split}
+    \end{equation}
+    \begin{equation}\begin{split}
+            \frac{\partial \el  }{\partial \brac{b}{2}} &= \partial_{\brac{z}{2}} \el \cdot \partial_{\brac{b}{2}}{\brac{z}{2}} \\
+            &= \left( \brac{a}{2}-y \right) 
+    \end{split}
+    \end{equation}
+
+    note
+    \[\frac{\partial \el }{\partial \brac{z}{2}} \in \mathbb R\]
+    \[\frac{\partial \el}{\partial \brac{W}{2}}\in \mathbb R^{1\times h}\]
+    \[\frac{\partial \el}{\partial \brac{b}{2}}\in \mathbb R^{1\times 1}\]
+
+    \item \begin{equation}
+        \frac{\partial \el}{\partial a^{[1]}} = \left(\frac{\partial z^{[2]}}{\partial a^{[1]}}\right)^T \frac{\partial \el}{\partial z^{[2]}} = (W^{[2]})^T \left(a^{[2]} - y\right)
+    \end{equation}
+    \begin{equation}
+        \frac{\partial \el}{\partial z^{[1]}} = \left[(W^{[2]})^T \left(a^{[2]} - y\right)\right] \odot \text{ReLU}'(z^{[1]})
+    \end{equation}
+    let \(\odot\) be the element wise product (this lets \(\partial_{\brac{z}{1}}\el\) be 0 when \(\brac{z}{1}\) is less than zero where needed)
+
+    \(\odot\) is also known as the hadamar product.
+
+    \item 
+    \begin{equation}
+        \frac{\partial \el}{\partial W^{[1]}} = \frac{\partial \el}{\partial z^{[1]}} x^T= \left( \left[(W^{[2]})^T \left(a^{[2]} - y\right)\right] \odot \text{ReLU}'(z^{[1]}) \right) x^T
+    \end{equation}
+    \begin{equation}
+        \frac{\partial \el}{\partial b^{[1]}} = \frac{\partial \el}{\partial z^{[1]}} \cdot 1
+    \end{equation}
     \end{enumerate}
 
-    \item [Q2]
+
+    \item [Q2] 
+    \begin{enumerate}
+        \item \begin{equation}
+            f(u) = u(1 - u) = u - u^2
+        \end{equation}
+        but note
+    \begin{equation}
+        \frac{df}{du} = 1 - 2u = 0 \implies u = \frac{1}{2}
+    \end{equation}
+    \end{enumerate}
+    and note that sigmoid is increasing so this is a maximum.
+    \begin{equation}
+        \sigma(x) = \frac{1}{2} \implies x=0
+    \end{equation}
+    and 
+    \begin{equation}
+        \sigma^\prime (0) = \frac{1}{4}
+    \end{equation}
+    \item
+    note that
+    \begin{equation}
+        \frac{\partial \mathcal{L}}{\partial \brac{z}{\ell}} = \frac{\partial \mathcal{L}}{\partial \brac{z}{L}} \prod_{k=\ell+1}^{L} \frac{\partial \brac{z}{k}}{\partial \brac{z}{k-1}}
+    \end{equation}
+    Since \(\brac{z}{k} = \brac{W}{k}\brac{a}{k-1} + \brac{b}{k}\) and \(\brac{a}{k-1} = \sigma(\brac{z}{k-1}),\) we have \(\frac{\partial \brac{z}{k}}{\partial \brac{z}{k-1}} = \brac{W}{k} \sigma'(\brac{z}{k-1})\). Substituting this back gives:
+    
+    \begin{equation}
+        \frac{\partial \mathcal{L}}{\partial \brac{z}{\ell}} = \frac{\partial \mathcal{L}}{\partial \brac{z}{L}} \prod_{k=\ell+1}^{L} \brac{W}{k} \sigma'(\brac{z}{k-1})
+    \end{equation}
+    but each term in the product is bounded by \(\frac{1}{4}\). taking the norm on both sides gives 
+
+    \begin{equation}
+        \frac{\partial \mathcal{L}}{\partial z^{[\ell]}} \le \left( \frac{1}{4} \right)^{L-\ell} \cdot \frac{\partial \mathcal{L}}{\partial z^{[L]}} \cdot \prod_{k=\ell+1}^{L} \parallel W^{[k]} \parallel
+    \end{equation}
+
+    computing for \(L=10, \ell = 1\), 
+
+    $$\left(\frac{1}{4}\right)^{9} = \frac{1}{262,144} \approx \mathbf{3.81 \times 10^{-6}}$$
+
+    \item $$\text{ReLU}'(x) = \begin{cases} 1 & \text{if } x > 0 \\ 0 & \text{if } x < 0 \end{cases}$$
+    
+    this is less of a problem since each relu is slope 1 and doesnt suffer from the same "vanishing gradient" problem. the norm does not decrease every layer like sigmoid does. 
+    \item if \(z\) is constantly less than zero, then relu function outputs 0 during backprop. 
+    
+    one can remedy this by using many variants of relu like leaky relu. 
+
+
 \end{enumerate}
 
 
