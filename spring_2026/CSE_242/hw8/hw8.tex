@@ -1,0 +1,136 @@
+\documentclass{report}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center} \LARGE Assignment 8 \end{center}
+
+\section*{Part 1: Mathematical Derivations}
+
+\subsection*{Q1}
+\begin{enumerate}
+    \item we should notice that the standard deviation for \(q(x_t\vert x_{t-1} ) = \sqrt{\beta_t}\). the mean is also \(\sqrt{1-\beta_t}x_{t-1}\) and so \(x_t = \sqrt{1 - \beta_t} x_{t-1} + \sqrt{\beta_t} \epsilon_t\) where \( \epsilon_t \sim \mathcal{N}(0, I)\)
+    \item given \(\alpha_t\), we can rewrite as 
+    \begin{equation}
+        \begin{split}
+            x_t &= \sqrt{\alpha_t} x_{t-1} + \sqrt{1 - \alpha_t} \epsilon_t\\
+            x_{t-1} &= \sqrt{\alpha_{t-1}} x_{t-2} + \sqrt{1 - \alpha_{t-1}} \epsilon_{t-1}
+        \end{split}
+    \end{equation}
+    which gives 
+    \begin{equation}
+        x_t = \sqrt{\alpha_t \alpha_{t-1}} x_{t-2} + \sqrt{\alpha_t (1 - \alpha_{t-1})} \epsilon_{t-1} + \sqrt{1 - \alpha_t} \epsilon_t
+    \end{equation}
+    since variances sum, we get 
+    \begin{equation}
+        x_t = \sqrt{\alpha_t \alpha_{t-1}} x_{t-2} + \sqrt{1 - \alpha_t \alpha_{t-1}} \epsilon_{t-2}'
+    \end{equation}
+
+    unfolding all the way to \(x_0\), we get
+
+    \begin{equation}
+        x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, \quad \text{where } \epsilon \sim \mathcal{N}(0, I)
+    \end{equation}
+
+    which is the same as 
+    $$\mathbf{q(x_t | x_0) = \mathcal{N}\left(x_t; \sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}_t) I\right)}$$
+
+    \item the distribution just approaches the standard gaussian distribution \(\mathcal N(0,I)\). as \(\bar\alpha_T\) goes to zero the mean goes to zero and the variance goes to \(I\)
+
+\end{enumerate}
+
+\subsection*{Q2}
+
+\begin{enumerate}
+    \item \begin{equation}
+        \log p_\theta(x) = \log \left( \frac{e^{-f_\theta(x)}}{Z_\theta} \right) = -f_\theta(x) - \log Z_\theta
+    \end{equation}
+
+    \begin{equation}
+        s_\theta(x) = \nabla_x \log p_\theta(x) = \nabla_x \left( -f_\theta(x) - \log Z_\theta \right)
+    \end{equation}
+    but note that \(Z_\theta\) is constant wrt to \(x\) so the derivative is zero and thus
+    \begin{equation}
+        s_\theta(x) = -\nabla f_\theta(x)
+    \end{equation}
+
+    but note that \(Z_\theta\) is constant wrt to \(x\) so the derivative is zero.
+    \item solving for epsilon from part 1,
+    \begin{equation}
+        \epsilon = \frac{x_t - \sqrt{\bar{\alpha}_t}x_0}{\sqrt{1 - \bar{\alpha}_t}}
+    \end{equation}
+    substituting
+    \begin{equation}
+        q(x_t \mid x_0) = \frac{1}{(2\pi)^{d/2} |(1 - \bar{\alpha}_t)\mathbf{I}|^{1/2}} \exp\left( -\frac{\|x_t - \sqrt{\bar{\alpha}_t}x_0\|^2}{2(1 - \bar{\alpha}_t)} \right)
+    \end{equation}
+
+
+    and taking the log gives
+    \begin{equation}
+        \log q(x_t \mid x_0) = -\frac{\|x_t - \sqrt{\bar{\alpha}_t}x_0\|^2}{2(1 - \bar{\alpha}_t)} + C
+    \end{equation}
+
+    grad of this gives 
+    \begin{equation}
+        \begin{split}
+            \nabla_{x_t} \log q(x_t \mid x_0) &= -\frac{2(x_t - \sqrt{\bar{\alpha}_t}x_0)}{2(1 - \bar{\alpha}_t)}\\
+            &= -\frac{x_t - \sqrt{\bar{\alpha}_t}x_0}{1 - \bar{\alpha}_t}\\
+            &= -\frac{\sqrt{1 - \bar{\alpha}_t}\epsilon}{1 - \bar{\alpha}_t} \\ 
+            & = -\frac{\epsilon}{\sqrt{1 - \bar{\alpha}_t}}
+        \end{split}
+    \end{equation}
+    isolating for \(\varepsilon\),
+    \begin{equation}
+        \epsilon = -\sqrt{1 - \bar{\alpha}_t} \nabla_{x_t} \log q(x_t \mid x_0)
+    \end{equation}
+    \item to know the exact probability would require calculating \(Z\) exactly which is hard. 
+\end{enumerate}
+
+\subsection*{Q3}
+
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item \(\varepsilon\) is gaussian noise, 
+        
+        \(t\) is uniform in \([t]\).
+        \item the network input is a noisy image \(x_t\) and a timestep \(t\). 
+        \item the network is trying to learn the gaussian noise vector that was added to \(x_0\) to get \(x_t\). MSE penalizes the difference between the prediction and the true noise.
+    \end{enumerate}
+    \item \begin{enumerate}
+        \item \(\sigma_t\) controls the variance of the component added at each reverse step. 
+        \item at \(t=1\), this is the final prediction. this step is deterministic of hte input from the prior step
+    \end{enumerate}
+    \item 
+\end{enumerate}
+
+
+
+\section*{Reflection + Statistics Section}
+(a)
+
+(b) 
+
+(c) 
+
+(d) 
+Contributions: \\
+
+Total: \\
+
+Part 1: \\
+Q1: \\
+
+Part 2: \\
+Q1: \\
+
+Part 3: \\
+Q1: \\
+
+(e)
+
+
+\end{document}
