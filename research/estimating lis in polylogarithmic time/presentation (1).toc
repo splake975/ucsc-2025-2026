@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Introduction and Background}{3}{0}{1}
+\beamer@sectionintoc {2}{Obstacles to Additive Estimations}{12}{0}{2}
+\beamer@sectionintoc {3}{Algorithmic Intuition}{14}{0}{3}
+\beamer@sectionintoc {4}{Preliminaries and Definitions}{18}{0}{4}
+\beamer@sectionintoc {5}{Algorithmic Building Blocks}{22}{0}{5}
+\beamer@sectionintoc {6}{The Basic LIS Approximation Algorithm}{27}{0}{6}
+\beamer@sectionintoc {7}{The Improved Algorithm}{35}{0}{7}
+\beamer@sectionintoc {8}{Conclusion}{41}{0}{8}

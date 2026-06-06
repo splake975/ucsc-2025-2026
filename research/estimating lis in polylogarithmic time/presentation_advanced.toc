@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Introduction and Formal Notation}{3}{0}{1}
+\beamer@sectionintoc {2}{Algorithmic Primitives: Splitters and Grids}{8}{0}{2}
+\beamer@sectionintoc {3}{The Basic Approximation Algorithm}{17}{0}{3}
+\beamer@sectionintoc {4}{Error Analysis: Primary and Secondary Error}{19}{0}{4}
+\beamer@sectionintoc {5}{The Improved Algorithm: Breaking the Logarithmic Barrier}{25}{0}{5}
