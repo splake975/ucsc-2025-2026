@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage{cse216}
+\def\title{HW 1}
+\begin{document}
+\maketitle
+
+\section*{Due October 6 at 3:00 pm}
+
+\textbf{(6 questions, 125 points total)}
+
+\begin{qunlist}
+\q{15}{Boolean functions as propositional formulas}\\
+Write propositional formulas for the following Boolean functions:
+\begin{qparts}
+\item
+The majority function $M(x_1,x_2,x_3)$, which is true if and only if a majority of its inputs are true.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+The if-then-else function $ITE(i, t, e)$, which is equal to $t$ if $i = \top$ and otherwise is equal to $e$ (this also called a multiplexer; here we're looking at a simple version where the inputs $t$ and $e$ are a single bit).
+
+\begin{answer}
+
+\end{answer}
+
+\item
+The threshold function $T_{\le 5}(x_1,x_2,x_3,x_4)$, which is true if and only if the integer represented in binary as $x_1 x_2 x_3 x_4$ is at most 5 (e.g. $T_{\le 5}(1,1,0,1) = \bot$ since $1101_2 = 13 \not \le 5$).
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+
+\q{20}{Satisfiability and validity}\\
+For each of the following formulas, state whether it is satisfiable and/or valid.
+\begin{qparts}
+\item
+$x \rightarrow \lnot x$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$(x \lor y) \land (\lnot x \lor y) \land (x \lor \lnot y) \land (\lnot x \lor \lnot y)$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$(x \rightarrow y) \leftrightarrow (\lnot x \lor y)$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$x \rightarrow (\lnot x \rightarrow (y \land \lnot y))$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$(x \lor \lnot x) \land (x \lor y \lor z)$
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+
+\q{20}{Equivalence and equisatisfiability}\\
+For each of the following pairs of formulas, state whether they are equivalent and/or equisatisfiable.
+\begin{qparts}
+\item
+$x \quad\text{and}\quad y$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$x \leftrightarrow y \quad\text{and}\quad  (x \rightarrow y) \land (\lnot x \rightarrow \lnot y)$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$(x \lor y \lor z) \land (x  \lor \lnot z) \quad\text{and}\quad x \lor y$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$x \rightarrow \lnot x \quad\text{and}\quad \bot$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$(x \lor y) \land \lnot y \land \lnot x \quad\text{and}\quad \lnot (x \lor \lnot x)$
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+
+\q{20}{Conversion to conjunctive normal form (CNF, a.k.a. product-of-sums)}\\
+Consider the formula $\lnot ((x \lor \lnot y) \land z)$.
+\begin{qparts}
+\item
+Find an equivalent formula in CNF without introducing new variables.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Draw a circuit representing the original formula (not the one you created in part (a)).
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Find an equisatisfiable formula in CNF using the Tseitin transformation.
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+
+\q{40}{Compactness of different encodings of a single function}\\
+$PAR_n(x_1, \dots, x_n) = x_1 \oplus \dots \oplus x_n$ is the parity function on $n$ variables, true if and only if the number of true variables is odd (the symbol $\oplus$ is notation for the exclusive OR, a.k.a.~XOR, operator).
+Let's look at how large different representations of this function are: for each of the types of representation below, give an encoding of $PAR_n$ which is as small as possible\footnote{You don't have to prove your encoding is (asymptotically) optimal, although it's not too hard to do this for (a), (c), and (d) --- feel free to give it a try. On the other hand, the precise lower bound for (b) was a major result!} and compute its size asymptotically (e.g. $\Theta(n^2)$).
+
+(\emph{Note:} To write conjunctions or disjunctions of an arbitrary number of subformulas, you can use the notation:
+\[
+\bigwedge_{i=1}^k \varphi_i = \varphi_1 \land \dots \land \varphi_k \qquad \bigvee_{i=1}^k \varphi_i = \varphi_1 \lor \dots \lor \varphi_k
+\]
+This is similar to the usual notation $\Sigma_{i=1}^k f(i)$ for sums.
+You can also write $\bigwedge_{s \in S} \varphi_s$ if you have a set of subformulas indexed by objects in the set $S$ instead of integers, and you can put constraints on indices in the same way you can when using sums, like $\sum_{\substack{1 \le i, j \le k\\i \ne j}} f(i,j)$.)
+\begin{qparts}
+\item
+A DNF (disjunctive normal form, a.k.a.~sum-of-products) formula.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+A propositional formula which can only use the operators $\land$, $\lor$, and $\lnot$ (this is sometimes called a ``Boolean formula'').
+
+(\emph{Hint:} Try to define $PAR_n$ recursively, in a way that your overall formula won't have exponential size.)
+
+\begin{answer}
+
+\end{answer}
+
+\item
+An unrestricted propositional formula (i.e. you can use $\rightarrow$ and $\leftrightarrow$).
+
+\begin{answer}
+
+\end{answer}
+
+\item
+A BDD (reduced and ordered; you may pick a variable order).
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+
+\q{10}{Variable ordering in BDDs}\\
+Consider the formula $(x_1 \land x_2) \lor (x_3 \land x_4)$.
+\begin{qparts}
+\item
+Construct an ROBDD with the variable order $x_1 > x_2 > x_3 > x_4$.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Construct an ROBDD with the variable order $x_1 > x_3 > x_2 > x_4$.
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+\emph{N.B.} If you generalize this formula to have $n$ pairs of variables instead of just 2, the first variable order (increasing numbers) will yield a BDD of size $\Theta(n)$, while the second (odd variables first, then even variables) will yield a BDD of size $\Theta(2^n)$. So the choice of variable order really does make a difference in BDDs! If you're interested, you could try to prove these sizes.
+
+\end{qunlist}
+\end{document}
