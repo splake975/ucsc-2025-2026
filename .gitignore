@@ -7,7 +7,13 @@
 *.synctex.gz
 *.out
 
+#xournal autosaves
+*.autosave.xopp
+
+
 #other
+
+
 
 fraas.pdf
 fraas.out
