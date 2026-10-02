@@ -60,27 +60,29 @@ simpliefies to \(x\lor \neg x\) which is a tautology and therefore satisfiable a
 $(x \lor y) \land (\lnot x \lor y) \land (x \lor \lnot y) \land (\lnot x \lor \lnot y)$
 
 \begin{answer}
-
+it is neither satisfiable nor valid. each of the 4 combinations of \(x,y\) always results in one box being false.
 \end{answer}
 
 \item
 $(x \rightarrow y) \leftrightarrow (\lnot x \lor y)$
 
 \begin{answer}
-
+this is definitionally true  by the material conditional and is therefore satisfiable and valid.
 \end{answer}
 
 \item
 $x \rightarrow (\lnot x \rightarrow (y \land \lnot y))$
 
 \begin{answer}
-
+\(y\land \neg y\) is a contradiction and therefore false. \(\lnot x \rightarrow (y \land \lnot y)\) true. the outermost material conditional is always true when the consequent is true.
+This is a tautology and therefore satisfiable and valid.
 \end{answer}
 
 \item
 $(x \lor \lnot x) \land (x \lor y \lor z)$
 
 \begin{answer}
+    the first clause is always true. the second is sometimes true but not always so therefore satisfiable but not valid.
 
 \end{answer}
 \end{qparts}
@@ -92,35 +94,35 @@ For each of the following pairs of formulas, state whether they are equivalent a
 $x \quad\text{and}\quad y$
 
 \begin{answer}
-
+they are eqisatisfiable but not equivalent. they are only equivalent if \(x\) and \(y\) are the same variable.
 \end{answer}
 
 \item
 $x \leftrightarrow y \quad\text{and}\quad  (x \rightarrow y) \land (\lnot x \rightarrow \lnot y)$
 
 \begin{answer}
-
+applying modus tollens on \(\neg x \implies \neg y\) we see it is equivalent to \(y \implies x\). so the second formula is equivalent to \(x \implies y \land y \implies x\) which is the definition of \(x \iff y\). therefore they are equivalent and equisatisfiable.
 \end{answer}
 
 \item
 $(x \lor y \lor z) \land (x  \lor \lnot z) \quad\text{and}\quad x \lor y$
 
 \begin{answer}
-
+    they are not equivalent because \(z\) affects the result of the first while it does not in the second. they are equisatisfiable because if \(x\) is true, both formulas are satisfiable.
 \end{answer}
 
 \item
 $x \rightarrow \lnot x \quad\text{and}\quad \bot$
 
 \begin{answer}
-
+the left formula is equivalent to \(\bot \) so they are equivalent and equisatisfiable.
 \end{answer}
 
 \item
 $(x \lor y) \land \lnot y \land \lnot x \quad\text{and}\quad \lnot (x \lor \lnot x)$
 
 \begin{answer}
-
+they are both unsat and therefore equivalent but not equisatisfiable.
 \end{answer}
 \end{qparts}
 
