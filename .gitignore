@@ -8,7 +8,7 @@
 *.out
 
 #xournal autosaves
-*.autosave.xopp
+*.*.autosave.xopp
 
 
 #other
