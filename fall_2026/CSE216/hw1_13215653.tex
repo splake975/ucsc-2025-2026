@@ -3,214 +3,380 @@
 \def\title{HW 1}
 \begin{document}
 \maketitle
-
+\def\ceil#1{\lceil #1 \rceil}
+\def\floor#1{\lfloor #1 \rfloor}
 \section*{Due October 6 at 3:00 pm}
 
 \textbf{(6 questions, 125 points total)}
 
 \begin{qunlist}
-\q{15}{Boolean functions as propositional formulas}\\
-Write propositional formulas for the following Boolean functions:
-\begin{qparts}
-\item
-The majority function $M(x_1,x_2,x_3)$, which is true if and only if a majority of its inputs are true.
+  \q{15}{Boolean functions as propositional formulas}\\
+  Write propositional formulas for the following Boolean functions:
+  \begin{qparts}
+  \item
+    The majority function $M(x_1,x_2,x_3)$, which is true if and only if a majority of its inputs are true.
 
-\begin{answer}
+    \begin{answer}
 
-\begin{equation}
-    M(x_1,x_2,x_3) = (x_1 \land x_2) \lor (x_1 \land x_3) \lor (x_2 \land x_3) 
-\end{equation}
+      \begin{equation}
+        M(x_1,x_2,x_3) = (x_1 \land x_2) \lor (x_1 \land x_3) \lor (x_2 \land x_3)
+      \end{equation}
 
+    \end{answer}
 
+  \item
+    The if-then-else function $ITE(i, t, e)$, which is equal to $t$ if $i = \top$ and otherwise is equal to $e$ (this also called a multiplexer; here we're looking at a simple version where the inputs $t$ and $e$ are a single bit).
 
-
-\end{answer}
-
-\item
-The if-then-else function $ITE(i, t, e)$, which is equal to $t$ if $i = \top$ and otherwise is equal to $e$ (this also called a multiplexer; here we're looking at a simple version where the inputs $t$ and $e$ are a single bit).
-
-\begin{answer}\begin{equation}
+    \begin{answer}
+      \begin{equation}
         ITE(i, t, e) = (i \land t) \lor (\lnot i \land e)
-\end{equation}
-\end{answer}
+      \end{equation}
+    \end{answer}
 
-\item
-The threshold function $T_{\le 5}(x_1,x_2,x_3,x_4)$, which is true if and only if the integer represented in binary as $x_1 x_2 x_3 x_4$ is at most 5 (e.g. $T_{\le 5}(1,1,0,1) = \bot$ since $1101_2 = 13 \not \le 5$).
+  \item
+    The threshold function $T_{\le 5}(x_1,x_2,x_3,x_4)$, which is true if and only if the integer represented in binary as $x_1 x_2 x_3 x_4$ is at most 5 (e.g. $T_{\le 5}(1,1,0,1) = \bot$ since $1101_2 = 13 \not \le 5$).
 
-\begin{answer}
-    \begin{equation}
-        T_{\le 5}(x_1,x_2,x_3,x_4) = \neg x_1\land (\neg x_2 \land \neg x_3) 
-    \end{equation}
+    \begin{answer}
+      \begin{equation}
+        T_{\le 5}(x_1,x_2,x_3,x_4) = \neg x_1\land (\neg x_2 \land \neg x_3)
+      \end{equation}
 
+    \end{answer}
+  \end{qparts}
 
-\end{answer}
-\end{qparts}
+  \q{20}{Satisfiability and validity}\\
+  For each of the following formulas, state whether it is satisfiable and/or valid.
+  \begin{qparts}
+  \item
+    $x \rightarrow \lnot x$
 
-\q{20}{Satisfiability and validity}\\
-For each of the following formulas, state whether it is satisfiable and/or valid.
-\begin{qparts}
-\item
-$x \rightarrow \lnot x$
+    \begin{answer}
+      simpliefies to \(x\lor \neg x\) which is a tautology and therefore satisfiable and valid.
+    \end{answer}
 
-\begin{answer}
-simpliefies to \(x\lor \neg x\) which is a tautology and therefore satisfiable and valid.
-\end{answer}
+  \item
+    $(x \lor y) \land (\lnot x \lor y) \land (x \lor \lnot y) \land (\lnot x \lor \lnot y)$
 
-\item
-$(x \lor y) \land (\lnot x \lor y) \land (x \lor \lnot y) \land (\lnot x \lor \lnot y)$
+    \begin{answer}
+      it is neither satisfiable nor valid. each of the 4 combinations of \(x,y\) always results in one box being false.
+    \end{answer}
 
-\begin{answer}
-it is neither satisfiable nor valid. each of the 4 combinations of \(x,y\) always results in one box being false.
-\end{answer}
+  \item
+    $(x \rightarrow y) \leftrightarrow (\lnot x \lor y)$
 
-\item
-$(x \rightarrow y) \leftrightarrow (\lnot x \lor y)$
+    \begin{answer}
+      this is definitionally true  by the material conditional and is therefore satisfiable and valid.
+    \end{answer}
 
-\begin{answer}
-this is definitionally true  by the material conditional and is therefore satisfiable and valid.
-\end{answer}
+  \item
+    $x \rightarrow (\lnot x \rightarrow (y \land \lnot y))$
 
-\item
-$x \rightarrow (\lnot x \rightarrow (y \land \lnot y))$
+    \begin{answer}
+      \(y\land \neg y\) is a contradiction and therefore false. \(\lnot x \rightarrow (y \land \lnot y)\) true. the outermost material conditional is always true when the consequent is true.
+      This is a tautology and therefore satisfiable and valid.
+    \end{answer}
 
-\begin{answer}
-\(y\land \neg y\) is a contradiction and therefore false. \(\lnot x \rightarrow (y \land \lnot y)\) true. the outermost material conditional is always true when the consequent is true.
-This is a tautology and therefore satisfiable and valid.
-\end{answer}
+  \item
+    $(x \lor \lnot x) \land (x \lor y \lor z)$
 
-\item
-$(x \lor \lnot x) \land (x \lor y \lor z)$
+    \begin{answer}
+      the first clause is always true. the second is sometimes true but not always so therefore satisfiable but not valid.
 
-\begin{answer}
-    the first clause is always true. the second is sometimes true but not always so therefore satisfiable but not valid.
+    \end{answer}
+  \end{qparts}
 
-\end{answer}
-\end{qparts}
+  \q{20}{Equivalence and equisatisfiability}\\
+  For each of the following pairs of formulas, state whether they are equivalent and/or equisatisfiable.
+  \begin{qparts}
+  \item
+    $x \quad\text{and}\quad y$
 
-\q{20}{Equivalence and equisatisfiability}\\
-For each of the following pairs of formulas, state whether they are equivalent and/or equisatisfiable.
-\begin{qparts}
-\item
-$x \quad\text{and}\quad y$
+    \begin{answer}
+      they are eqisatisfiable but not equivalent. they are only equivalent if \(x\) and \(y\) are the same variable.
+    \end{answer}
 
-\begin{answer}
-they are eqisatisfiable but not equivalent. they are only equivalent if \(x\) and \(y\) are the same variable.
-\end{answer}
+  \item
+    $x \leftrightarrow y \quad\text{and}\quad  (x \rightarrow y) \land (\lnot x \rightarrow \lnot y)$
 
-\item
-$x \leftrightarrow y \quad\text{and}\quad  (x \rightarrow y) \land (\lnot x \rightarrow \lnot y)$
+    \begin{answer}
+      applying modus tollens on \(\neg x \implies \neg y\) we see it is equivalent to \(y \implies x\). so the second formula is equivalent to \(x \implies y \land y \implies x\) which is the definition of \(x \iff y\). therefore they are equivalent and equisatisfiable.
+    \end{answer}
 
-\begin{answer}
-applying modus tollens on \(\neg x \implies \neg y\) we see it is equivalent to \(y \implies x\). so the second formula is equivalent to \(x \implies y \land y \implies x\) which is the definition of \(x \iff y\). therefore they are equivalent and equisatisfiable.
-\end{answer}
+  \item
+    $(x \lor y \lor z) \land (x  \lor \lnot z) \quad\text{and}\quad x \lor y$
 
-\item
-$(x \lor y \lor z) \land (x  \lor \lnot z) \quad\text{and}\quad x \lor y$
+    \begin{answer}
+      they are not equivalent because \(z\) affects the result of the first while it does not in the second. they are equisatisfiable because if \(x\) is true, both formulas are satisfiable.
+    \end{answer}
 
-\begin{answer}
-    they are not equivalent because \(z\) affects the result of the first while it does not in the second. they are equisatisfiable because if \(x\) is true, both formulas are satisfiable.
-\end{answer}
+  \item
+    $x \rightarrow \lnot x \quad\text{and}\quad \bot$
 
-\item
-$x \rightarrow \lnot x \quad\text{and}\quad \bot$
+    \begin{answer}
+      the left formula is equivalent to \(\bot \) so they are equivalent and equisatisfiable.
+    \end{answer}
 
-\begin{answer}
-the left formula is equivalent to \(\bot \) so they are equivalent and equisatisfiable.
-\end{answer}
+  \item
+    $(x \lor y) \land \lnot y \land \lnot x \quad\text{and}\quad \lnot (x \lor \lnot x)$
 
-\item
-$(x \lor y) \land \lnot y \land \lnot x \quad\text{and}\quad \lnot (x \lor \lnot x)$
+    \begin{answer}
+      they are both unsat and therefore equivalent but not equisatisfiable.
+    \end{answer}
+  \end{qparts}
 
-\begin{answer}
-they are both unsat and therefore equivalent but not equisatisfiable.
-\end{answer}
-\end{qparts}
+  \q{20}{Conversion to conjunctive normal form (CNF, a.k.a. product-of-sums)}\\
+  Consider the formula $\lnot ((x \lor \lnot y) \land z)$.
+  \begin{qparts}
+  \item
+    Find an equivalent formula in CNF without introducing new variables.
 
-\q{20}{Conversion to conjunctive normal form (CNF, a.k.a. product-of-sums)}\\
-Consider the formula $\lnot ((x \lor \lnot y) \land z)$.
-\begin{qparts}
-\item
-Find an equivalent formula in CNF without introducing new variables.
+    \begin{answer}
+      \begin{equation}
+        \begin{split}
+          \lnot ((x \lor \lnot y) \land z)&=\neg (x\lor \neg y) \lor \neg z\\
+          &= \neg x \land (y \lor \neg z)\\
+        \end{split}
+      \end{equation}
+    \end{answer}
 
-\begin{answer}
+  \item
+    Draw a circuit representing the original formula (not the one you created in part (a)).
 
-\end{answer}
+    \begin{answer}
+      see fig~\ref{fig:4b}
+      \begin{figure}[!ht]
+        \centering
+        \resizebox{1\textwidth}{!}{%
+          \begin{circuitikz}
+            \tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+            \draw (14.125,10.195) node[ieeestd nand port, anchor=center, scale=0.89](port){} (port.out) to[short] (16.125,10.195);
+            \draw (port.in 1) to[short] (12.125,10.445);
+            \draw (port.in 2) to[short] (12.125,9.945);
+            \draw (10.625,9.945) node[ieeestd or port, anchor=center, scale=0.89](port){} (port.out) to[short] (12.125,9.945);
+            \draw (port.in 1) to[short] (9.125,10.195);
+            \draw (port.in 2) to[short] (9.125,9.695);
+            \draw (7.4375,9.75) node[ieeestd not port, anchor=in](port){} (port.out) to[short] (9.25,9.75);
+            \draw (port.in) to[short] (7.125,9.75);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.875,10.625) {z};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.75,9.75) {y};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8.875,10.375) {x};
+          \end{circuitikz}
+        }%
+        \caption{}
+        \label{fig:4b}
+      \end{figure}
+    \end{answer}
 
-\item
-Draw a circuit representing the original formula (not the one you created in part (a)).
+  \item
+    Find an equisatisfiable formula in CNF using the Tseitin transformation.
 
-\begin{answer}
+    \begin{answer}
+      \begin{equation}
+        \begin{split}
+          c \land \\
+          (a \lor y) \land (\lnot a \lor \lnot y) \\
+          \land (\lnot b \lor x \lor a) \land (b \lor \lnot x) \land (b \lor \lnot a) \\
+          \land (\lnot c \lor \lnot b \lor \lnot z) \land (c \lor b) \land (c \lor z)
+        \end{split}
+      \end{equation}
 
-\end{answer}
+      where \(c\) is the last wire, \(b\) is the middle wire and \(a\) is the neg y wire.
+    \end{answer}
+  \end{qparts}
 
-\item
-Find an equisatisfiable formula in CNF using the Tseitin transformation.
+  \q{40}{Compactness of different encodings of a single function}\\
+  $PAR_n(x_1, \dots, x_n) = x_1 \oplus \dots \oplus x_n$ is the parity function on $n$ variables, true if and only if the number of true variables is odd (the symbol $\oplus$ is notation for the exclusive OR, a.k.a.~XOR, operator).
+  Let's look at how large different representations of this function are: for each of the types of representation below, give an encoding of $PAR_n$ which is as small as possible\footnote{You don't have to prove your encoding is (asymptotically) optimal, although it's not too hard to do this for (a), (c), and (d) --- feel free to give it a try. On the other hand, the precise lower bound for (b) was a major result!} and compute its size asymptotically (e.g. $\Theta(n^2)$).
 
-\begin{answer}
+  (\emph{Note:} To write conjunctions or disjunctions of an arbitrary number of subformulas, you can use the notation:
+    \[
+      \bigwedge_{i=1}^k \varphi_i = \varphi_1 \land \dots \land \varphi_k \qquad \bigvee_{i=1}^k \varphi_i = \varphi_1 \lor \dots \lor \varphi_k
+    \]
+    This is similar to the usual notation $\Sigma_{i=1}^k f(i)$ for sums.
+  You can also write $\bigwedge_{s \in S} \varphi_s$ if you have a set of subformulas indexed by objects in the set $S$ instead of integers, and you can put constraints on indices in the same way you can when using sums, like $\sum_{\substack{1 \le i, j \le k\\i \ne j}} f(i,j)$.)
+  \begin{qparts}
+  \item
+    A DNF (disjunctive normal form, a.k.a.~sum-of-products) formula.
 
-\end{answer}
-\end{qparts}
+    \begin{answer}
 
-\q{40}{Compactness of different encodings of a single function}\\
-$PAR_n(x_1, \dots, x_n) = x_1 \oplus \dots \oplus x_n$ is the parity function on $n$ variables, true if and only if the number of true variables is odd (the symbol $\oplus$ is notation for the exclusive OR, a.k.a.~XOR, operator).
-Let's look at how large different representations of this function are: for each of the types of representation below, give an encoding of $PAR_n$ which is as small as possible\footnote{You don't have to prove your encoding is (asymptotically) optimal, although it's not too hard to do this for (a), (c), and (d) --- feel free to give it a try. On the other hand, the precise lower bound for (b) was a major result!} and compute its size asymptotically (e.g. $\Theta(n^2)$).
+      \begin{equation}
+        PAR_n(x_1, \dots, x_n) = \bigvee_{a\in S} \quad\left( \bigwedge_{j\in n }\phi_{a_j}(x_j) \right)
+      \end{equation}
 
-(\emph{Note:} To write conjunctions or disjunctions of an arbitrary number of subformulas, you can use the notation:
-\[
-\bigwedge_{i=1}^k \varphi_i = \varphi_1 \land \dots \land \varphi_k \qquad \bigvee_{i=1}^k \varphi_i = \varphi_1 \lor \dots \lor \varphi_k
-\]
-This is similar to the usual notation $\Sigma_{i=1}^k f(i)$ for sums.
-You can also write $\bigwedge_{s \in S} \varphi_s$ if you have a set of subformulas indexed by objects in the set $S$ instead of integers, and you can put constraints on indices in the same way you can when using sums, like $\sum_{\substack{1 \le i, j \le k\\i \ne j}} f(i,j)$.)
-\begin{qparts}
-\item
-A DNF (disjunctive normal form, a.k.a.~sum-of-products) formula.
+      where \(S=\{a\in \{0,1\}^n|\sum_{i\in n} a_i\pmod 2 = 1\}\) and
+      where \(\phi_i(x_j)\) evaluates to true iff \(i=x_j\)
 
-\begin{answer}
+    \end{answer}
 
-\end{answer}
+  \item
+    A propositional formula which can only use the operators $\land$, $\lor$, and $\lnot$ (this is sometimes called a ``Boolean formula'').
 
-\item
-A propositional formula which can only use the operators $\land$, $\lor$, and $\lnot$ (this is sometimes called a ``Boolean formula'').
+    (\emph{Hint:} Try to define $PAR_n$ recursively, in a way that your overall formula won't have exponential size.)
 
-(\emph{Hint:} Try to define $PAR_n$ recursively, in a way that your overall formula won't have exponential size.)
+    \begin{answer}
 
-\begin{answer}
+      let \(A\) compute the parity of \(x_1,\dots x_{\floor{n/2}}\) and \(B\) compute the right half, \(x_{\floor{n/2}+1},\dots x_n\)
+      $$PAR_n = (A \land \lnot B) \lor (\lnot A \land B)$$
 
-\end{answer}
+      \(A, B\) are actually just recursive calls to \(PAR_{\approx n/2}\). the recurrence is of size
+      $$S(n) = 4S\left(\frac{n}{2}\right) + O(1)$$
+      which is \(O(n^2)\)
 
-\item
-An unrestricted propositional formula (i.e. you can use $\rightarrow$ and $\leftrightarrow$).
+      % let us define a function called \(BFPAR_n\) that takes in \(\left( {\bigtimes}_{i\in n} x_i  \right)\times \{0,1\}\).
+      % the base case is
+      % \begin{equation}
+      %     BFPAR_1 (x_1,0) = x_1
+      % \end{equation}
+      % \begin{equation}
+      %     BFPAR_1 (x_1,1) = \neg x_1
+      % \end{equation}
 
-\begin{answer}
+      % The function is therefore recursively defined as
 
-\end{answer}
+      % \begin{equation}
+      %     PAR_n(x_1, \dots, x_n) = BFPAR_n(x_1, \dots, x_n,0)\triangleq BFPAR_{n-1}(x_1, \dots, x_n-1, x_n)
+      % \end{equation}
 
-\item
-A BDD (reduced and ordered; you may pick a variable order).
+    \end{answer}
 
-\begin{answer}
+  \item
+    An unrestricted propositional formula (i.e. you can use $\rightarrow$ and $\leftrightarrow$).
 
-\end{answer}
-\end{qparts}
+    \begin{answer}
+      for odd \(n\),
+      \begin{equation}
+        x_1\leftrightarrow x_2\dots \leftrightarrow x_n
+      \end{equation}
+      for even \(n\)
+      \begin{equation}
+        \neg x_1\leftrightarrow x_2\dots \leftrightarrow x_n
+      \end{equation}
 
-\q{10}{Variable ordering in BDDs}\\
-Consider the formula $(x_1 \land x_2) \lor (x_3 \land x_4)$.
-\begin{qparts}
-\item
-Construct an ROBDD with the variable order $x_1 > x_2 > x_3 > x_4$.
+      This works because \(\leftrightarrow\) automatically tracks parity. when a 0 is found, it flips the sign and keeps that sign until it finds another 0. similar to 1.
 
-\begin{answer}
+    \end{answer}
 
-\end{answer}
+  \item
+    A BDD (reduced and ordered; you may pick a variable order).
 
-\item
-Construct an ROBDD with the variable order $x_1 > x_3 > x_2 > x_4$.
+    \begin{answer}
+      the bdd order is just 1 to \(n\). the top layer has one node, \(x_1\), and each subsequent layer has 2. Odd and Even versions are different by swapping the first layer outputs.
 
-\begin{answer}
+      \begin{figure}[!ht]
+        \centering
+        \resizebox{0.3\textwidth}{!}{%
+          \begin{circuitikz}
+            \tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+            \draw [-{Stealth[scale=1.5]}, ] (12.25,14.625) -- (13.75,12.5);
+            \draw [-{Stealth[scale=1.5]}, dashed] (12.125,14.625) -- (10.75,12.25);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (12.25,15.25) {$x_1$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.75,12) {$x_2$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.625,11.75) {$x_2$};
+            \draw [-{Stealth[scale=1.5]}, ] (13.875,11.125) -- (13.875,8.375);
+            \draw [-{Stealth[scale=1.5]}, ] (10.5,11.125) -- (10.5,8.25);
+            \draw [-{Stealth[scale=1.5]}, dashed] (11.25,11.125) -- (13.5,8.75);
+            \draw [-{Stealth[scale=1.5]}, dashed] (13.375,11.25) -- (11,8.375);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.5,7.875) {$x_3$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.5,7.875) {$x_3$};
+            \draw [-{Stealth[scale=1.5]}, ] (13.75,7.25) -- (13.875,5.125);
+            \draw [-{Stealth[scale=1.5]}, ] (10.625,7) -- (10.375,4.875);
+            \draw [-{Stealth[scale=1.5]}, dashed] (13.375,7.125) -- (10.875,5.125);
+            \draw [-{Stealth[scale=1.5]}, dashed] (11.375,7) -- (13,5.125);
+            \draw [dotted] (12.375,4.625) -- (12.375,2.875);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.875,2.375) {$x_n$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.625,2.375) {$x_n$};
+            \draw [-{Stealth[scale=1.5]}, ] (13.875,1.5) -- (13.875,-0.75);
+            \draw [-{Stealth[scale=1.5]}, ] (10.5,1.625) -- (10.5,-0.25);
+            \draw [-{Stealth[scale=1.5]}, dashed] (13.25,1.75) -- (11,0.125);
+            \draw [-{Stealth[scale=1.5]}, dashed] (11.25,1.5) -- (13.375,-0.25);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.625,-1.125) {$\top$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.25,-0.875) {$\bot$};
+          \end{circuitikz}
+        }%
+        \caption{5d. Odd version BDD. swap first layer arrows (\(x_1\) to \(x_2\)) for even version}
+        \label{fig:5d}
+      \end{figure}
 
-\end{answer}
-\end{qparts}
-\emph{N.B.} If you generalize this formula to have $n$ pairs of variables instead of just 2, the first variable order (increasing numbers) will yield a BDD of size $\Theta(n)$, while the second (odd variables first, then even variables) will yield a BDD of size $\Theta(2^n)$. So the choice of variable order really does make a difference in BDDs! If you're interested, you could try to prove these sizes.
+      see fig~\ref{fig:5d}
+
+    \end{answer}
+  \end{qparts}
+
+  \q{10}{Variable ordering in BDDs}\\
+  Consider the formula $(x_1 \land x_2) \lor (x_3 \land x_4)$.
+  \begin{qparts}
+  \item
+    Construct an ROBDD with the variable order $x_1 > x_2 > x_3 > x_4$.
+
+    \begin{answer}
+      see fig~\ref{fig:6a}
+    \end{answer}
+
+    \begin{figure}[!ht]
+      \centering
+      \resizebox{0.4\textwidth}{!}{%
+        \begin{circuitikz}
+          \tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.625,10.125) {$x_1$};
+          \draw [-{Stealth[scale=1.5]}, ] (10.75,9.625) -- (11.375,8.875);
+          \draw [-{Stealth[scale=1.5]}, dashed] (10.5,9.5) -- (10.375,7.25);
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.375,8.75) {$x_2$};
+          \draw [-{Stealth[scale=1.5]}, ] (11.625,8.25) -- (12.375,7.375);
+          \draw [-{Stealth[scale=1.5]}, dashed] (11.25,8.25) -- (10.625,7.25);
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.625,6.875) {$x_3$};
+          \draw [-{Stealth[scale=1.5]}, ] (10.75,6.375) -- (11.375,5.625);
+          \draw [-{Stealth[scale=1.5]}, dashed] (10.5,6.25) -- (10.375,4);
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.375,5.5) {$x_4$};
+          \draw [-{Stealth[scale=1.5]}, ] (11.625,5) -- (12.375,4.125);
+          \draw [-{Stealth[scale=1.5]}, dashed] (11.25,5) -- (10.625,4);
+          \draw [-{Stealth[scale=1.5]}, ] (12.5,7.25) -- (12.5,4.125);
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.375,3.625) {$\bot$};
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (12.125,3.625) {$\top$};
+        \end{circuitikz}
+      }%
+      \caption{6a}
+      \label{fig:6a}
+    \end{figure}
+  \item
+    Construct an ROBDD with the variable order $x_1 > x_3 > x_2 > x_4$.
+
+    \begin{answer}
+      see fig~\ref{fig:6b}
+    \end{answer}
+    \begin{figure}[!ht]
+      \centering
+      \resizebox{0.8\textwidth}{!}{%
+        \begin{circuitikz}
+          \tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.875,7.125) {$x_1$};
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.625,5.625) {$x_3$};
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.625,5.5) {$x_3$};
+          \draw [-{Stealth[scale=1.5]}, ] (11,6.625) -- (11.5,5.875);
+          \draw [-{Stealth[scale=1.5]}, dashed] (10.75,6.5) -- (9.875,5.875);
+          \draw [-{Stealth[scale=1.5]}, ] (12.125,5) -- (12.875,4.625);
+          \draw [-{Stealth[scale=1.5]}, dashed] (11.5,5) -- (11.375,4.25);
+          \draw [-{Stealth[scale=1.5]}, dashed] (9.375,5.125) -- (8.875,2.125);
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.125,4.25) {$x_2$};
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.5,3.875) {$x_2$};
+          \draw [-{Stealth[scale=1.5]}, ] (13.5,3.75) -- (13.625,1.25);
+          \draw [-{Stealth[scale=1.5]}, dashed] (12.875,3.75) -- (11.625,2.75);
+          \draw [-{Stealth[scale=1.5]}, dashed] (11.5,3.375) -- (9.375,2.125);
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.375,2.625) {$x_4$};
+          \draw [-{Stealth[scale=1.5]}, ] (11.5,2.125) -- (12.5,1);
+          \draw [-{Stealth[scale=1.5]}, ] (11.625,3.25) -- (12.875,1);
+          \draw [-{Stealth[scale=1.5]}, dashed] (10.875,2.375) -- (10,1.75);
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.25,1.75) {$\bot$};
+          \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.375,0.625) {$\top$};
+          \draw [-{Stealth[scale=1.5]}, ] (9.625,5.125) -- (11,3);
+        \end{circuitikz}
+      }%
+      \caption{6b}
+      \label{fig:6b}
+    \end{figure}
+
+  \end{qparts}
+  \emph{N.B.} If you generalize this formula to have $n$ pairs of variables instead of just 2, the first variable order (increasing numbers) will yield a BDD of size $\Theta(n)$, while the second (odd variables first, then even variables) will yield a BDD of size $\Theta(2^n)$. So the choice of variable order really does make a difference in BDDs! If you're interested, you could try to prove these sizes.
 
 \end{qunlist}
 \end{document}
