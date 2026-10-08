@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage{cse216,hyperref}
+\def\title{HW 2}
+\begin{document}
+\maketitle
+
+\section*{Due October 13 at 3:00 pm}
+
+\textbf{(6 questions, 230 points total)}
+
+\begin{qunlist}
+
+  \q{20}{Pigeonhole principle}\\
+  Recall that the pigeonhole principle says that if you have $n$ pigeons and $m$ pigeonholes for them, if $n > m$ then at least one pigeonhole will contain multiple pigeons.
+  Let the variable $x_{i,j}$ indicate that pigeon $i$ is in pigeonhole $j$, and let $F_{n,m}(x_{1,1}, \dots, x_{n,m})$ be true if and only if the variables encode a valid arrangement of pigeons where each pigeonhole has at most one pigeon.
+  \begin{qparts}
+  \item
+    Give a CNF formula for $F_{n,m}$, describing the meaning of each of the clauses.
+    How large is your formula as a function of $n$ and $m$?
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    Asymptotically, how large would the ROBDD (with your choice of variable order) for $F_{n+1,n}$ be? Why?
+
+    \begin{answer}
+
+    \end{answer}
+  \end{qparts}
+
+  \q{40}{Counting solutions with a BDD}\\
+  Design an algorithm to efficiently count the number of satisfying assignments of a Boolean function, given an ROBDD for it.
+
+  \emph{(Hint: think about the BDD for $x \leftrightarrow y$ first, then $x \lor y$.)}
+  \begin{qparts}
+  \item
+    Define your algorithm using either pseudocode or an English description that details every step of the algorithm.
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    Argue why your algorithm is correct.
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    What is the asymptotic runtime of your algorithm?
+
+    \begin{answer}
+
+    \end{answer}
+
+  \end{qparts}
+
+
+  \q{50}{Horn clauses}\\
+  Recall that a \emph{Horn clause} is a clause with at most one positive literal.
+  For example, $\lnot x \lor \lnot y \lor z$ and $x$ are Horn clauses, but $x \lor y$ is not.
+  \begin{qparts}
+  \item
+    Give a polynomial-time algorithm to decide whether a set of Horn clauses is satisfiable. \emph{(Hint: view each Horn clause as an implication.)}
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    Argue why your algorithm is correct and runs in polynomial time.
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    The Tseitin transformation can turn any Boolean formula into an equisatisfiable CNF formula in polynomial (in fact linear) time.
+    Is there a corresponding efficient transformation of arbitrary formulas into Horn clauses?
+
+    \begin{answer}
+
+    \end{answer}
+  \end{qparts}
+
+  \q{20}{Splitting}
+  \begin{qparts}
+  \item
+    Consider this recursive SAT solving algorithm: given a CNF, write it as $\phi \land \psi$ by splitting the set of clauses in half (i.e.~if there are $m$ clauses, letting $\phi$ be the first $m/2$ of them and $\psi$ be the rest), and recursively check whether both $\phi$ and $\psi$ are satisfiable.
+    Is this algorithm correct?
+    Why or why not?
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    It turns out that replacing ``satisfiable'' with ``valid'' above gives a correct algorithm for deciding validity that runs in linear time!
+    Since $\phi$ is satisfiable if and only if $\lnot \phi$ is not valid, why doesn't this prove P = NP?
+
+    \begin{answer}
+
+    \end{answer}
+  \end{qparts}
+
+
+  \q{20}{Simplification}\\
+  Find a simplified equisatisfiable formula to the one below using unit propagation and pure literal elimination, showing each step separately:
+  \[
+    z \land (x \lor y) \land (\lnot x \lor y \lor u) \land (\lnot y \lor \lnot w) \land (w \lor z) \land (\lnot u \lor \lnot z) \land (u \lor s \lor t) \land (\lnot z \lor \lnot s \lor \lnot t)
+  \]
+
+  \begin{answer}
+
+  \end{answer}
+
+  \q{80}{Sudoku}\\
+  Let's try out a real SAT solver, \href{https://github.com/msoos/cryptominisat}{CryptoMiniSat}.
+  You can run it in the browser \href{https://www.msoos.org/cryptominisat/}{here}, or see the README on its website for instructions on how to compile it on all major operating systems (or to run it in Docker).
+
+  Like essentially all SAT solvers, CryptoMiniSat reads CNF formulas in the DIMACS format, which has one clause per line:
+\begin{verbatim}
+p cnf 4 6
+-1 -2 3 0
+-1 4 0
+1 -2 0
+-2 -3 -4 0
+1 2 0
+2 -4 0
+\end{verbatim}
+  Clauses consist of a list of integer variable IDs (with a negative sign for negations), terminated by a 0: so the first clause in this example is $\lnot x_1 \lor \lnot x_2 \lor x_3$.
+  The header line says that there are 4 variables and 6 clauses in total (in fact CryptoMiniSat is forgiving and you can omit this line).
+
+  \begin{qparts}
+  \item
+    Describe a CNF encoding of the rules of Sudoku. (not assuming any cells are filled in)
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    How would you use your encoding to solve a specific Sudoku puzzle? (i.e.~where some of the cells are already filled in)
+
+    \begin{answer}
+
+    \end{answer}
+
+  \item
+    Use your encoding and CryptoMiniSat to solve ``The World's Hardest Sudoku'', shown below.
+    You'll need to write a little program that either generates a DIMACS file or calls CryptoMiniSat's Python API (see  \href{https://github.com/msoos/cryptominisat/tree/master/python}{here}; alternatively, \href{https://pysathq.github.io/}{PySAT} provides a Python interface to various other SAT solvers).
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.5\textwidth]{sudoku.png}
+      \caption{``The World's Hardest Sudoku'', by Arto Inkala (accessed \href{https://web.archive.org/web/20170919033818/http://gizmodo.com/can-you-solve-the-10-hardest-logic-puzzles-ever-created-1064112665}{here}).}
+    \end{figure}
+
+    \begin{answer}
+      (Please attach your code to the end of your PDF.)
+    \end{answer}
+  \end{qparts}
+
+
+  \q{optional, bonus question: 0}{Lower bounds for BDDs}
+  \begin{qparts}
+  \item
+    In class I mentioned a non-constructive counting argument showing that \emph{some} Boolean function on $n$ variables must have an exponentially-large BDD (no matter what variable order you use). Flesh out the argument.
+  \item
+    \textbf{(hard)} Let $P_m(x_1, \dots, x_{m^2})$ be true if and only if the matrix
+    \[
+      \left(
+        \begin{array}{ccc}x_1 & \dots & x_m \\\vdots & \ddots & \vdots \\x_{m^2-m+1} & \dots & x_{m^2}
+      \end{array}\right)
+    \]
+    is a permutation matrix (i.e. has exactly one $1$ in each row and column).
+    Prove that any BDD for $P_m$ must be exponentially large.
+  \end{qparts}
+
+\end{qunlist}
+\end{document}
