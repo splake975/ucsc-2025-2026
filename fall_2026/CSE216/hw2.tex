@@ -19,6 +19,37 @@
     How large is your formula as a function of $n$ and $m$?
 
     \begin{answer}
+      there are 3 things we have to check.
+      \begin{enumerate}[i.]
+        \item each hole has at most 1 pigeon
+        \item each pigeon is assigned at least one hole
+        \item each pigeon is assigned at most one hole
+      \end{enumerate}
+
+      \begin{enumerate}[i.]
+        \item
+          \begin{equation}
+            \neg x_{i_1, j} \lor \neg x_{i_2, j} \quad \text{for each } j \in \{1, \dots, m\} \text{ and } 1 \le i_1 < i_2 \le n
+          \end{equation}
+        \item
+          \begin{equation}
+            \bigvee_{j=1}^{m} x_{i,j} \quad \text{for each } i \in \{1, \dots, n\}
+          \end{equation}
+        \item
+          \begin{equation}
+            \neg x_{i, j_1} \lor \neg x_{i, j_2} \quad \text{for each } i \in \{1, \dots, n\} \text{ and } 1 \le j_1 < j_2 \le m
+          \end{equation}
+      \end{enumerate}
+
+      The for each means an and between the expressions. The total number of expressions here are
+
+      \begin{enumerate}[i.]
+        \item \(2m {n\choose 2}\)
+        \item \(mn\)
+        \item \(2n {m\choose 2}\)
+      \end{enumerate}
+
+      the total number of clauses is \(O(n^2m+m^2n)\)
 
     \end{answer}
 
@@ -26,7 +57,7 @@
     Asymptotically, how large would the ROBDD (with your choice of variable order) for $F_{n+1,n}$ be? Why?
 
     \begin{answer}
-
+      its always just \(\bot\) since there are too many pigeons and there are no valid assignments no matter what \(n\) is.
     \end{answer}
   \end{qparts}
 
@@ -39,6 +70,24 @@
     Define your algorithm using either pseudocode or an English description that details every step of the algorithm.
 
     \begin{answer}
+      let \(v\) set of vertices in the robdd (including ones simplified out of the ROBDD). let \(v_0\) be the number of variables.
+
+      Counting the number of satisfying assignments is counting the number of paths the BDD has ending at \(\top\) times 2 to the power of the number of unassigned variables in the path.
+
+      \textbf{algorithm:}
+
+      first, topologically sort the DAG.
+
+      create an array \(DP[\lvert v\rvert ][v_0]\) in size. (DP[a][b] represents the number of paths from the source (root node) to a of length b.)
+
+      initialize DP[root][0] = 1.
+
+      update in vertices \(u\) in topological order, starting from length zero. for each \(l \in [v_0]\), for each \(u\in v\), DP[v][l+1]=DP[v][l+1] + DP[u][l].
+
+      return
+      \begin{equation}
+        \sum_{i\in [v]} 2^{v-i} DP[\top][i]
+      \end{equation}
 
     \end{answer}
 
@@ -46,14 +95,15 @@
     Argue why your algorithm is correct.
 
     \begin{answer}
-
+      if a path has length exactly \(v\) and ends at \(\top\), then that path corresponds to exactly 1 satisfying assignment. for each "free" variable, in the path, it leads to \(2^{\textrm{\# of free var}}\) satisfying assignments. the DP just counts paths, and retains the length of the paths. the sum makes sure that the paths actually reflect the number of assignments.
     \end{answer}
+
 
   \item
     What is the asymptotic runtime of your algorithm?
 
     \begin{answer}
-
+      assuming the return summation is fast, the runtime of sorting the dag is \(O(v)\), the runtime of updating the DP array is \(O(\vert v\vert \cdot v_0)\)
     \end{answer}
 
   \end{qparts}
@@ -67,14 +117,27 @@
     Give a polynomial-time algorithm to decide whether a set of Horn clauses is satisfiable. \emph{(Hint: view each Horn clause as an implication.)}
 
     \begin{answer}
+      There are two cases. either
+      \begin{enumerate}[i.]
+        \item all clauses have a negated variable
+        \item there exists one clause that does not have a negated variable
+      \end{enumerate}
+      ~\\
 
+      \begin{enumerate}[i.]
+        \item the first case, we can set all variables to false and the total formula is true since each clause has at least one \(\top\)
+
+        \item in the second case, we can do unit propagation since if there is a clause that does not have a negated variable, it must be by itself.
+
+          recurse this process until either all clauses are true, or there is a contradiction in two clauses (unit prop is impossible since one clause is the negation of another clause)
+      \end{enumerate}
     \end{answer}
 
   \item
     Argue why your algorithm is correct and runs in polynomial time.
 
     \begin{answer}
-
+      there are at most \(O(n)\) unit propogations and there are \(O(n) \) clauses to update each unit prop, so the runtime is \(O(n^2)\)
     \end{answer}
 
   \item
@@ -82,7 +145,7 @@
     Is there a corresponding efficient transformation of arbitrary formulas into Horn clauses?
 
     \begin{answer}
-
+      no, (not that we know of) since if there were, \(\mathbb P = \mathbb{NP}\). if there were efficient transformation of arbitrary cnf into horn, then the composition of the transformation and the poly algo here would mean any cnf has a polytime algorithm for SAT.
     \end{answer}
   \end{qparts}
 
@@ -94,7 +157,7 @@
     Why or why not?
 
     \begin{answer}
-
+      No. each half could return sat but the assignment of the same variable could differ on each half which is not an issue for \(\phi\) and \(\psi\) individually, but is a problem for \(\phi\land \psi\).
     \end{answer}
 
   \item
@@ -155,7 +218,7 @@ p cnf 4 6
 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=0.5\textwidth]{sudoku.png}
+      % \includegraphics[width=0.5\textwidth]{sudoku.png}
       \caption{``The World's Hardest Sudoku'', by Arto Inkala (accessed \href{https://web.archive.org/web/20170919033818/http://gizmodo.com/can-you-solve-the-10-hardest-logic-puzzles-ever-created-1064112665}{here}).}
     \end{figure}
 
