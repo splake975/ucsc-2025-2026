@@ -8,6 +8,8 @@
 
 \textbf{(6 questions, 230 points total)}
 
+I worked with vadim pelyushenko on some problems, mainly cross checking answers
+
 \begin{qunlist}
 
   \q{20}{Pigeonhole principle}\\
@@ -165,7 +167,7 @@
     Since $\phi$ is satisfiable if and only if $\lnot \phi$ is not valid, why doesn't this prove P = NP?
 
     \begin{answer}
-
+      for validity, the cnf as long as all clauses are a tautology, containing a clause like \(x\lor \neg x\), the whole cnf is valid. The assignments could clash between each clause but it causes no problems since any assignment in the final formula should always output \(\top\). the problem is that the negation of \(\phi\) is not a cnf.
     \end{answer}
   \end{qparts}
 
@@ -177,7 +179,19 @@
   \]
 
   \begin{answer}
-
+    \begin{equation}
+      \begin{split}
+        &= z \land (x \lor y) \land (\lnot x \lor y \lor u) \land (\lnot y \lor \lnot w) \land (w \lor z) \land (\lnot u \lor \lnot z) \land (u \lor s \lor t) \land (\lnot z \lor \lnot s \lor \lnot t)\\
+        &= \top \land (x \lor y) \land (\lnot x \lor y \lor u) \land (\lnot y \lor \lnot w) \land (w \lor \top) \land (\lnot u \lor \lnot \top) \land (u \lor s \lor t) \land (\lnot \top \lor \lnot s \lor \lnot t)\\
+        &= (x \lor y) \land (\lnot x \lor y \lor u) \land (\lnot y \lor \lnot w) \land (\lnot u ) \land (u \lor s \lor t) \land (\lnot s \lor \lnot t)\\
+        &= (x \lor y) \land (\lnot x \lor y \lor \bot) \land (\lnot y \lor \lnot w) \land (\top) \land (\bot \lor s \lor t) \land (\lnot s \lor \lnot t)\\
+        &= (x \lor y) \land (\lnot x \lor y ) \land (\lnot y \lor \lnot w)  \land (s \lor t) \land (\lnot s \lor \lnot t)\\
+        &= (x \lor y) \land (\lnot x \lor y ) \land (\lnot y \lor \top)  \land (s \lor t) \land (\lnot s \lor \lnot t)\\
+        &= (x \lor y) \land (\lnot x \lor y ) \land (s \lor t) \land (\lnot s \lor \lnot t)\\
+        &= (x \lor \top) \land (\lnot x \lor \top) \land (s \lor t) \land (\lnot s \lor \lnot t)\\
+        &= (s \lor t) \land (\lnot s \lor \lnot t)\\
+      \end{split}
+    \end{equation}
   \end{answer}
 
   \q{80}{Sudoku}\\
@@ -202,14 +216,50 @@ p cnf 4 6
     Describe a CNF encoding of the rules of Sudoku. (not assuming any cells are filled in)
 
     \begin{answer}
+      let us use the variable \(x_{r,c,v}\) to represent the value in the \(r\)th row, \(c\)th column and value \(v\). 729 total variables.
 
+      \begin{enumerate}[i.]
+        \item every cell contains at least one number
+          \begin{equation}
+            \bigwedge_{r=1}^{9} \bigwedge_{c=1}^{9} \left( \bigvee_{v=1}^9 x_{r,c,v} \right)
+          \end{equation}
+        \item every cell contains at most one number
+          \begin{equation}
+            \bigwedge_{r=1}^{9} \bigwedge_{c=1}^{9} \bigwedge_{v=1}^{8} \bigwedge_{i=v+1}^{9} \left( \neg x_{r,c,v} \lor \neg x_{r,c,i} \right)
+          \end{equation}
+          the inside is equivalent to saying if one number, then not another number
+        \item every number appears in a row at most once
+          \begin{equation}
+            \bigwedge_{r=1}^{9} \bigwedge_{v=1}^{9} \bigwedge_{c=1}^{8} \bigwedge_{i=c+1}^{9} \left( \neg x_{r,c,v} \lor \neg x_{r,i,v} \right)
+          \end{equation}
+        \item every number appears in a row at least once
+          \begin{equation}
+            \bigwedge_{r=1}^{9} \bigwedge_{v=1}^{9} \left( \bigvee_{i=1}^9x_{r,i,v} \right)
+          \end{equation}
+        \item every number appears in a column at most once
+          \begin{equation}
+            \bigwedge_{c=1}^{9} \bigwedge_{v=1}^{9} \bigwedge_{r=1}^{8} \bigwedge_{i=c+1}^{9} \left( \neg x_{r,c,v} \lor \neg x_{i,c,v} \right)
+          \end{equation}
+        \item every number appears in a column at least once
+          \begin{equation}
+            \bigwedge_{c=1}^{9} \bigwedge_{v=1}^{9} \left( \bigvee_{i=1}^9x_{i,c,v}\right)
+          \end{equation}
+        \item the 3x3 restriction on values
+          \begin{equation}
+            \bigwedge_{v=1}^{9} \bigwedge_{b_x=0}^{2} \bigwedge_{b_y=0}^{2} \bigwedge_{x=1}^{3} \bigwedge_{y=1}^{3} \bigwedge_{(\alpha,\beta) > (x,y)} \left( \neg x_{3 \cdot b_x + x, 3 \cdot b_y + y, v} \lor \neg x_{3 \cdot b_x + \alpha, 3 \cdot b_y + \beta, v} \right)
+          \end{equation}
+
+          the comparisons in the ordered pairs are lexographical.
+
+
+      \end{enumerate}
     \end{answer}
 
   \item
     How would you use your encoding to solve a specific Sudoku puzzle? (i.e.~where some of the cells are already filled in)
 
     \begin{answer}
-
+      add single variable clauses. if a tile \((a,b)\) had value \(v\), then append clause \(x_{a,b,v}\)
     \end{answer}
 
   \item
@@ -224,6 +274,94 @@ p cnf 4 6
 
     \begin{answer}
       (Please attach your code to the end of your PDF.)
+      \begin{verbatim}
+
+from itertools import combinations
+
+PUZZLE = [
+    "800000000",
+    "003600000",
+    "070090200",
+    "050007000",
+    "000045700",
+    "000100030",
+    "001000068",
+    "008500010",
+    "090000400",
+]
+"""
+solved
+
+812 753 649
+943 682 175
+675 491 283
+
+154 237 896
+369 845 721
+287 169 534
+
+521 974 368
+438 526 917
+796 318 452
+
+"""
+
+
+def var(r, c, v):
+    return 81 * r + 9 * c + v + 1
+
+
+def main():
+    i=input("decode")
+    if i=="decode":
+        grid = [[0] * 9 for _ in range(9)]
+        for line in open("sol.txt"):
+            if line.startswith("v "):
+                for n in map(int, line.split()[1:]):
+                    if 0 < n <= 729:
+                        n -= 1
+                        grid[n // 81][n // 9 % 9] = n % 9 + 1
+        for row in grid:
+            print("".join(map(str, row)))
+        return
+
+    clauses = []
+
+    # each cell holds exactly one value
+    for r in range(9):
+        for c in range(9):
+            clauses.append([var(r, c, v) for v in range(9)])
+            for a, b in combinations(range(9), 2):
+                clauses.append([-var(r, c, a), -var(r, c, b)])
+
+    #each value appears exactly once in every row, column and box
+    rows = [[(r, c) for c in range(9)] for r in range(9)]
+    cols = [[(r, c) for r in range(9)] for c in range(9)]
+    #3x3s
+    boxes = [[(3 * br + i, 3 * bc + j) for i in range(3) for j in range(3)]
+            for br in range(3) for bc in range(3)]
+
+    for group in rows + cols + boxes:
+        for v in range(9):
+            clauses.append([var(r, c, v) for r, c in group])
+            for (r1, c1), (r2, c2) in combinations(group, 2):
+                clauses.append([-var(r1, c1, v), -var(r2, c2, v)])
+
+    # givens
+    for r, row in enumerate(PUZZLE):
+        for c, ch in enumerate(row):
+            if ch != "0":
+                clauses.append([var(r, c, int(ch) - 1)])
+
+    with open("sudoku.cnf", "w") as f:
+        f.write(f"p cnf 729 {len(clauses)}\n")
+        for cl in clauses:
+            f.write(" ".join(map(str, cl)) + " 0\n")
+    print("done")
+
+if __name__ == "__main__":
+    main()
+      \end{verbatim}
     \end{answer}
   \end{qparts}
 

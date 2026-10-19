@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+\usepackage{cse216,hyperref}
+\def\title{HW 3}
+\begin{document}
+\maketitle
+
+\section*{Due October 20 at 3:00 pm}
+
+\textbf{(4 questions, 185 points total)}
+
+\begin{qunlist}
+
+\q{20}{Resolution}
+\begin{qparts}
+\item
+Which of the following clauses can be resolved with each other, and what are the resulting clauses?
+\begin{enumerate}[(A)]
+\item $x \lor y \lor z$
+\item $y$
+\item $\lnot y$
+\item $\lnot y \lor z$
+\end{enumerate}
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Give a resolution refutation for the UNSAT formula with the following clauses:
+\begin{align*}
+c_1=\;&\lnot x \lor \lnot y \lor z \\
+c_2=\;&\lnot x \lor w \\
+c_3=\;&x \lor \lnot y \\
+c_4=\;&\lnot y \lor \lnot z \lor \lnot w \\
+c_5=\;&x \lor y \\
+c_6=\;&y \lor \lnot w
+\end{align*}
+You may write  $c_i \odot c_j$ to denote the resolution of two clauses.
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+
+
+\q{60}{CDCL}\\
+Consider running CDCL on the formula in (1b) above, with a variable selection heuristic that prefers $z > w > x > y$ and a phase selection heuristic that always picks the negative polarity.
+\begin{qparts}
+\item
+Up to the first conflict, what decisions are made?
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Construct the implication graph for the first conflict.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+What are the possible conflict clauses that could be learned from this conflict? Which of these is asserting if we backtrack one level?
+
+\begin{answer}
+
+\end{answer}
+
+\item
+If we use the first UIP heuristic, which conflict clause will CDCL learn, and what decision level will it backtrack to?
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Construct the implication graph for the next conflict.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+CDCL terminates after these two conflicts. Why? How can you use the implication graphs from each conflict to build a resolution refutation of the original formula?
+
+\begin{answer}
+
+\end{answer}
+
+\end{qparts}
+
+\q{70}{First-order logic}\\
+For each of the following formulas, state whether they are satisfiable or valid (or neither).
+If a formula $\phi$ is satisfiable, give a model, i.e.~a structure $M$ such that $M \models \phi$.
+If $\phi$ is not valid, give a structure $M$ such that $M \not \models \phi$.
+For each formula, assume the signature of the logic --- the constant, function, and relation symbols --- consists just of those symbols used in the formula.
+We use $c$, $f$, and $R$ as constant, function, and relation symbols respectively.
+\begin{qparts}
+\item
+$\forall x . \forall y . (f(x, y) = f(y, x))$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$\exists x. (x = x)$ \quad \emph{(hint: can you pick the universe of the structure so that this is false?)}
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$\forall x. \forall y. (x = y)$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$\exists x . (x = x) \land \forall x. \forall y. \lnot (x = y)$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$\forall x . \exists y . (f(x) = y)$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$\exists x. (R(x) \land \lnot R(f(x)))$
+
+\begin{answer}
+
+\end{answer}
+
+\item
+$\left[ R(c) \land \forall x . (R(x) \rightarrow R(f(x))) \right] \rightarrow R(f(f(f(c))))$
+
+\begin{answer}
+
+\end{answer}
+\end{qparts}
+
+\q{35}{Arrays}\\
+Consider the theory of bitvectors (say, 32-bit) and arrays whose indices and values are bitvectors (sometimes called ABV).
+This theory has two kinds of objects, or \emph{sorts}: bitvectors and arrays.
+Let's use the notation $\forall x : Array .$ and $\forall x : BV .$ to quantify over arrays and bitvectors respectively.
+So for example if we use the C notation $>>$ for the right shift operator, then $\forall x : BV . (x >> 32 = 0)$ would be a valid formula asserting that for all 32-bit bitvectors, right shifting by 32 bits yields the zero bitvector.
+\begin{qparts}
+\item
+Write an SMT formula $\phi(x)$ which is true if and only if the array $x$ is sorted in increasing order.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Write a formula $\phi(x)$ which asserts that every element of the array $x$ has the same value.
+
+\begin{answer}
+
+\end{answer}
+
+\item
+Write a formula with no free variables (a \emph{sentence}) asserting that if element 0 of an array is even, and for every $i$ if element $i$ is even then element $i+1$ is even, then all elements of the array are even.
+Is this formula valid?
+
+\begin{answer}
+
+\end{answer}
+
+\end{qparts}
+
+\q{optional, bonus problem; 0}{GCHQ puzzle}\\
+The British signals intelligence organization GCHQ released a \href{https://web.archive.org/web/20160330032843/http://www.gchq.gov.uk/press_and_media/news_and_features/Pages/Directors-Christmas-puzzle-2015.aspx}{puzzle} in December 2015, the correct solution of which led to a sequence of increasingly difficult puzzles (presumably with your employment as a codebreaker at the end --- alas, the puzzles have been taken down).
+They described it as ``a brain-teasing puzzle that seems certain to exercise the grey matter of participants over the holiday season''.
+Don't exert yourself: solve it with SAT.
+
+\end{qunlist}
+\end{document}
