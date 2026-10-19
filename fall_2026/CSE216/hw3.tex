@@ -10,177 +10,270 @@
 
 \begin{qunlist}
 
-\q{20}{Resolution}
-\begin{qparts}
-\item
-Which of the following clauses can be resolved with each other, and what are the resulting clauses?
-\begin{enumerate}[(A)]
-\item $x \lor y \lor z$
-\item $y$
-\item $\lnot y$
-\item $\lnot y \lor z$
-\end{enumerate}
+  \q{20}{Resolution}
+  \begin{qparts}
+  \item
+    Which of the following clauses can be resolved with each other, and what are the resulting clauses?
+    \begin{enumerate}[(A)]
+      \item $x \lor y \lor z$
+      \item $y$
+      \item $\lnot y$
+      \item $\lnot y \lor z$
+    \end{enumerate}
 
-\begin{answer}
+    \begin{answer}
+      \begin{enumerate}
+        \item clauses A,C, results in resolution of \(x\lor z\)
+        \item clauses A,D results in \(x\lor z\)
+        \item clauses B,C results in \(\bot\)
+        \item clauses B,D results in \(z\)
+      \end{enumerate}
+    \end{answer}
 
-\end{answer}
+  \item
+    Give a resolution refutation for the UNSAT formula with the following clauses:
+    \begin{align*}
+      c_1=\;&\lnot x \lor \lnot y \lor z \\
+      c_2=\;&\lnot x \lor w \\
+      c_3=\;&x \lor \lnot y \\
+      c_4=\;&\lnot y \lor \lnot z \lor \lnot w \\
+      c_5=\;&x \lor y \\
+      c_6=\;&y \lor \lnot w
+    \end{align*}
+    You may write  $c_i \odot c_j$ to denote the resolution of two clauses.
 
-\item
-Give a resolution refutation for the UNSAT formula with the following clauses:
-\begin{align*}
-c_1=\;&\lnot x \lor \lnot y \lor z \\
-c_2=\;&\lnot x \lor w \\
-c_3=\;&x \lor \lnot y \\
-c_4=\;&\lnot y \lor \lnot z \lor \lnot w \\
-c_5=\;&x \lor y \\
-c_6=\;&y \lor \lnot w
-\end{align*}
-You may write  $c_i \odot c_j$ to denote the resolution of two clauses.
+    \begin{answer}
+      \begin{enumerate}[i.]
+        \item $c_7 = c_3 \odot c_5 = (x \lor \lnot y) \odot (x \lor y) = x$
 
-\begin{answer}
+        \item $c_8 = c_2 \odot c_7 = (\lnot x \lor w) \odot (x) = w$
 
-\end{answer}
-\end{qparts}
+        \item $c_9 = c_6 \odot c_8 = (y \lor \lnot w) \odot (w) = y$
+
+        \item $c_{10} = c_1 \odot c_7 = (\lnot x \lor \lnot y \lor z) \odot (x) = \lnot y \lor z$
+
+        \item $c_{11} = c_4 \odot c_9 = (\lnot y \lor \lnot z \lor \lnot w) \odot (y) = \lnot z \lor \lnot w$
+
+        \item $c_{12} = c_{11} \odot c_8 = (\lnot z \lor \lnot w) \odot (w) = \lnot z$
+
+        \item $c_{13} = c_1 \odot c_{12} = (\lnot x \lor \lnot y \lor z) \odot (\lnot z) = \lnot x \lor \lnot y$
+
+        \item $c_{14} = c_{13} \odot c_7 = (\lnot x \lor \lnot y) \odot (x) = \lnot y$
+
+        \item $c_{15} = c_{14} \odot c_9 = (\lnot y) \odot (y) = \bot$
+      \end{enumerate}
+
+    \end{answer}
+  \end{qparts}
 
 
-\q{60}{CDCL}\\
-Consider running CDCL on the formula in (1b) above, with a variable selection heuristic that prefers $z > w > x > y$ and a phase selection heuristic that always picks the negative polarity.
-\begin{qparts}
-\item
-Up to the first conflict, what decisions are made?
+  \q{60}{CDCL}\\
+  Consider running CDCL on the formula in (1b) above, with a variable selection heuristic that prefers $z > w > x > y$ and a phase selection heuristic that always picks the negative polarity.
+  \begin{qparts}
+  \item
+    Up to the first conflict, what decisions are made?
 
-\begin{answer}
+    \begin{answer}
+      \(z\) is false at DL1
 
-\end{answer}
+      \(w\)=false at DL2
 
-\item
-Construct the implication graph for the first conflict.
+      \(x\) is false from \(c_2\) and then \(y\) is false from \(c_3\). this leads to \(c_5\) being unsat.
+    \end{answer}
 
-\begin{answer}
+  \item
+    Construct the implication graph for the first conflict.
 
-\end{answer}
+    \begin{answer}
+      \begin{figure}[!ht]
+        \centering
+        \resizebox{0.5\textwidth}{!}{%
+          \begin{circuitikz}
+            \tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.625,13.875) {z=0@DL1};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.625,12.5) {w=0@DL2};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (7.25,12.5) {x=0@DL2};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.185cm, rounded corners=0.020cm] at (7.625,10.125) {y=0@DL2};
+            \draw [-{Stealth[scale=1.5]}, ] (3.375,12.375) -- (5.375,12.375);
+            \draw [-{Stealth[scale=1.5]}, ] (6.25,12) -- (6.875,10.5);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (4.125,13) {$c_2$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (5.25,11.125) {$c_5$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.25,12.875) {$\bot$};
+            \draw [-{Stealth[scale=1.5]}, ] (9.375,10.375) -- (10.5,12.375);
+            \draw [-{Stealth[scale=1.5]}, ] (8.75,12.75) -- (10.125,13);
+            % \draw [-{Stealth[scale=1.5]}, ] (3.75,14) .. controls (7,14.375) and (7,14.25) .. (10.125,13.5) ;
+            % \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.75,14.75) {$c_5$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.125,13.25) {$c_3$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.125,10.5) {$c_3$};
+          \end{circuitikz}
+        }%
+        \caption{2b}
+        \label{fig:2b}
+      \end{figure}
+      see figure~\ref{fig:2b}
+    \end{answer}
 
-\item
-What are the possible conflict clauses that could be learned from this conflict? Which of these is asserting if we backtrack one level?
+  \item
+    What are the possible conflict clauses that could be learned from this conflict? Which of these is asserting if we backtrack one level?
 
-\begin{answer}
+    \begin{answer}
+      we could learn
+      \begin{enumerate}
+        \item \(x\lor y\)
+        \item x
+        \item w
+      \end{enumerate}
+      we can say that \(w\) must be true if we go back to DL1.
+    \end{answer}
 
-\end{answer}
+  \item
+    If we use the first UIP heuristic, which conflict clause will CDCL learn, and what decision level will it backtrack to?
 
-\item
-If we use the first UIP heuristic, which conflict clause will CDCL learn, and what decision level will it backtrack to?
+    \begin{answer}
+      the conflict clause learned is \(x\). it will backtrack to DL0 since the "second highest" is the empty clause which is at DL0.
+    \end{answer}
 
-\begin{answer}
+  \item
+    Construct the implication graph for the next conflict.
 
-\end{answer}
+    \begin{answer}
+      \begin{figure}[!ht]
+        \centering
+        \resizebox{0.5\textwidth}{!}{%
+          \begin{circuitikz}
+            \tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.25,13.375) {x@DL0};
+            \draw [-{Stealth[scale=1.5]}, ] (2.5,13.375) -- (4.375,13.375);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (3.375,13.875) {$c_2$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6,13.5) {$w@DL0$};
+            \draw [-{Stealth[scale=1.5]}, ] (7.75,13.375) -- (10.125,13.375);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9,14) {$c_6$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.5,13.5) {$y@DL0$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.5,11.5) {$z@DL0$};
+            \draw [-{Stealth[scale=1.5]}, ] (11.5,12.75) -- (12.875,11.875);
+            \draw [-{Stealth[scale=1.5]}, ] (2.125,12.875) -- (12.125,11.5);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (12.5,12.625) {$c_1$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (7.5,11.875) {$c_1$};
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (15.5,14.75) {$\bot$};
+            \draw [-{Stealth[scale=1.5]}, ] (6.375,14.125) -- (14.625,14.875);
+            \draw [-{Stealth[scale=1.5]}, ] (12.875,13.75) -- (14.625,14.375);
+            \draw [-{Stealth[scale=1.5]}, ] (13.875,12) -- (14.75,14.125);
+            \node [font=\fontsize{18.2pt}{23.7pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (13.375,15.25) {$c_4$};
+          \end{circuitikz}
+        }%
+        \caption{2e}
+        \label{fig:2e}
+      \end{figure}
+      see fig~\ref{fig:2e}
+    \end{answer}
 
-\item
-Construct the implication graph for the next conflict.
+  \item
+    CDCL terminates after these two conflicts. Why? How can you use the implication graphs from each conflict to build a resolution refutation of the original formula?
 
-\begin{answer}
+    \begin{answer}
+      the second conflict happens at DL0 which means the formula is unsat.
 
-\end{answer}
+      \(c_3 (x \lor ¬y)\) resolved with \(c_5 (x \lor y)\) on y gives \(x\).
 
-\item
-CDCL terminates after these two conflicts. Why? How can you use the implication graphs from each conflict to build a resolution refutation of the original formula?
+      \(c_2,c_6,c_1,c_4\) with \(x\) resolve to \(\bot\)
 
-\begin{answer}
 
-\end{answer}
 
-\end{qparts}
+    \end{answer}
 
-\q{70}{First-order logic}\\
-For each of the following formulas, state whether they are satisfiable or valid (or neither).
-If a formula $\phi$ is satisfiable, give a model, i.e.~a structure $M$ such that $M \models \phi$.
-If $\phi$ is not valid, give a structure $M$ such that $M \not \models \phi$.
-For each formula, assume the signature of the logic --- the constant, function, and relation symbols --- consists just of those symbols used in the formula.
-We use $c$, $f$, and $R$ as constant, function, and relation symbols respectively.
-\begin{qparts}
-\item
-$\forall x . \forall y . (f(x, y) = f(y, x))$
+  \end{qparts}
 
-\begin{answer}
+  \q{70}{First-order logic}\\
+  For each of the following formulas, state whether they are satisfiable or valid (or neither).
+  If a formula $\phi$ is satisfiable, give a model, i.e.~a structure $M$ such that $M \models \phi$.
+  If $\phi$ is not valid, give a structure $M$ such that $M \not \models \phi$.
+  For each formula, assume the signature of the logic --- the constant, function, and relation symbols --- consists just of those symbols used in the formula.
+  We use $c$, $f$, and $R$ as constant, function, and relation symbols respectively.
+  \begin{qparts}
+  \item
+    $\forall x . \forall y . (f(x, y) = f(y, x))$
 
-\end{answer}
+    \begin{answer}
 
-\item
-$\exists x. (x = x)$ \quad \emph{(hint: can you pick the universe of the structure so that this is false?)}
+    \end{answer}
 
-\begin{answer}
+  \item
+    $\exists x. (x = x)$ \quad \emph{(hint: can you pick the universe of the structure so that this is false?)}
 
-\end{answer}
+    \begin{answer}
 
-\item
-$\forall x. \forall y. (x = y)$
+    \end{answer}
 
-\begin{answer}
+  \item
+    $\forall x. \forall y. (x = y)$
 
-\end{answer}
+    \begin{answer}
 
-\item
-$\exists x . (x = x) \land \forall x. \forall y. \lnot (x = y)$
+    \end{answer}
 
-\begin{answer}
+  \item
+    $\exists x . (x = x) \land \forall x. \forall y. \lnot (x = y)$
 
-\end{answer}
+    \begin{answer}
 
-\item
-$\forall x . \exists y . (f(x) = y)$
+    \end{answer}
 
-\begin{answer}
+  \item
+    $\forall x . \exists y . (f(x) = y)$
 
-\end{answer}
+    \begin{answer}
 
-\item
-$\exists x. (R(x) \land \lnot R(f(x)))$
+    \end{answer}
 
-\begin{answer}
+  \item
+    $\exists x. (R(x) \land \lnot R(f(x)))$
 
-\end{answer}
+    \begin{answer}
 
-\item
-$\left[ R(c) \land \forall x . (R(x) \rightarrow R(f(x))) \right] \rightarrow R(f(f(f(c))))$
+    \end{answer}
 
-\begin{answer}
+  \item
+    $\left[ R(c) \land \forall x . (R(x) \rightarrow R(f(x))) \right] \rightarrow R(f(f(f(c))))$
 
-\end{answer}
-\end{qparts}
+    \begin{answer}
 
-\q{35}{Arrays}\\
-Consider the theory of bitvectors (say, 32-bit) and arrays whose indices and values are bitvectors (sometimes called ABV).
-This theory has two kinds of objects, or \emph{sorts}: bitvectors and arrays.
-Let's use the notation $\forall x : Array .$ and $\forall x : BV .$ to quantify over arrays and bitvectors respectively.
-So for example if we use the C notation $>>$ for the right shift operator, then $\forall x : BV . (x >> 32 = 0)$ would be a valid formula asserting that for all 32-bit bitvectors, right shifting by 32 bits yields the zero bitvector.
-\begin{qparts}
-\item
-Write an SMT formula $\phi(x)$ which is true if and only if the array $x$ is sorted in increasing order.
+    \end{answer}
+  \end{qparts}
 
-\begin{answer}
+  \q{35}{Arrays}\\
+  Consider the theory of bitvectors (say, 32-bit) and arrays whose indices and values are bitvectors (sometimes called ABV).
+  This theory has two kinds of objects, or \emph{sorts}: bitvectors and arrays.
+  Let's use the notation $\forall x : Array .$ and $\forall x : BV .$ to quantify over arrays and bitvectors respectively.
+  So for example if we use the C notation $>>$ for the right shift operator, then $\forall x : BV . (x >> 32 = 0)$ would be a valid formula asserting that for all 32-bit bitvectors, right shifting by 32 bits yields the zero bitvector.
+  \begin{qparts}
+  \item
+    Write an SMT formula $\phi(x)$ which is true if and only if the array $x$ is sorted in increasing order.
 
-\end{answer}
+    \begin{answer}
 
-\item
-Write a formula $\phi(x)$ which asserts that every element of the array $x$ has the same value.
+    \end{answer}
 
-\begin{answer}
+  \item
+    Write a formula $\phi(x)$ which asserts that every element of the array $x$ has the same value.
 
-\end{answer}
+    \begin{answer}
 
-\item
-Write a formula with no free variables (a \emph{sentence}) asserting that if element 0 of an array is even, and for every $i$ if element $i$ is even then element $i+1$ is even, then all elements of the array are even.
-Is this formula valid?
+    \end{answer}
 
-\begin{answer}
+  \item
+    Write a formula with no free variables (a \emph{sentence}) asserting that if element 0 of an array is even, and for every $i$ if element $i$ is even then element $i+1$ is even, then all elements of the array are even.
+    Is this formula valid?
 
-\end{answer}
+    \begin{answer}
 
-\end{qparts}
+    \end{answer}
 
-\q{optional, bonus problem; 0}{GCHQ puzzle}\\
-The British signals intelligence organization GCHQ released a \href{https://web.archive.org/web/20160330032843/http://www.gchq.gov.uk/press_and_media/news_and_features/Pages/Directors-Christmas-puzzle-2015.aspx}{puzzle} in December 2015, the correct solution of which led to a sequence of increasingly difficult puzzles (presumably with your employment as a codebreaker at the end --- alas, the puzzles have been taken down).
-They described it as ``a brain-teasing puzzle that seems certain to exercise the grey matter of participants over the holiday season''.
-Don't exert yourself: solve it with SAT.
+  \end{qparts}
+
+  \q{optional, bonus problem; 0}{GCHQ puzzle}\\
+  The British signals intelligence organization GCHQ released a \href{https://web.archive.org/web/20160330032843/http://www.gchq.gov.uk/press_and_media/news_and_features/Pages/Directors-Christmas-puzzle-2015.aspx}{puzzle} in December 2015, the correct solution of which led to a sequence of increasingly difficult puzzles (presumably with your employment as a codebreaker at the end --- alas, the puzzles have been taken down).
+  They described it as ``a brain-teasing puzzle that seems certain to exercise the grey matter of participants over the holiday season''.
+  Don't exert yourself: solve it with SAT.
 
 \end{qunlist}
 \end{document}
