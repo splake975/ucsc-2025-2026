@@ -8,6 +8,8 @@
 
 \textbf{(4 questions, 185 points total)}
 
+I discussed questions with vadim. specifically 2c and 1d
+
 \begin{qunlist}
 
   \q{20}{Resolution}
@@ -194,20 +196,33 @@
     $\forall x . \forall y . (f(x, y) = f(y, x))$
 
     \begin{answer}
+      sat but not valid
 
+      if f is multiplication and x and y are integers, the statement is \(\top\)
+
+      if f is multiplication and x and y are integer matricies, most matricies do not commute and the statement is \(\bot\)
     \end{answer}
 
   \item
     $\exists x. (x = x)$ \quad \emph{(hint: can you pick the universe of the structure so that this is false?)}
 
     \begin{answer}
+      sat but not valid
 
+      any universe with more than a single object, x=x and therefore sat
+
+      any universe with no objects, there are no x's to satisfy the equation and therefore not valid
     \end{answer}
 
   \item
     $\forall x. \forall y. (x = y)$
 
     \begin{answer}
+      sat but not valid
+
+      any universe with one object the formula is true.
+
+      any universe with more than 1 object, say natural numbers, not all x equals y.
 
     \end{answer}
 
@@ -215,6 +230,12 @@
     $\exists x . (x = x) \land \forall x. \forall y. \lnot (x = y)$
 
     \begin{answer}
+      assuming that you can assume different domains for the \(\exists x\) on the left and the \(\forall x.\forall y\) on the right,
+      sat but not valid
+
+      the LHS is invalid and so the whole expression is invalid by the prior question
+
+      this is sat, let x in the lhs of the and be natural numbers and let x and y on the right side be elements in the empty set. the left is true (ex: 1=1), and the right is vacuously true.
 
     \end{answer}
 
@@ -222,13 +243,26 @@
     $\forall x . \exists y . (f(x) = y)$
 
     \begin{answer}
+      sat but not valid
+      if y is not of the correct "sort", as in f sends elements of \(x\) to elements of "sort" \(sort(y)\), then this is true.
 
+      ex: x and y are nat and f is the successor function.
+
+      it could be not valid if x is nat, f is succ, and y a string.
     \end{answer}
 
   \item
     $\exists x. (R(x) \land \lnot R(f(x)))$
 
     \begin{answer}
+      Sat but not valid
+
+      proof of non validity:
+
+      x is a variable in the set \(\{n|n\in \mathbb N^+\land n <2\}\). let R be the inclusion of natural numbers onto the integers, then output true if it is less than 0. let \(f\) be the identity function. this formula is \(\bot\).
+
+      proof of sat:
+      x is the same as validity example. let f be the inclusion map onto integers then multiply by -1. let R accept integer and natural numbers and output true if x is greater than 0. x=1 satisfies the formula.
 
     \end{answer}
 
@@ -236,7 +270,10 @@
     $\left[ R(c) \land \forall x . (R(x) \rightarrow R(f(x))) \right] \rightarrow R(f(f(f(c))))$
 
     \begin{answer}
+      this answer is sat and valid.
 
+      sat:
+      let the domain be \(\{1\}\), let f be the identity function and \(R(x)\) be true if it is the case that \(x=1\).
     \end{answer}
   \end{qparts}
 
@@ -250,14 +287,15 @@
     Write an SMT formula $\phi(x)$ which is true if and only if the array $x$ is sorted in increasing order.
 
     \begin{answer}
-
+      \(      \forall (y:BV).\forall (z:BV). \left( (y\leq z) \rightarrow(select(x,y)\leq select(x,z)) \right)
+      \)
     \end{answer}
 
   \item
     Write a formula $\phi(x)$ which asserts that every element of the array $x$ has the same value.
 
     \begin{answer}
-
+      \(\exists (z:BV).\forall( y:BV).(select(x,y)=z)\)
     \end{answer}
 
   \item
@@ -265,7 +303,17 @@
     Is this formula valid?
 
     \begin{answer}
-
+      \begin{equation}
+        \begin{split}
+          &\forall c:Array.\\
+          &[((\exists (a:BV). select(c,0)=2\cdot a )\,\land\\
+              &\left(
+                \forall (x:BV).\left( \exists (a:BV).select(c,x)=2a \rightarrow \exists (b:BV).select(c,x+1)=2b \right)
+            \right))\rightarrow\\
+          &\forall (x:BV).\exists (a:BV).select(c,x)=2a]
+        \end{split}
+      \end{equation}
+      The formula should be valid. the wrap around doesnt affect the truth.
     \end{answer}
 
   \end{qparts}
