@@ -1,0 +1,31 @@
+\makeatletter \let \proof \axp@replayproof \let \endproof \endaxp@oldproof \let \claimproof \axp@oldclaimproof \let \endclaimproof \endaxp@oldclaimproof \let \section \axp@oldsection 
+\global \def \axp@protectref@ii {\ref {axp@sii}}
+\axp@section {\appendixsectionformat {\protect \axp@protectref@ii }{Preliminaries}}
+\makeatletter 
+\setcounter {axp@equationx}{\c@equation }\setcounter {equation}{1}
+\gdef \axp@nextproofof@type {Theorem}\gdef \axp@nextproofof@label {axp@ri}
+{\pretocmd {\@begintheorem }{\patchcmd {\thmhead }{\@acmplainnotefont }{}{}{}\patchcmd {\thmhead }{\the \thm@notefont }{}{}{}\patchcmd {\thmhead }{(}{}{}{}\patchcmd {\thmhead }{)}{}{}{}}{}{} \axp@replaybody {/home/splake/Documents/ucsc-2025-2026/research/splake/polylog_lis_writeup.tex}{202}{204}{theoremrep}{\axp@region@rp {theorem}{i}}{\end {axp@theoremrp}}{0}}
+\setcounter {equation}{\c@axp@equationx }
+\makeatletter 
+\axp@replaybody {/home/splake/Documents/ucsc-2025-2026/research/splake/polylog_lis_writeup.tex}{205}{206}{proof}{\axp@region@proof {axp@oldproof}{1}}{\end {axp@oldproof}}{0}\relax 
+\makeatletter 
+\setcounter {axp@equationx}{\c@equation }\setcounter {equation}{1}
+\gdef \axp@nextproofof@type {Theorem}\gdef \axp@nextproofof@label {axp@rii}
+{\pretocmd {\@begintheorem }{\patchcmd {\thmhead }{\@acmplainnotefont }{}{}{}\patchcmd {\thmhead }{\the \thm@notefont }{}{}{}\patchcmd {\thmhead }{(}{}{}{}\patchcmd {\thmhead }{)}{}{}{}}{}{} \axp@replaybody {/home/splake/Documents/ucsc-2025-2026/research/splake/polylog_lis_writeup.tex}{208}{211}{theoremrep}{\axp@region@rp {theorem}{ii}}{\end {axp@theoremrp}}{0}}
+\setcounter {equation}{\c@axp@equationx }
+\makeatletter 
+\axp@replaybody {/home/splake/Documents/ucsc-2025-2026/research/splake/polylog_lis_writeup.tex}{212}{214}{proof}{\axp@region@proof {axp@oldproof}{1}}{\end {axp@oldproof}}{0}\relax 
+\makeatletter 
+\setcounter {axp@equationx}{\c@equation }\setcounter {equation}{1}
+\gdef \axp@nextproofof@type {Theorem}\gdef \axp@nextproofof@label {axp@riii}
+{\pretocmd {\@begintheorem }{\patchcmd {\thmhead }{\@acmplainnotefont }{}{}{}\patchcmd {\thmhead }{\the \thm@notefont }{}{}{}\patchcmd {\thmhead }{(}{}{}{}\patchcmd {\thmhead }{)}{}{}{}}{}{} \axp@replaybody {/home/splake/Documents/ucsc-2025-2026/research/splake/polylog_lis_writeup.tex}{216}{222}{theoremrep}{\axp@region@rp {theorem}{iii}}{\end {axp@theoremrp}}{0}}
+\setcounter {equation}{\c@axp@equationx }
+\global \def \axp@protectref@iii {\ref {axp@siii}}
+\axp@section {\appendixsectionformat {\protect \axp@protectref@iii }{Main Results}}
+\makeatletter 
+\setcounter {axp@equationx}{\c@equation }\setcounter {equation}{1}
+\gdef \axp@nextproofof@type {Lemma}\gdef \axp@nextproofof@label {axp@riv}
+{\pretocmd {\@begintheorem }{\patchcmd {\thmhead }{\@acmplainnotefont }{}{}{}\patchcmd {\thmhead }{\the \thm@notefont }{}{}{}\patchcmd {\thmhead }{(}{}{}{}\patchcmd {\thmhead }{)}{}{}{}}{}{} \axp@replaybody {/home/splake/Documents/ucsc-2025-2026/research/splake/polylog_lis_writeup.tex}{235}{237}{lemmarep}{\axp@region@rp {lemma}{iv}}{\end {axp@lemmarp}}{0}}
+\setcounter {equation}{\c@axp@equationx }
+\makeatletter 
+\axp@replaybody {/home/splake/Documents/ucsc-2025-2026/research/splake/polylog_lis_writeup.tex}{238}{240}{proof}{\axp@region@proof {axp@oldproof}{1}}{\end {axp@oldproof}}{0}\relax 

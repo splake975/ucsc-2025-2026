@@ -1,0 +1,301 @@
+% ============================================================
+%  Research Paper Template (with Appendix)
+%  Compile: pdflatex -> bibtex -> pdflatex -> pdflatex
+%  (or latexmk -pdf paper.tex). Works on Overleaf as-is.
+% ============================================================
+\documentclass[11pt]{article}
+
+% ---------- Self-contained bibliography (written on first compile) ----------
+\begin{filecontents*}[overwrite]{references.bib}
+  @article{example2024,
+    author  = {Doe, Jane and Smith, John},
+    title   = {An Example Article Title},
+    journal = {Journal of Examples},
+    year    = {2024},
+    volume  = {12},
+    number  = {3},
+    pages   = {45--67}
+  }
+  @inproceedings{sample2023,
+    author    = {Lee, Alex},
+    title     = {A Sample Conference Paper},
+    booktitle = {Proceedings of the Symposium on Samples},
+    year      = {2023},
+    pages     = {1--10}
+  }
+\end{filecontents*}
+
+% ---------- Page layout & fonts ----------
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ---------- Math ----------
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{bm, enumitem, tikz}
+
+% ---------- Figures, tables, algorithms ----------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption, subcaption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% ---------- Misc ----------
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[appendix=append]{apxproof} % optional: defer proofs to appendix (remove if unwanted)
+\usepackage{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, citecolor=green!40!black, urlcolor=blue!60!black}
+
+% ---------- Theorem environments ----------
+\newtheoremrep{theorem}{Theorem}[section]
+\newtheoremrep{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\A}{\mathcal{A}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% ---------- Title ----------
+\title{Your Paper Title Goes Here}
+\author{
+  First Author\thanks{Affiliation. Email: \texttt{first@example.edu}}
+  \and
+  Second Author\thanks{Affiliation. Email: \texttt{second@example.edu}}
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% \begin{abstract}
+% A concise summary (150--250 words) of the problem, your approach, main results,
+% and why they matter.
+% \end{abstract}
+
+% \noindent\textbf{Keywords:} keyword one, keyword two, keyword three
+
+% ============================================================
+% \section{Introduction}\label{sec:intro}
+% Motivate the problem and state why it matters. Prior work such as
+% \citet{example2024} and \citet{sample2023} addressed related questions, but \ldots
+
+% \paragraph{Our contributions.}
+% \begin{itemize}[leftmargin=*]
+%   \item First contribution (see \cref{thm:main}).
+%   \item Second contribution (see \cref{sec:method}).
+%   \item Third contribution (see \cref{sec:experiments}).
+% \end{itemize}
+
+\paragraph{Organization.}
+\Cref{sec:prelim} sets up notation, \cref{sec:method} presents our approach,
+\cref{sec:experiments} reports results, and \cref{sec:conclusion} concludes.
+Omitted proofs and additional details appear in the appendix.
+
+% ============================================================
+\section{Related Work}\label{sec:related}
+Group prior work by theme and explain how yours differs.
+
+% ============================================================
+\section{Preliminaries}\label{sec:prelim}
+
+The algorithm we wish to make takes in a (wlog injective) function \(f:[n]\to\N\) \footnote{Where \([n]\) is the set \(\{0,1,2,\dots n-1\}\).} and returns the maximum fraction of points in the longest increasing subsequence. The maximum fraction of points in the longest increasing subsequence is defined as the largest number of elements in \([n]\) that can be kept such that \(f\) is monotonic, divided by \(n\). \footnote{alternatively, it is \(n\) minus the number of elements that must be removed such that \(f\) is monotonic, all divided by \(n\)}.
+
+The imput \(f\) can be thought of being embedded in the 2d cartesian plane where the \(x\) coordinate (subsequently called 1 coordinate) is the input for \(f\), and the \(y\) coordinate (subsequently called the 2 coordinate) is the output for \(f\). Any interval of \(1\) coordinates is called an index interval and any interval of \(2\) coordinates is called a value interval.
+
+A box \(\B\) is formed by the cartesian product of a connected index and connected value interval. For simplicity, all boxes referenced here will have half integer coordinates. \footnote{This simplification means the corners of the boxes never intersect with points of \(f\)} There is a bounding box \(\bm B\) that contains all of the points of \(f\), i.e. \(\bm B \triangleq[-0.5,n+0.5]\times [-0.5,\max(range(f))+0.5]\).
+
+For any box \(\B\), we will use \(1(\B)\) to represent the index interval of \(\B\) and \(2(B)\) to represent the value interval of \(\B\).
+
+A grid \(G(\B)\) is a cartesian product of a subset of \(1(\B)\times 2(\B)\) containing only half integers.
+\begin{equation}
+  \begin{split}
+    G:\B&\mapsto X\times Y \subseteq 1(\B)\times 2(\B)\\
+  \end{split}
+\end{equation}
+
+It may seem like this set is not a grid, but one can always construct a grid with these subsets by drawing vertical lines at each element in the first coordinate, and horizontal lines at each element in the second coordinate.
+
+Given a grid \(G(\B_1)\), one can construct/induce a grid \(G(\B_2,\B_1)\) on any \(\B_2\subseteq \B_1\) by considering the projection map of the gridpoints onto \(\B_2\). i.e. remove all the gridpoints in \(G(\B_1)\) that are not in the index/value intervals of \(\B_2\).
+
+Note that \(g(\B)\) induces \(O(n^4) \) subboxes of \(\B\) \footnote{subboxes are formed this way, each subbox is the same as choosing two index points and two value points that bound the new subbox which is \({n\choose 2}\times {n\choose 2}=O(n^4)\)} formed by picking 4 elements in \(g(\B)\). We will call a box induced by \(g(\B)\) a gridbox. \footnote{Note, picking the same starting and ending index/value intervals are allowed in constructing gridboxes. We will call these gridboxes "degenerate".}
+A minimal gridbox is a box whose index interval is bounded by two consecutive \(X\) elements, and whose value interval is bounded by two consecutive \(Y\) elements,
+i.e. a minimal gridbox contains no strictly smaller non-degenerate gridbox. A minimal gridwidth is an index interval of a minimal gridbox.
+
+A gridchain \(C(G(\B))\) is a union of gridboxes with several properties:
+\begin{enumerate}
+  \item each gridbox has minimal gridwidth.
+  \item the union of the gridboxes' 1 intervals fully spans \(1(\B)\).
+  \item the union of the gridboxes' 2 intervals fully spans \(2(\B)\).
+  \item no two gridboxes' 1 intervals intersect.
+  \item no two gridboxes' 2 intervals intersect.
+  \item the corners of each gridbox must be equal to either
+    \begin{enumerate}
+      \item the bottom left of \(\B\)
+      \item the top right of \(\B\)
+      \item another gridbox in the gridchain's top right or bottom left corner.
+    \end{enumerate}
+\end{enumerate}
+
+We will also use \(st(\B,\U)\) to represent the points in \(\U\) with 1 index in \(1(B)\).
+
+% \begin{figure}\centering
+%   \begin{tikzpicture}[x=0.6cm,y=0.6cm]
+%     % axes with integer ticks
+%     \draw[->] (0,0) -- (14.5,0);
+%     \draw[->] (0,0) -- (0,12.5);
+%     \foreach \x in {1,...,14} \draw (\x,0) -- (\x,-0.15) node[below,font=\tiny] {\x};
+%     \foreach \y in {1,...,12} \draw (0,\y) -- (-0.15,\y) node[left,font=\tiny] {\y};
+%     % big box \bm B = (1.5,13.5] x [1.5,11.5]
+%     \draw[thick] (1.5,1.5) rectangle (13.5,11.5);
+%     \node[above left] at (13.5,11.5) {$\U$};
+%     % gridchain edges (shaded)
+%     \fill[blue!15] (3.5,2.5) rectangle (4.5,4.5);
+%     \fill[blue!15] (7.5,4.5) rectangle (9.5,7.5);
+%     \fill[blue!15] (9.5,7.5) rectangle (11.5,9.5);
+%     % grid of \mathcal B: columns and rows on half-integers
+%     \foreach \c in {3.5,4.5,5.5,7.5,9.5,11.5,12.5} \draw[gray] (\c,1.5) -- (\c,11.5);
+%     \foreach \r in {2.5,4.5,5.5,7.5,9.5,11.5} \draw[gray] (1.5,\r) -- (13.5,\r);
+%     % small box \mathcal B = (3.5,11.5] x [2.5,9.5]
+%     \draw[very thick] (3.5,2.5) rectangle (11.5,9.5);
+%     \node[below right] at (3.5,9.5) {$\mathcal B$};
+%     % the gridchain
+%     \draw[blue,very thick] (3.5,2.5) rectangle (4.5,4.5);
+%     \draw[blue,very thick] (4.5,4.5) -- (7.5,4.5);   % flat edge
+%     \draw[blue,very thick] (7.5,4.5) rectangle (9.5,7.5);
+%     \draw[blue,very thick] (9.5,7.5) rectangle (11.5,9.5);
+%     \foreach \p in {(3.5,2.5),(4.5,4.5),(7.5,4.5),(9.5,7.5),(11.5,9.5)}
+%     \fill[blue] \p circle (2pt);
+%     % grid labels
+%     % \foreach \c [count=\k from 0] in {3.5,4.5,7.5,9.5,11.5}
+%     % \node[above,font=\small] at (\c,9.5) {$c_{\k}$};
+%     % \foreach \r [count=\j from 0] in {2.5,4.5,4.5,7.5,9.5}
+%     % \node[right,font=\small] at (11.5,\r) {$y_{\j}$};
+%   \end{tikzpicture}
+%   \caption{Illustration of \(g(\U)\), the grid it induces on a subbox \(\B\). }
+% \end{figure}
+
+There are several sub-procedures we will make use of repeatedly, so we will frame these procedures as oracles. The constants will be picked such that each oracle call can be implemented in polylog time and the proofs for the existence of these oracles can be found in the appendix. \footnote{the wording here is not very good. i also need to include how the runtime is ok despite being able to tune parameters \(\delta\) and \(\alpha\)}
+
+We will use the hat symbol (ex: \(\hat w(\bm B)\)) to represent the true values and no hats (ex: \(w(\bm B)\)) to represent estimate values from the oracles below. Repeated calls with the same arguments return the same answer.
+
+\begin{theoremrep}\label{thm:width oracle}
+  Given any \(\delta>0\), There exists a width oracle \(w:\B\times \U \to \N\) that maps two boxes \(\B\subseteq \U\) to \(\N\) and reports the number of points in \(\B\)'s 1 interval that are contained in \(\U\) with error at most \(\delta \hat w(\U,\bm B)\)\footnote{where do i add the "whp" clause here?}
+\end{theoremrep}
+\begin{proof}
+\end{proof}
+
+\begin{theoremrep}\label{thm:size oracle}
+  Given any \(\delta>0\), There exists a size oracle \(s:\B \to \N\) that maps a box \(\B\) to \(\N\) and reports the number of points in \(\B\)'s with error at most \(\delta \hat w(\B,\bm B)\)
+
+\end{theoremrep}
+\begin{proof}
+
+\end{proof}
+
+\begin{theoremrep}\label{thm:grid oracle}
+  given any \(\alpha>0,\omega>0,\eta\in [0,1]\), there exists a grid oracle \texttt{BuildGrid}, \(g:\B\to G(\B)\) that maps a box \(\B\) to a grid \(G(\B)\) with the following properties:
+  \begin{enumerate}
+    \item If \(w(\B,\bm B)<\omega\), read all of the elements and return a grid with exactly at most one point in each minimal gridbox.
+    \item If \(w(\B,\bm B)>\omega\),
+  \end{enumerate}
+\end{theoremrep}
+
+% ============================================================
+\section{Main Results}\label{sec:method}
+
+\begin{theorem}\label{thm:main}
+  There is an algorithm that solves the problem in $O(n \log n)$ time.
+\end{theorem}
+\begin{proof}
+  Proof sketch here. (With \texttt{theoremrep}, use \texttt{\textbackslash begin\{toappendix\}}
+  or \texttt{\textbackslash begin\{proofrep\}} to move the full proof to the appendix.)
+\end{proof}
+
+\begin{lemmarep}\label{lem:helper}
+  A helper lemma whose proof is deferred.
+\end{lemmarep}
+\begin{proof}
+  This full proof is automatically moved to the appendix by \texttt{apxproof}.
+\end{proof}
+
+\begin{algorithm}[t]
+  \caption{Example Algorithm}\label{alg:example}
+  \begin{algorithmic}[1]
+    \Require Array $A[1..n]$
+    \Ensure Output value
+    \State $s \gets 0$
+    \For{$i \gets 1$ \textbf{to} $n$}
+    \If{$A[i] > s$}
+    \State $s \gets A[i]$
+    \EndIf
+    \EndFor
+    \State \Return $s$
+  \end{algorithmic}
+\end{algorithm}
+
+% ============================================================
+\section{Conclusion}\label{sec:conclusion}
+Summarize findings, limitations, and future directions.
+
+\section*{Acknowledgments}
+Thank collaborators and funding sources.
+
+% ============================================================
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% ============================================================
+%  APPENDIX
+% ============================================================
+\appendix
+
+\section{Omitted Proofs}\label{app:proofs}
+% Proofs written with lemmarep/theoremrep appear here automatically.
+
+\begin{proof}[Proof of \cref{thm:main}]
+  Full, detailed proof of the main theorem.
+\end{proof}
+
+\section{Additional Experimental Details}\label{app:experiments}
+\subsection{Setup}
+Hardware, software versions, hyperparameters, datasets.
+
+\subsection{Additional Results}
+\begin{table}[h]
+  \centering
+  \caption{Extended results.}\label{tab:extended}
+  \begin{tabular}{lccc}
+    \toprule
+    Method & A & B & C \\
+    \midrule
+    Baseline & 0.71 & 12.3 & 5.1 \\
+    Ours     & 0.84 & 9.8  & 4.2 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Supplementary Material}\label{app:supp}
+Extra derivations, pseudocode, or tables that don't fit in the main body.
+
+\end{document}
