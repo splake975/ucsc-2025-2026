@@ -10,6 +10,8 @@
 #xournal autosaves
 .*.autosave.xopp
 
+# libreoffice lock
+.~lock.*
 
 #other
 
