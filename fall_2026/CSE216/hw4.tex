@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage{cse216,hyperref}
+\def\title{HW 4}
+\begin{document}
+\maketitle
+
+\section*{Due October 27 at 3:00 pm}
+
+\textbf{(2 questions, 110 points total)}
+
+\begin{qunlist}
+
+  \q{40}{EUF}\\
+  Use the congruence closure algorithm to decide which of the following EUF conjunctions is satisfiable.
+  Show the steps of the algorithm.
+  \begin{qparts}
+  \item
+    $f(x) = x \land f(g(x)) \ne g(x)$
+
+    \begin{answer}
+      the initial partition has 4 terms
+      \begin{equation}
+        \{\{f(x)\},\{x\},\{f(g(x))\},\{g(x)\}\}
+      \end{equation}
+
+      there is only one new equivalence class
+
+      \begin{equation}
+        \{\{f(x),x\},\{f(g(x))\},\{g(x)\}\}
+      \end{equation}
+
+      none of the non equalities cause a contradiction with the equivalence class created by the equalities thus the EUF conjunction is sat.
+
+    \end{answer}
+
+  \item
+    $f(x,y) = f(y,x) \land g(y) \ne g(f(y, g(y))) \land f(g(y), y) = y \land x = g(y)$
+
+    \begin{answer}
+      the subterms that show up are
+      \begin{equation}
+        \{\{x\}, \{y\}, \{g(y)\}, \{f(x,y)\}, \{f(y,x)\}, \{f(y, g(y))\}, \{f(g(y), y)\}, \{g(f(y, g(y)))\}\}
+      \end{equation}
+      the equalites asserted makes
+
+      \begin{equation}
+        \{\{x, g(y)\}, \{y, f(g(y), y)\}, \{f(x,y), f(y,x)\}, \{f(y, g(y))\}, \{g(f(y, g(y)))\}\}
+      \end{equation}
+
+      note  $x \sim g(y)$ and $y \sim y$.
+
+      thus
+      \begin{equation}
+        \{\{x, g(y)\}, \{y, f(g(y), y), f(x,y), f(y,x)\}, \{f(y, g(y))\}, \{g(f(y, g(y)))\}\}
+      \end{equation}
+
+
+      also
+      $y \sim y$ and $x \sim g(y)$.
+
+      which gives
+
+      \begin{equation}
+        \{\{x, g(y)\}, \{y, f(g(y), y), f(x,y), f(y,x), f(y, g(y))\}, \{g(f(y, g(y)))\}\}
+      \end{equation}
+
+      finally since
+      $y \sim f(y, g(y))$
+
+      \begin{equation}
+        \{\{x, g(y), g(f(y, g(y)))\}, \{y, f(g(y), y), f(x,y), f(y,x), f(y, g(y))\}\}
+      \end{equation}
+      to check inequalities
+
+      $g(y)$ is in class $\{x, g(y), g(f(y, g(y)))\}$ but $g(f(y, g(y)))$ is in the same class, therefore there is a contradiction.
+    \end{answer}
+  \end{qparts}
+
+  \q{70}{Lazy SMT solving}\\
+  Consider the following Linear Integer Arithmetic (LIA) formula $\phi_{\text{SMT}}$:
+  \begin{align*}
+    &(x > 5 \;\lor\; \lnot (y > 3)) \\
+    \land & (x \le 4 \;\lor\; x + y < 9) \\
+    \land & (y > 3 \;\lor\; y > x) \\
+    \land & (x > 3)
+  \end{align*}
+  We'll use the lazy SMT algorithm to solve this.
+  You can play the part of the LIA conjunction decision procedure yourself (e.g.~you can tell that $x > 10 \land x < 3$ is UNSAT, since no integer is simultaneously greater than 10 and less than 3).
+  You don't need to show the internals of the SAT solving: feel free to use any SAT solver, e.g.~the online version of CryptoMiniSat \href{https://msoos.github.io/cryptominisat_web/}{here}.
+  \begin{qparts}
+  \item
+    What is the Boolean abstraction $\phi_{\text{SAT}}$ of $\phi_{\text{SMT}}$?
+
+    \begin{answer}
+
+      let
+      \begin{itemize}
+        \item $A := (x > 5)$
+
+        \item $B := (y > 3)$
+
+        \item $C := (x \le 4)$
+
+        \item $D := (x + y < 9)$
+
+        \item $E := (y > x)$
+
+        \item $F := (x > 3)$
+      \end{itemize}
+
+      we get
+
+      \begin{equation}
+        \phi_{\text{SAT}} = (A \lor \lnot B) \land (C \lor D) \land (B \lor E) \land F
+      \end{equation}
+
+    \end{answer}
+
+  \item
+    Give a satisfying assignment of $\phi_{\text{SAT}}$, and the corresponding conjunction of LIA literals.
+
+    \begin{answer}
+
+      let
+      \begin{equation}
+        A = \top, \quad B = \top, \quad C = \top, \quad D = \bot, \quad E = \bot, \quad F = \top
+      \end{equation}
+
+      which is the same as
+
+      \begin{equation}
+        (x > 5) \land (y > 3) \land (x \le 4) \land (x + y \ge 9) \land (y \le x) \land (x > 3)
+      \end{equation}
+
+    \end{answer}
+
+  \item
+    Is this conjunction satisfiable?
+    If so, give a satisfying assignment.
+    If not, give a theory lemma which has as few literals as possible.
+
+    \begin{answer}
+      no it is not. x cant be greater than 5 and less than 4.
+
+      new theory lemma:
+      \begin{equation}
+        \lnot (x > 5) \lor \lnot (x \le 4)
+      \end{equation}
+
+    \end{answer}
+
+  \item
+    Continue the lazy SMT algorithm until you find a satisfying assignment for $\phi_{\text{SMT}}$ or prove it unsatisfiable.
+    Show each solution you find to the Boolean abstraction and each theory lemma you add.
+
+    \begin{answer}
+      \begin{equation}
+        A = \top, \quad B = \top, \quad C = \bot, \quad D = \top, \quad E = \bot, \quad F = \top
+      \end{equation}
+
+      which gives
+      \begin{equation}
+        (x > 5) \land (y > 3) \land (x > 4) \land (x + y < 9) \land (y \le x) \land (x > 3)
+      \end{equation}
+
+      but this also breaks because of
+
+      \begin{equation}
+        \lnot (x > 5) \lor \lnot (y > 3) \lor \lnot (x + y < 9)
+      \end{equation}
+
+      \begin{equation}
+        A = \bot, \quad B = \bot, \quad C = \bot, \quad D = \top, \quad E = \top, \quad F = \top
+      \end{equation}
+
+      \begin{equation}
+        (x \le 5) \land (y \le 3) \land (x > 4) \land (x + y < 9) \land (y > x) \land (x > 3)
+      \end{equation}
+
+      which breaks
+      \begin{equation}
+        (x \le 4) \lor (y > 3) \lor \lnot (y > x) \quad (\text{or } C \lor B \lor \lnot E)
+      \end{equation}
+
+      \begin{equation}
+        A = \bot, \quad B = \bot, \quad C = \top, \quad D = \top, \quad E = \top, \quad F = \top
+      \end{equation}
+
+      \begin{equation}
+        (x \le 5) \land (y \le 3) \land (x \le 4) \land (x + y < 9) \land (y > x) \land (x > 3)
+      \end{equation}
+      which adds
+      \begin{equation}
+        \lnot (x \le 4) \lor \lnot (y \le 3) \lor \lnot (y > x)
+      \end{equation}
+
+      but the final formula with all lemmas is unsat so the original expression is unsat.
+    \end{answer}
+  \end{qparts}
+
+\end{qunlist}
+\end{document}
