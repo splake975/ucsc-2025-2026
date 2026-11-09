@@ -1,0 +1,3 @@
+[[dependency]]
+name = "mathlib"
+src = { git = "https://github.com" }
