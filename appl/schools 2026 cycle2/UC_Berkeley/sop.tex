@@ -1,0 +1,32 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\begin{document}
+
+\begin{center}
+  {\Large \textbf{Statement of Purpose}}\\[4pt]
+  {\large Ian Chi}\\[2pt]
+  Ph.D. Applicant, Department of Electrical Engineering and Computer Sciences\\
+  University of California, Berkeley
+\end{center}
+
+\vspace{1em}
+
+% Write here.
+Many of the first algorithms we learn, such as those for longest increasing subsequence and edit distance, are dynamic programs: they fill in a table of answers to smaller subproblems until the final answer appears. This is already a striking trade, since it often takes a question whose search space is exponentially large and answers it in polynomial time. My current project asks when we can do even better: what can we conclude about a solution if we do not allow ourselves to fill in that whole table? I am applying to Berkeley because I want to carry this question into new territory, and its theory group is where I could learn the tools to do it.
+
+While now I am working in theoretical computer science, I didn't start that way. At UC Davis I earned a bachelor's degree in mathematics and physics with high honors and wrote an undergraduate thesis advised by Martin Fraas. That work became a paper in the Journal of Mathematical Physics, "Poincaré disk as a model of squeezed states of a harmonic oscillator," which describes a correspondence between squeezed states of a quantum harmonic oscillator and the geometric motions on the hyperbolic disk. He suggested that such a correspondence might exist; I proved it, and showed that it gives a way to visualize questions in control theory. That project taught me to look for the right geometric picture that makes a messy family of objects behave simply, and to carry a problem from a vague question to a finished proof. I now apply the same habit to algorithms.
+
+At UC Santa Cruz, where I am a master's student, I work with C. Seshadhri on the longest increasing subsequence problem, one of the dynamic programs I mentioned at the start. Solving it exactly means filling in a table, and the question is how much of that table we can avoid. Michael Saks and Seshadhri showed that a list's distance from being sorted, meaning the fewest entries that must be deleted to leave it increasing, can be estimated to within a multiplicative factor as close to 1 as we like, in time polylogarithmic in the length of the list. Their algorithm is powerful but intricate, and they later sketched a simpler one. It repeatedly cuts the list at a point where few entries are out of order across the cut, follows one piece at random, and estimates that piece with a cruder version of itself, so each round sharpens the estimate. I have taken the lead in turning that idea into a complete algorithm with a full proof. Several steps did not go through as originally envisioned, and finding new arguments for them has been a large part of my work. I also established a multiplicative bound and found an algorithm with a constant exponent independent of the accuracy parameter, the distance to monotonicity, and the length of the list. A manuscript describing these results is in preparation.
+
+Because longest increasing subsequence is a dynamic program, this result points to a broader question, and that is how we arrived at our next step. Professor Seshadhri and I are now pursuing the question of what properties a dynamic programming problem needs so that it can be approximated top down, as the longest increasing subsequence algorithm is. In the degree I want to answer that question and then take the same local-query viewpoint into probabilistic proofs and algebraic methods. A companion question is where the approach fails, since an answer to "why not" is a statement about the limits of approximation and so connects to complexity theory; I want to learn the complexity-theoretic tools needed to prove such statements. Beyond this project, I want my PhD to follow the question of how much work a problem really requires wherever it leads in algorithms and complexity, including randomized and sublinear algorithms.
+
+I have presented the simplified algorithm at the UC Santa Cruz theory seminar, to an audience working across theory. This fall I am also hosting the seminar, which means finding speakers, introducing them, and making sure the talks are understandable to students who are new to the area.
+
+Several Berkeley faculty work where I hope to go next. I am most drawn to Shafi Goldwasser's recent work on how someone with limited resources can check the answer of a powerful computer or model without redoing the work, since it asks the same question behind my own research: what can you trust after seeing only part of the picture? I would also be glad to learn from Venkatesan Guruswami, whose work on error-correcting codes meets testing and proof systems, and from Prasad Raghavendra, whose work leans on the kind of probabilistic reasoning I use every day. More broadly, the group has a strong set of researchers whose work I admire, and I would be glad to collaborate across the team as my ideas develop.
+
+After the PhD I plan to stay in academia and become a professor, joining a department where I can continue this work and follow the questions it raises into neighboring areas. A Berkeley PhD would give me the training in complexity and algebraic methods that this research needs, and the chance to keep learning, through research, teaching and seminars like the one I host now, how to explain what I find clearly.
+
+\end{document}
