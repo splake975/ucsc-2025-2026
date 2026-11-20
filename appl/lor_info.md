@@ -12,3 +12,5 @@
 | Email          | `sesh@ucsc.edu`  | `vaggos@ucsc.edu`   | `sungjin@ucsc.edu`  | `fraas@math.ucdavis.edu` |
 |                | aaaaaaaaaaaaaaaa | aaaaaaaaaaaaaaaaaa  | aaaaaaaaaaaaaaaaaa  | aaaaaaaaaaaaaaaaaaaaaaaa |
 Ian Tsai Yi Chi
+
+# other info
